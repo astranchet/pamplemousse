@@ -6,6 +6,7 @@ Components
 
 * Composer - http://getcomposer.org/
 * Twig - http://twig.sensiolabs.org/
+* Bootstrap - http://getbootstrap.com/
 
 Installation
 ------------

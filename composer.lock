@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f03f7a727f78a8c2853aaeda0c56ef93",
-    "content-hash": "1bf08809292df77506b2e63dc3dd01fa",
+    "hash": "835c0ae0083fb58f4463bf6b5c820c95",
+    "content-hash": "ead31759bdb249ee2f5337416fbb2af8",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -569,6 +569,57 @@
                 "url"
             ],
             "time": "2015-11-26 07:02:09"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "v4.0.0-alpha",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "980d8ea2d828fe1796a423f80d84d526b0252a89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/980d8ea2d828fe1796a423f80d84d526b0252a89",
+                "reference": "980d8ea2d828fe1796a423f80d84d526b0252a89",
+                "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "http://getbootstrap.com",
+            "keywords": [
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "mobile-first",
+                "responsive",
+                "sass",
+                "web"
+            ],
+            "time": "2015-08-19 07:07:59"
         },
         {
             "name": "twig/twig",
