@@ -17,7 +17,21 @@
         <![endif]-->
     </head>
     <body>
-        Hello world!
+        <section id="home">
+            <div class="container">
+                <h1>{{ app.config.kid.name }}</h1>
+                <h2>Né le <strong>{{ app.config.kid.birthdate }}</strong></h2>
+            </div>
+            <a href="#photos"><span class="glyphicon glyphicon-chevron-down"></span></a>
+        </section>
+
+        <section id="photos">
+            <div class="container">
+                <h1>{{ app.config.kid.name }} mois après mois</h1>
+            </div>
+        </section>
+
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="js/bootstrap/bootstrap.min.js"></script>
