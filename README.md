@@ -18,3 +18,9 @@ cd pamplemousse
 curl -s http://getcomposer.org/installer | php
 php composer.phar install
 ```
+Run locally
+-----------
+
+```sh
+php -S localhost:8000 -t web
+```
