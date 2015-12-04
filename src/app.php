@@ -17,9 +17,6 @@ $app->register(new TwigServiceProvider(), array(
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$app->get('/', function() use($app) {
-    return $app['twig']->render('index.twig');
-});
-
+$app->get('/', Pamplemousse\Controller::class.'::indexAction');
 
 return $app;
