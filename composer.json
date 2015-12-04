@@ -1,0 +1,8 @@
+{
+    "minimum-stability": "dev",
+    "name": "pamplemousse",
+    "prefer-stable": true,
+    "require": {
+        "silex/silex": "~1.3"
+    }
+}
