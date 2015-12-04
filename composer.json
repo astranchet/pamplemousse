@@ -3,6 +3,7 @@
     "name": "pamplemousse",
     "prefer-stable": true,
     "require": {
-        "silex/silex": "~1.3"
+        "silex/silex": "~1.3",
+        "twig/twig": "1.*"
     }
 }

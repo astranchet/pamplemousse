@@ -5,6 +5,7 @@ Components
 ----------
 
 * Composer - http://getcomposer.org/
+* Twig - http://twig.sensiolabs.org/
 
 Installation
 ------------
