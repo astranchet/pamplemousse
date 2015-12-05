@@ -1,3 +1,4 @@
 /composer.phar
 /vendor/
 /log/*
+/.sass-cache/*

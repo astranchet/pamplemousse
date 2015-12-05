@@ -8,6 +8,8 @@ Components
 * Twig - http://twig.sensiolabs.org/
 * Bootstrap - http://getbootstrap.com/
 * HTML5 boilerplate - http://www.initializr.com/
+* SASS - http://sass-lang.com/install
+* Compass - http://compass-style.org/
 
 Installation
 ------------
@@ -25,4 +27,5 @@ Run locally
 
 ```sh
 php -S localhost:8000 -t web
+compass watch
 ```
