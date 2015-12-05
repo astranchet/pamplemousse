@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7c2ae1fa82d28ebb53a08a3e4fc542ce",
-    "content-hash": "1302515907b7d6cb4a55894774be38f0",
+    "hash": "c47d6370f2783539db37d2309ceb234d",
+    "content-hash": "a37ff3f6a69c04c312703403b7682eee",
     "packages": [
         {
             "name": "deralex/yaml-config-service-provider",
@@ -673,16 +673,16 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "v4.0.0-alpha",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "980d8ea2d828fe1796a423f80d84d526b0252a89"
+                "reference": "81df608a40bf0629a1dc08e584849bb1e43e0b7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/980d8ea2d828fe1796a423f80d84d526b0252a89",
-                "reference": "980d8ea2d828fe1796a423f80d84d526b0252a89",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/81df608a40bf0629a1dc08e584849bb1e43e0b7a",
+                "reference": "81df608a40bf0629a1dc08e584849bb1e43e0b7a",
                 "shasum": ""
             },
             "replace": {
@@ -715,12 +715,12 @@
                 "css",
                 "framework",
                 "front-end",
+                "less",
                 "mobile-first",
                 "responsive",
-                "sass",
                 "web"
             ],
-            "time": "2015-08-19 07:07:59"
+            "time": "2015-11-24 19:37:05"
         },
         {
             "name": "twig/twig",
