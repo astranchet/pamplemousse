@@ -22,6 +22,11 @@ $app->register(new TwigServiceProvider(), array(
 $app->register(new UrlGeneratorServiceProvider());
 $app->register(new YamlConfigServiceProvider(__DIR__.'/../config/app.yml'));
 
+/** Services */
+$app['photos'] = $app->share(function () {
+    return new Pamplemousse\Photos\Service();
+});
+
 /** Controller */
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
