@@ -51,10 +51,10 @@
   font-size: 3em;
   color: #fff;
   display: block;
-  color: #A39B90;
+  color: #F9A674;
 }
 #home .container a[data-scroll]:hover {
-  color: #fff;
+  color: #DF622C;
 }
 
 #photos {
