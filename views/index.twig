@@ -16,7 +16,7 @@
             <div id="gallery">
                 {% for photo in photos %}
                     <a class="image" href="{{ photo.url }}">
-                        <img src="{{ photo.url }}" alt="{{ photo.title }}" />
+                        <img src="{{ path('thumbnail', { 'filename': photo.filename, 'dimensions': '200x200' }) }}" alt="{{ photo.filename }}" />
                     </a>
                 {% endfor %}
             </div>

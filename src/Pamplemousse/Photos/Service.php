@@ -18,7 +18,7 @@ class Service
         foreach ($iterator as $file) {
             $photos[$file->getFileName()] = [
                 'url' => $this->config['upload_dir'] . $file->getBasename(),
-                'title' => $file->getFileName()
+                'filename' => $file->getFileName()
             ];
         }
         ksort($photos);
