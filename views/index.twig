@@ -38,9 +38,9 @@
 
                 <div id="gallery">
                     {% for photo in photos %}
-                        <div class="image">
+                        <a class="image" href="{{ photo.url }}">
                             <img src="{{ photo.url }}" alt="{{ photo.title }}" />
-                        </div>
+                        </a>
                     {% endfor %}
                 </div>
             </div>
