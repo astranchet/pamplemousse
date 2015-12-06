@@ -25,8 +25,8 @@
             <div class="container">
                 <h1>{{ app.config.kid.name }}</h1>
                 <h2>Mise en production prévue le <strong>{{ app.config.kid.birthdate }}</strong></h2>
+                <a data-scroll href="#photos"><span class="glyphicon glyphicon-chevron-down"></span></a>
             </div>
-            <a href="#photos"><span class="glyphicon glyphicon-chevron-down"></span></a>
         </section>
 
         <section id="photos">
@@ -39,6 +39,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ app.config.web_dir }}js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="{{ app.config.web_dir }}js/bootstrap/bootstrap.min.js"></script>
+        <script src="{{ app.config.web_dir }}js/vendor/smooth-scroll.min.js"></script>
         <script src="{{ app.config.web_dir }}js/main.js"></script>
     </body>
 </html>
