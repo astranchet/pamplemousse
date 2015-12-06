@@ -27,6 +27,6 @@ Run locally
 -----------
 
 ```sh
-php -S localhost:8000 -t web
+php -S localhost:8000 -t web .router.php
 compass watch
 ```
