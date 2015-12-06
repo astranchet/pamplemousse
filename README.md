@@ -10,6 +10,7 @@ Components
 * HTML5 boilerplate - http://www.initializr.com/
 * SASS - http://sass-lang.com/install
 * Compass - http://compass-style.org/
+* Dropzone.js - http://www.dropzonejs.com/
 
 Installation
 ------------

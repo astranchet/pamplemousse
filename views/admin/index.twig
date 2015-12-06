@@ -19,8 +19,17 @@
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
             <script>window.html5 || document.write('<script src="{{ app.config.web_dir }}js/vendor/html5shiv.js"><\/script>')</script>
         <![endif]-->
+
+        <link href="{{ app.config.web_dir }}css/dropzone/dropzone.css" rel="stylesheet">
+        <script src="{{ app.config.web_dir }}js/vendor/dropzone.js"></script>
     </head>
     <body>
+
+        <section>
+            <h1>Upload de fichier</h1>
+            <form action="/" class="dropzone"></form>
+        </section>
+
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ app.config.web_dir }}js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
