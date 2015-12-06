@@ -5,6 +5,7 @@
   padding: 2em;
 }
 #footer #warning {
+  margin: 0 auto;
   font-family: PT Sans, sans-serif;
   width: 50%;
   padding: 1em;
