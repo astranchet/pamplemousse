@@ -20,8 +20,29 @@ section {
   background-color: #000;
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
+  font-family: PT Sans, sans-serif;
+}
+#home .container h1 {
+  text-transform: uppercase;
+  font-size: 7em;
+  font-weight: 700;
+  line-height: 1.1em;
+}
+#home .container h2 {
+  font-family: Lora, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2.7em;
+  display: inline-block;
+  position: relative;
+  mix-blend-mode: overlay;
 }
 #home .container a[data-scroll] {
   font-size: 3em;
+  color: #fff;
+  display: block;
+  color: #A39B90;
+}
+#home .container a[data-scroll]:hover {
   color: #fff;
 }
