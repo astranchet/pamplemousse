@@ -18,6 +18,9 @@ class Router implements ControllerProviderInterface
 
         $controllers->get('/', Controller::class . "::indexAction");
 
+        $controllers->post('/file-upload', Controller::class . "::fileUploadAction")
+            ->bind('file-upload');
+
         return $controllers;
     }
 }
