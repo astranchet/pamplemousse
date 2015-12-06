@@ -25,5 +25,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 $app->get('/', Pamplemousse\Controller::class.'::indexAction');
+$app->mount('/admin/', new Pamplemousse\Admin\Router());
 
 return $app;
