@@ -16,7 +16,8 @@ class Router implements ControllerProviderInterface
     {
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/thumbnail/{filename}/{dimensions}', Controller::class . "::thumbnailAction")
+        # TODO : check filename and dimensions
+        $controllers->get('/thumbnail/{filename}/{width}x{height}', Controller::class . "::thumbnailAction")
             ->bind('thumbnail');
 
         return $controllers;
