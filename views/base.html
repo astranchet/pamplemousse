@@ -29,29 +29,7 @@
         {% endblock %}
     </head>
     <body>
-        {% block content %}
-            <section id="home">
-                <div class="container">
-                    <h1>{{ app.config.kid.name }}</h1>
-                    <h2>Mise en production prévue le <strong>{{ app.config.kid.birthdate }}</strong></h2>
-                    <a data-scroll href="#photos"><span class="glyphicon glyphicon-chevron-down"></span></a>
-                </div>
-            </section>
-
-            <section id="photos">
-                <div class="container">
-                    <h1>Mois après mois</h1>
-
-                    <div id="gallery">
-                        {% for photo in photos %}
-                            <a class="image" href="{{ photo.url }}">
-                                <img src="{{ photo.url }}" alt="{{ photo.title }}" />
-                            </a>
-                        {% endfor %}
-                    </div>
-                </div>
-            </section>
-        {% endblock %}
+        {% block content %}{% endblock %}
 
         {% block footer_js %}
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
