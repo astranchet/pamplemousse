@@ -1,3 +1,5 @@
+web_dir: '/'
+
 kid:
   name: Pamplemousse
   birthdate: "26 mars 2016"
