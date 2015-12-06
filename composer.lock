@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e785b950522fca5ebc3e26b0c0f68fe7",
-    "content-hash": "ddd5bcdba2a1439a268bd2760bd22548",
+    "hash": "0c81bf6ab5bd6f0c2b7dbb84b2ed45bf",
+    "content-hash": "ede33098459553da0c434a096f547bbc",
     "packages": [
         {
             "name": "codeguy/upload",
@@ -343,6 +343,55 @@
                 "microframework"
             ],
             "time": "2015-09-15 06:53:42"
+        },
+        {
+            "name": "sybio/image-workshop",
+            "version": "2.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sybio/ImageWorkshop.git",
+                "reference": "14bbecd7b834404b8ea9cc7136f25d1c0e9adbfc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sybio/ImageWorkshop/zipball/14bbecd7b834404b8ea9cc7136f25d1c0e9adbfc",
+                "reference": "14bbecd7b834404b8ea9cc7136f25d1c0e9adbfc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPImageWorkshop": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Clément Guillemain",
+                    "homepage": "http://clementguillemain.fr",
+                    "role": "Developer / Freelancer"
+                }
+            ],
+            "description": "Powerful PHP class using GD library to work easily with images including layer notion (like Photoshop or GIMP)",
+            "homepage": "http://phpimageworkshop.com",
+            "keywords": [
+                "class",
+                "crop",
+                "gd",
+                "image",
+                "library",
+                "resize",
+                "rotate",
+                "thumbnail",
+                "watermark"
+            ],
+            "time": "2014-08-01 12:01:59"
         },
         {
             "name": "symfony/debug",
