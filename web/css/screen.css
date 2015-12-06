@@ -46,3 +46,19 @@ section {
 #home .container a[data-scroll]:hover {
   color: #fff;
 }
+
+#photos h1 {
+  text-align: center;
+  font-family: PT Sans, sans-serif;
+}
+#photos #gallery {
+  display: flex;
+  flex-flow: row wrap;
+}
+#photos #gallery .image {
+  flex: 1 0 25%;
+}
+#photos #gallery .image img {
+  max-width: 100%;
+  max-height: 100%;
+}

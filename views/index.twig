@@ -34,7 +34,15 @@
 
         <section id="photos">
             <div class="container">
-                <h1>{{ app.config.kid.name }} mois après mois</h1>
+                <h1>Mois après mois</h1>
+
+                <div id="gallery">
+                    {% for photo in photos %}
+                        <div class="image">
+                            <img src="{{ photo.url }}" alt="{{ photo.title }}" />
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </section>
 
