@@ -1,9 +1,18 @@
 @charset "UTF-8";
-section {
-  height: 100vh;
+#footer {
+  position: relative;
+  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(../images/pattern.jpg);
+  padding: 2em;
+}
+#footer #warning {
+  font-family: PT Sans, sans-serif;
+  width: 50%;
+  padding: 1em;
+  background: #fff;
 }
 
 #home {
+  height: 100vh;
   background: grey;
   display: flex;
   align-items: center;
@@ -47,6 +56,10 @@ section {
   color: #fff;
 }
 
+#photos {
+  padding: 3em;
+  min-height: 80vh;
+}
 #photos h1 {
   text-align: center;
   font-family: PT Sans, sans-serif;
