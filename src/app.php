@@ -23,8 +23,8 @@ $app->register(new UrlGeneratorServiceProvider());
 $app->register(new YamlConfigServiceProvider(__DIR__.'/../config/app.yml'));
 
 /** Services */
-$app['photos'] = $app->share(function () {
-    return new Pamplemousse\Photos\Service();
+$app['photos'] = $app->share(function ($app) {
+    return new Pamplemousse\Photos\Service($app['config']);
 });
 
 /** Controller */

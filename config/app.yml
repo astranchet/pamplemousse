@@ -1,4 +1,5 @@
 web_dir: '/'
+upload_dir: '/upload/'
 
 kid:
   name: Pamplemousse
