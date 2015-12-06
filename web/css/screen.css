@@ -72,23 +72,17 @@
   flex: 1 0 25%;
   position: relative;
   display: inline-block;
-}
-#photos #gallery .image::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-  box-shadow: 0 0 100px 0 #000 inset;
-  transition: opacity .3s ease-in-out;
-  background: rgba(0, 0, 0, 0.2) center no-repeat url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgNzY4IDc2OCIgZmlsbD0iI2ZmZmZmZiI+CjxwYXRoIGQ9Ik0zMjAgMzJxNTguNSAwIDExMS44NzUgMjIuODc1dDkxLjg3NSA2MS4zNzUgNjEuMzc1IDkxLjg3NSAyMi44NzUgMTExLjg3NXEwIDUwLjI1LTE2LjM3NSA5Ni4yNXQtNDYuNjI1IDgzLjVsMTgxLjc1IDE4MS41cTkuMjUgOS4yNSA5LjI1IDIyLjc1IDAgMTMuNzUtOS4xMjUgMjIuODc1dC0yMi44NzUgOS4xMjVxLTEzLjUgMC0yMi43NS05LjI1bC0xODEuNS0xODEuNzVxLTM3LjUgMzAuMjUtODMuNSA0Ni42MjV0LTk2LjI1IDE2LjM3NXEtNTguNSAwLTExMS44NzUtMjIuODc1dC05MS44NzUtNjEuMzc1LTYxLjM3NS05MS44NzUtMjIuODc1LTExMS44NzUgMjIuODc1LTExMS44NzUgNjEuMzc1LTkxLjg3NSA5MS44NzUtNjEuMzc1IDExMS44NzUtMjIuODc1ek0zMjAgOTZxLTQ1LjUgMC04NyAxNy43NXQtNzEuNSA0Ny43NS00Ny43NSA3MS41LTE3Ljc1IDg3IDE3Ljc1IDg3IDQ3Ljc1IDcxLjUgNzEuNSA0Ny43NSA4NyAxNy43NSA4Ny0xNy43NSA3MS41LTQ3Ljc1IDQ3Ljc1LTcxLjUgMTcuNzUtODctMTcuNzUtODctNDcuNzUtNzEuNS03MS41LTQ3Ljc1LTg3LTE3Ljc1ek0zMjAgMTkycTEzLjI1IDAgMjIuNjI1IDkuMzc1dDkuMzc1IDIyLjYyNXY2NGg2NHExMy4yNSAwIDIyLjYyNSA5LjM3NXQ5LjM3NSAyMi42MjUtOS4zNzUgMjIuNjI1LTIyLjYyNSA5LjM3NWgtNjR2NjRxMCAxMy4yNS05LjM3NSAyMi42MjV0LTIyLjYyNSA5LjM3NS0yMi42MjUtOS4zNzUtOS4zNzUtMjIuNjI1di02NGgtNjRxLTEzLjI1IDAtMjIuNjI1LTkuMzc1dC05LjM3NS0yMi42MjUgOS4zNzUtMjIuNjI1IDIyLjYyNS05LjM3NWg2NHYtNjRxMC0xMy4yNSA5LjM3NS0yMi42MjV0MjIuNjI1LTkuMzc1eiIvPgo8L3N2Zz4=);
-}
-#photos #gallery .image:hover::before, #photos #gallery .image:focus::before {
-  opacity: 1;
+  padding: 1em;
 }
 #photos #gallery .image img {
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  transition: all .2s ease-out;
   max-width: 100%;
   max-height: 100%;
+}
+#photos #gallery .image:hover img, #photos #gallery .image:focus img {
+  filter: brightness(1.1);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  transform: rotate(1deg) scale(1.05);
 }
