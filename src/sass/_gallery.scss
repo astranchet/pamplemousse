@@ -5,6 +5,16 @@
   h1 {
     text-align: center;
     font-family: PT Sans, sans-serif;
+    &::before, &::after {
+      font-size: .7em;
+      padding: 0 1em;
+      vertical-align: 20%;
+      content: "◀ ";
+      color: #DF622C;
+    }
+    &::after {
+      content: " ▶";
+    }
   }
 
   #gallery {
