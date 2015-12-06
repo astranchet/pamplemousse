@@ -21,3 +21,7 @@ section {
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
 }
+#home .container a[data-scroll] {
+  font-size: 3em;
+  color: #fff;
+}
