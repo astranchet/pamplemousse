@@ -1,56 +1,25 @@
-<!doctype html>
-<html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{{ app.config.kid.name }}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="{{ app.config.web_dir }}apple-touch-icon.png" rel="apple-touch-icon" >
+{% extends "base.html" %}
 
-        <link href="{{ app.config.web_dir }}css/bootstrap/bootstrap.min.css" rel="stylesheet" >
-        <link href="{{ app.config.web_dir }}css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
-        <link href="{{ app.config.web_dir }}css/print.css" media="print" rel="stylesheet" type="text/css" />
-        <!--[if IE]>
-            <link href="{{ app.config.web_dir }}css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
-        <![endif]-->
+{% block content %}
+    <section id="home">
+        <div class="container">
+            <h1>{{ app.config.kid.name }}</h1>
+            <h2>Mise en production prévue le <strong>{{ app.config.kid.birthdate }}</strong></h2>
+            <a data-scroll href="#photos"><span class="glyphicon glyphicon-chevron-down"></span></a>
+        </div>
+    </section>
 
-        <!--[if lt IE 9]>
-            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-            <script>window.html5 || document.write('<script src="{{ app.config.web_dir }}js/vendor/html5shiv.js"><\/script>')</script>
-        <![endif]-->
+    <section id="photos">
+        <div class="container">
+            <h1>Mois après mois</h1>
 
-        <link href='https://fonts.googleapis.com/css?family=PT+Sans:700' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Lora:400italic' rel='stylesheet' type='text/css'>
-    </head>
-    <body>
-        <section id="home">
-            <div class="container">
-                <h1>{{ app.config.kid.name }}</h1>
-                <h2>Mise en production prévue le <strong>{{ app.config.kid.birthdate }}</strong></h2>
-                <a data-scroll href="#photos"><span class="glyphicon glyphicon-chevron-down"></span></a>
+            <div id="gallery">
+                {% for photo in photos %}
+                    <a class="image" href="{{ photo.url }}">
+                        <img src="{{ photo.url }}" alt="{{ photo.title }}" />
+                    </a>
+                {% endfor %}
             </div>
-        </section>
-
-        <section id="photos">
-            <div class="container">
-                <h1>Mois après mois</h1>
-
-                <div id="gallery">
-                    {% for photo in photos %}
-                        <a class="image" href="{{ photo.url }}">
-                            <img src="{{ photo.url }}" alt="{{ photo.title }}" />
-                        </a>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="{{ app.config.web_dir }}js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-        <script src="{{ app.config.web_dir }}js/bootstrap/bootstrap.min.js"></script>
-        <script src="{{ app.config.web_dir }}js/vendor/smooth-scroll.min.js"></script>
-        <script src="{{ app.config.web_dir }}js/main.js"></script>
-    </body>
-</html>
+        </div>
+    </section>
+{% endblock %}
