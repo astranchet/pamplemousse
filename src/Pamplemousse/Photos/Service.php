@@ -20,19 +20,19 @@ class Service
         $image = $this->app['imagine']->open(__DIR__. '/../../../web/'. $filepath);
         $metadata = $image->metadata();
         $this->conn->insert('pamplemousse__item', [
-            'file' => $filepath,
-            'date' => $metadata["exif.DateTimeOriginal"],
+            'path' => $filepath,
+            'date_taken' => $metadata["exif.DateTimeOriginal"],
         ]);
     }
 
     public function getPhotos()
     {
-        $pictures = $this->conn->fetchAll('SELECT * FROM pamplemousse__item WHERE type = ? ORDER BY date DESC', array('picture'));
+        $pictures = $this->conn->fetchAll('SELECT * FROM pamplemousse__item WHERE type = ? ORDER BY date_taken DESC', array('picture'));
         $photos = [];
         foreach ($pictures as $id => $picture) {
             $photos[] = [
-                'url' => $picture['file'],
-                'filename' => basename($picture['file'])
+                'url' => $picture['path'],
+                'filename' => basename($picture['path'])
             ];
         }
 
