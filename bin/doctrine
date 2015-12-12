@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__ . "/../vendor/autoload.php";
+$app = require_once __DIR__.'/../src/app.php';
+
+// Autoload migration classes;
+$classLoader = new \Doctrine\Common\ClassLoader('Doctrine\DBAL\Migrations', __DIR__.'../src/migrations');
+$classLoader->register();
+
+// Register Console Commands
+$cli = new \Symfony\Component\Console\Application('Doctrine Migrations Command Line Interface');
+$cli->setCatchExceptions(true);
+$cli->setHelperSet(new \Symfony\Component\Console\Helper\HelperSet(array(
+    'db'        => new \Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper($app['db']),
+    'dialog'    => new \Symfony\Component\Console\Helper\DialogHelper()
+)));
+
+$cli->addCommands(array(
+    // Migrations Commands
+    new \Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand(),
+    new \Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand(),
+    new \Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand(),
+    new \Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand(),
+    new \Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand(),
+    new \Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand()
+));
+
+$cli->run();
