@@ -4,20 +4,24 @@ namespace Pamplemousse\Photos;
 
 class Service
 {
+    protected $app;
     protected $config;
     protected $conn;
 
-    public function __construct($config, $conn)
+    public function __construct($app)
     {
-        $this->config = $config;
-        $this->conn = $conn;
+        $this->app = $app;
+        $this->config = $app['config'];
+        $this->conn = $app['db'];
     }
 
     public function add($filepath)
     {
+        $image = $this->app['imagine']->open(__DIR__. '/../../../web/'. $filepath);
+        $metadata = $image->metadata();
         $this->conn->insert('pamplemousse__item', [
             'file' => $filepath,
-            'date' => date('Y-m-d H:i:s'),
+            'date' => $metadata["exif.DateTimeOriginal"],
         ]);
     }
 

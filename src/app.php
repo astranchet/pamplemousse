@@ -30,10 +30,15 @@ $app->register(new UrlGeneratorServiceProvider());
 
 /** Services */
 $app['photos'] = $app->share(function ($app) {
-    return new Pamplemousse\Photos\Service($app['config'], $app['db']);
+    return new Pamplemousse\Photos\Service($app);
 });
 $app['slug'] = $app->share(function ($app) {
     return new Cocur\Slugify\Slugify();
+});
+$app['imagine'] = $app->share(function ($app) {
+    $imagine = new \Imagine\Gd\Imagine();
+    $imagine->setMetadataReader(new \Imagine\Image\Metadata\ExifMetadataReader());
+    return $imagine;
 });
 
 /** Controller */
