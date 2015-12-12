@@ -16,5 +16,15 @@
     <section>
         <h1>Upload de fichier</h1>
         <form action="{{ path('file-upload') }}" class="dropzone"></form>
+
+        <h1>Galerie</h1>
+        <div id="gallery">
+        {% for photo in photos %}
+            <a class="image" href="{{ photo.url }}">
+                <img src="{{ path('thumbnail', { 'filename': photo.filename, 'width': '200', 'height': '200' }) }}" alt="{{ photo.filename }}" />
+            </a>
+        {% endfor %}
+        </div>
+
     </section>
 {% endblock %}
