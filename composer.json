@@ -14,7 +14,8 @@
         "doctrine/dbal":"~2.2",
         "symfony/console":"~2.6",
         "doctrine/migrations":"~1.1",
-        "cocur/slugify": "^1.4"
+        "cocur/slugify": "^1.4",
+        "imagine/imagine": "^0.6.3"
     },
     "autoload": {
         "psr-0": {
