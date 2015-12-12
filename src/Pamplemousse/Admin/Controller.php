@@ -54,6 +54,7 @@ class Controller
 
         // Upload file to server
         try {
+            $file->setName($app['slug']->slugify($file->getName()));
             $file->upload();
         } catch (\Exception $exception) {
             $errorMessage = join('<br />', $file->getErrors());

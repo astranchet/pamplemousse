@@ -32,6 +32,9 @@ $app->register(new UrlGeneratorServiceProvider());
 $app['photos'] = $app->share(function ($app) {
     return new Pamplemousse\Photos\Service($app['config'], $app['db']);
 });
+$app['slug'] = $app->share(function ($app) {
+    return new Cocur\Slugify\Slugify();
+});
 
 /** Controller */
 use Symfony\Component\HttpFoundation\Request;
