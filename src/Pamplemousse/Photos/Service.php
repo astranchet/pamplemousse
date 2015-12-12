@@ -23,12 +23,12 @@ class Service
 
     public function getPhotos()
     {
-        $iterator = new \FilesystemIterator(__DIR__.'/../../../web/'. $this->config['upload_dir'], \FilesystemIterator::SKIP_DOTS);
+        $pictures = $this->conn->fetchAll('SELECT * FROM pamplemousse__item WHERE type = ?', array('picture'));
         $photos = [];
-        foreach ($iterator as $file) {
-            $photos[$file->getFileName()] = [
-                'url' => $this->config['upload_dir'] . $file->getBasename(),
-                'filename' => $file->getFileName()
+        foreach ($pictures as $id => $picture) {
+            $photos[basename($picture['file'])] = [
+                'url' => $picture['file'],
+                'filename' => basename($picture['file'])
             ];
         }
         ksort($photos);
