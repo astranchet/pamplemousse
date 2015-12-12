@@ -30,7 +30,8 @@ class Controller
      */
     public function fileUploadAction(Application $app, Request $request)
     {
-        $storage = new FileSystem($app['config']['upload_dir']);
+        $webDirectory = __DIR__.'/../../../web';
+        $storage = new FileSystem($webDirectory . $app['config']['upload_dir']);
         $file = new File('file', $storage);
 
         // Validate file upload
