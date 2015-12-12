@@ -5,3 +5,10 @@ thumbnail_dir: '/thumbnail/'
 kid:
   name: Pamplemousse
   birthdate: "26 mars 2016"
+
+database:
+  dbname: pamplemousse
+  user: root
+  password: root
+  host: localhost
+  driver: 'pdo_mysql'

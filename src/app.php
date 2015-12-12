@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__.'/../vendor/autoload.php';
 
+use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TwigServiceProvider;
@@ -9,7 +10,13 @@ use DerAlex\Silex\YamlConfigServiceProvider;
 
 $app = new Silex\Application();
 
+/** Configuration */
+$app->register(new YamlConfigServiceProvider(__DIR__.'/../config/app.yml'));
+
 /**  Application */
+$app->register(new DoctrineServiceProvider(), array(
+    'db.options' => $app['config']['database']
+));
 $app->register(new MonologServiceProvider(), array(
     'monolog.logfile'    => __DIR__ . '/../log/app.log',
     'monolog.name'       => 'pamplemousse',
@@ -20,7 +27,6 @@ $app->register(new TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
 $app->register(new UrlGeneratorServiceProvider());
-$app->register(new YamlConfigServiceProvider(__DIR__.'/../config/app.yml'));
 
 /** Services */
 $app['photos'] = $app->share(function ($app) {
