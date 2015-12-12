@@ -23,10 +23,18 @@ cd pamplemousse
 curl -s http://getcomposer.org/installer | php
 php composer.phar install
 ```
+
 Run locally
 -----------
 
 ```sh
 php -S localhost:8000 -t web .router.php
 compass watch
+```
+
+Run migrations
+--------------
+
+```bash
+./bin/doctrine migrations:migrate
 ```
