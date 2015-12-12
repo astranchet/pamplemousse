@@ -30,7 +30,7 @@ $app->register(new UrlGeneratorServiceProvider());
 
 /** Services */
 $app['photos'] = $app->share(function ($app) {
-    return new Pamplemousse\Photos\Service($app['config']);
+    return new Pamplemousse\Photos\Service($app['config'], $app['db']);
 });
 
 /** Controller */

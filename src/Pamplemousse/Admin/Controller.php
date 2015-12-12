@@ -52,12 +52,22 @@ class Controller
 
         $app['monolog']->addDebug(sprintf("File uploaded: %s", json_encode($data)));
 
+        // Upload file to server
         try {
             $file->upload();
         } catch (\Exception $exception) {
             $errorMessage = join('<br />', $file->getErrors());
             $app['monolog']->addError(sprintf("Error during file upload: %s", $errorMessage));
             return new Response(sprintf("Erreur : %s", $errorMessage), 400);
+        }
+
+        // Save file to db
+        try {
+            $filepath = sprintf("%s%s.%s",$app['config']['upload_dir'], $file->getName(), $file->getExtension());
+            $app['photos']->add($filepath);
+        } catch (\Exception $exception) {
+            $app['monolog']->addError(sprintf("Error during file upload: %s", $exception->getMessage()));
+            return new Response(sprintf("Erreur : %s", $exception->getMessage()), 400);
         }
 
         return new Response();
