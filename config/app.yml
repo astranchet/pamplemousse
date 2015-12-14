@@ -4,7 +4,8 @@ thumbnail_dir: '/thumbnail/'
 
 kid:
   name: Pamplemousse
-  birthdate: "26 mars 2016"
+  baseline: "Mise en production prévu <strong>fin mars 2016</strong>"
+  birthdate: 26/06/2016
 
 database:
   dbname: pamplemousse
