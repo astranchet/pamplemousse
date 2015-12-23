@@ -49,6 +49,7 @@ class Service
         return [
             'id' => $item['id'],
             'url' => $item['path'],
+            'is_favorite' => $item['is_favorite'],
             'filename' => basename($item['path'])
         ];
     }
