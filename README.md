@@ -38,3 +38,10 @@ Run migrations
 ```bash
 ./bin/doctrine migrations:migrate
 ```
+
+Generate migration
+------------------
+
+```bash
+./bin/doctrine migrations:generate
+```
