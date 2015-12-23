@@ -30,7 +30,7 @@ class Service
         $items = $this->conn->fetchAll('SELECT * FROM pamplemousse__item WHERE type = ? ORDER BY date_taken DESC', array('picture'));
         $photos = [];
         foreach ($items as $id => $item) {
-            $photos[] = $this->itemToPhoto($id, $item);
+            $photos[] = $this->itemToPhoto($item);
         }
 
         return $photos;
@@ -38,15 +38,16 @@ class Service
 
     public function getPhoto($id)
     {
-
+        // TODO : check id exists
         $item = $this->conn->fetchAssoc('SELECT * FROM pamplemousse__item WHERE id = ?', array($id));
-        return $this->itemToPhoto($id, $item);
+        return $this->itemToPhoto($item);
     }
 
-    protected function itemToPhoto($id, $item)
+
+    protected function itemToPhoto($item)
     {
         return [
-            'id' => $id,
+            'id' => $item['id'],
             'url' => $item['path'],
             'filename' => basename($item['path'])
         ];
