@@ -17,6 +17,8 @@ class Router implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', Controller::class . "::indexAction");
+        $controllers->get('/photo/{id}', Controller::class . "::photoAction")
+            ->bind('photo');
 
         return $controllers;
     }

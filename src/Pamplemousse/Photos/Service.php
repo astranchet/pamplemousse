@@ -38,4 +38,19 @@ class Service
 
         return $photos;
     }
+
+    public function getPhoto($id)
+    {
+
+        $item = $this->conn->fetchAssoc('SELECT * FROM pamplemousse__item WHERE id = ?', array($id));
+
+        $photo = [
+            'id' => $id,
+            'url' => $item['path'],
+            'filename' => basename($item['path'])
+        ];
+
+        return $photo;
+    }
+
 }

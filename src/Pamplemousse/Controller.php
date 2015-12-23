@@ -20,4 +20,16 @@ class Controller
         ]);
     }
 
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @return Response
+     */
+    public function photoAction(Application $app, Request $request, $id)
+    {
+        return $app['twig']->render('photo.twig', [
+            'photo' => $app['photos']->getPhoto($id)
+        ]);
+    }
+
 }
