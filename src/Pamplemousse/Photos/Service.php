@@ -27,12 +27,13 @@ class Service
 
     public function getPhotos()
     {
-        $pictures = $this->conn->fetchAll('SELECT * FROM pamplemousse__item WHERE type = ? ORDER BY date_taken DESC', array('picture'));
+        $items = $this->conn->fetchAll('SELECT * FROM pamplemousse__item WHERE type = ? ORDER BY date_taken DESC', array('picture'));
         $photos = [];
-        foreach ($pictures as $id => $picture) {
+        foreach ($items as $id => $item) {
             $photos[] = [
-                'url' => $picture['path'],
-                'filename' => basename($picture['path'])
+                'id' => $item['id'],
+                'url' => $item['path'],
+                'filename' => basename($item['path'])
             ];
         }
 
