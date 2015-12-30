@@ -1,0 +1,16 @@
+#gallery {
+  display: flex;
+
+  .image {
+    position: relative;
+    color: #FFCC00;
+    &:hover { color: #FF9900; }
+
+    .favorite {
+      position: absolute;
+      top: .5em;
+      right: .5em;
+    }
+  }
+
+}
