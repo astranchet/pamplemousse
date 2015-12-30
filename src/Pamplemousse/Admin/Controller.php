@@ -30,6 +30,17 @@ class Controller
      * @param  Request     $request
      * @return Response
      */
+    public function editAction(Application $app, Request $request)
+    {
+        return $app['twig']->render('admin/edit.twig', [
+        ]);
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @return Response
+     */
     public function fileUploadAction(Application $app, Request $request)
     {
         $webDirectory = __DIR__.'/../../../web';
