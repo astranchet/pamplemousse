@@ -67,13 +67,13 @@ class Controller
         // Save file to db
         try {
             $filepath = sprintf("%s%s.%s",$app['config']['upload_dir'], $file->getName(), $file->getExtension());
-            $app['photos']->add($filepath);
+            $photoId = $app['photos']->add($filepath);
         } catch (\Exception $exception) {
             $app['monolog']->addError(sprintf("Error during file upload: %s", $exception->getMessage()));
             return new Response(sprintf("Erreur : %s", $exception->getMessage()), 400);
         }
 
-        return new Response();
+        return new Response($photoId);
     }
 
 }

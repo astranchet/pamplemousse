@@ -23,6 +23,8 @@ class Service
             'path' => $filepath,
             'date_taken' => $metadata["exif.DateTimeOriginal"],
         ]);
+
+        return $this->conn->lastInsertId();
     }
 
     public function getPhotos()
