@@ -4,6 +4,7 @@
 
 {% block css %}
     {{ parent() }}
+    <link href="{{ app.config.web_dir }}css/admin.css" rel="stylesheet">
     <link href="{{ app.config.web_dir }}css/dropzone/dropzone.css" rel="stylesheet">
 {% endblock %}
 
@@ -21,6 +22,7 @@
         <div id="gallery">
         {% for photo in photos %}
             <a class="image" href="{{ photo.url }}">
+                {% if photo.is_favorite %}<span class="favorite glyphicon glyphicon-star"></span>{% endif %}
                 <img src="{{ path('thumbnail', { 'filename': photo.filename, 'width': '200', 'height': '200' }) }}" alt="{{ photo.filename }}" />
             </a>
         {% endfor %}

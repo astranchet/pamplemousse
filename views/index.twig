@@ -15,8 +15,8 @@
 
             <div id="gallery">
                 {% for photo in photos %}
-                    <a class="image" href="{{ path('photo', { 'id': photo.id }) }}">
-                        <img src="{{ path('thumbnail', { 'filename': photo.filename, 'width': '200', 'height': '200' }) }}" alt="{{ photo.filename }}" />
+                    <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'id': photo.id }) }}">
+                        <img src="{{ path('thumbnail', { 'filename': photo.filename, 'width': 800, 'height': 800 }) }}" alt="{{ photo.filename }}" />
                     </a>
                 {% endfor %}
             </div>

@@ -1,0 +1,15 @@
+#gallery {
+  display: flex;
+}
+#gallery .image {
+  position: relative;
+  color: #FFCC00;
+}
+#gallery .image:hover {
+  color: #FF9900;
+}
+#gallery .image .favorite {
+  position: absolute;
+  top: .5em;
+  right: .5em;
+}

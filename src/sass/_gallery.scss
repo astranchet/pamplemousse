@@ -27,6 +27,11 @@
       display: inline-block;
       padding: 1em;
 
+      &.favorite {
+        flex-basis: 50%;
+        img { width: 100%; }
+      }
+
       img {
         background-color: #fff;
         box-shadow: 0 1px 5px rgba(0,0,0,.3);
