@@ -5,6 +5,7 @@ use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\SessionServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use DerAlex\Silex\YamlConfigServiceProvider;
@@ -25,6 +26,9 @@ $app->register(new MonologServiceProvider(), array(
     'monolog.level'      => 100
 ));
 $app->register(new SessionServiceProvider());
+$app->register(new TranslationServiceProvider(), array(
+    'translator.messages' => array(),
+));
 $app->register(new TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
