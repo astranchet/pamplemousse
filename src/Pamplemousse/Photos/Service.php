@@ -38,6 +38,22 @@ class Service
         return $photos;
     }
 
+    public function getPhotosByIds($ids)
+    {
+        $statement = $this->conn->executeQuery(
+            'SELECT * FROM pamplemousse__item WHERE type = "picture" AND id IN (?) ORDER BY date_taken DESC',
+            [$ids],
+            [\Doctrine\DBAL\Connection::PARAM_INT_ARRAY]);
+        $items = $statement->fetchAll();
+
+        $photos = [];
+        foreach ($items as $id => $item) {
+            $photos[] = $this->itemToPhoto($item);
+        }
+
+        return $photos;
+    }
+
     public function getPhoto($id)
     {
         // TODO : check id exists
