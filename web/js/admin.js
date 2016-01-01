@@ -7,4 +7,11 @@ $(function() {
   var dropzone = new Dropzone(".dropzone", {
     'dictDefaultMessage' : 'Déposez les images ici !'
   });
+
+  dropzone.on("queuecomplete", function(file) {
+    var ids = $.map(dropzone.getAcceptedFiles(), function(file, i) {
+      return file.xhr.responseText;
+    });
+    console.log(ids);
+  });
 })
