@@ -12,6 +12,11 @@ $(function() {
     var ids = $.map(dropzone.getAcceptedFiles(), function(file, i) {
       return file.xhr.responseText;
     });
-    console.log(ids);
+    var url = "edit?" + $.param({ 'ids': ids });
+    $("#editForm").on("show.bs.modal", function(e) {
+      var link = $(e.relatedTarget);
+      $(this).find(".modal-body").load(url);
+    });
+    $("#editForm").modal();
   });
 })
