@@ -48,7 +48,7 @@ class Service
 
         $photos = [];
         foreach ($items as $id => $item) {
-            $photos[] = $this->itemToPhoto($item);
+            $photos[$item['id']] = new Entity\Photo($item);
         }
 
         return $photos;

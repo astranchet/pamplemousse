@@ -1,12 +1,13 @@
 <?php
 namespace Pamplemousse\Admin;
 
+use Pamplemousse\Photos\Form\Type\PhotoType;
+
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use Upload\Storage\FileSystem;
@@ -36,20 +37,15 @@ class Controller
      */
     public function editAction(Application $app, Request $request)
     {
-        // $photos = $app['photos']->getPhotosByIds($request->get('ids'));
+        $photos = $app['photos']->getPhotosByIds($request->get('ids'));
 
-        $data = [
-            'description' => [1 => "Ola", 6 => "Hello", "truc" => "World", "9" => null, '20' => "!"]
-        ];
-        $builder = $app['form.factory']->createBuilder(FormType::class, $data);
-        $builder->add('description', CollectionType::class, array(
-            'entry_type' => TextType::class,
-            'entry_options' => array(
-                'required' => false
-            )
+        $builder = $app['form.factory']->createBuilder(FormType::class);
+        $builder->add('Photos', CollectionType::class, array(
+            'entry_type' => PhotoType::class,
         ));
 
         $form = $builder->getForm();
+        $form->get('Photos')->setData($photos);
 
         return $app['twig']->render('admin/edit.twig', [
             'form' => $form->createView()
