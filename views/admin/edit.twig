@@ -1,12 +1,13 @@
 {% extends "admin/index.twig" %}
 
+{% form_theme form 'Form/fields.html.twig' %}
+
 {% block content %}
     <section>
-        <h1>Hello world!</h1>
+        <h1>Upload</h1>
 
         <form action="#" method="post">
             {{ form_widget(form) }}
-
             <input type="submit" name="submit" />
         </form>
 

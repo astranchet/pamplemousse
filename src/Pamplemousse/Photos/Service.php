@@ -68,6 +68,7 @@ class Service
             'id' => $item['id'],
             'url' => $item['path'],
             'is_favorite' => $item['is_favorite'],
+            'description' => $item['description'],
             'filename' => basename($item['path'])
         ];
     }

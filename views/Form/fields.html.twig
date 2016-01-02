@@ -1,0 +1,14 @@
+{% block photo_widget %}
+    {% spaceless %}
+
+        <img src="{{ path('thumbnail', { 'filename': data.filename, 'width': '200', 'height': '200' }) }}" alt="{{ data.description }}" />
+        <ul>
+            {% for child in form %}
+                <li>
+                    {{ form_label(child) }}
+                    {{ form_widget(child) }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endspaceless %}
+{% endblock %}
