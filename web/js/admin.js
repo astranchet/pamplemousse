@@ -17,11 +17,9 @@ $(function() {
 
     if (ids.length) {
       var url = "edit?" + $.param({ 'ids': ids });
-      $("#editForm").on("show.bs.modal", function(e) {
-        var link = $(e.relatedTarget);
-        $(this).find(".modal-body").load(url);
+      $("#modal").load(url, function() {
+        $("#editForm").modal();
       });
-      $("#editForm").modal();
     }
   });
 })
