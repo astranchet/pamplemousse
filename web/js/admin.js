@@ -9,14 +9,19 @@ $(function() {
   });
 
   dropzone.on("queuecomplete", function(file) {
-    var ids = $.map(dropzone.getAcceptedFiles(), function(file, i) {
+    var ids = dropzone.getAcceptedFiles().filter(function(file) {
+      return file.xhr.status === 200;
+    }).map(function(file) {
       return file.xhr.responseText;
     });
-    var url = "edit?" + $.param({ 'ids': ids });
-    $("#editForm").on("show.bs.modal", function(e) {
-      var link = $(e.relatedTarget);
-      $(this).find(".modal-body").load(url);
-    });
-    $("#editForm").modal();
+
+    if (ids.length) {
+      var url = "edit?" + $.param({ 'ids': ids });
+      $("#editForm").on("show.bs.modal", function(e) {
+        var link = $(e.relatedTarget);
+        $(this).find(".modal-body").load(url);
+      });
+      $("#editForm").modal();
+    }
   });
 })
