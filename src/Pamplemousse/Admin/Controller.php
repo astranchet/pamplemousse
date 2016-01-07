@@ -40,13 +40,12 @@ class Controller
         $photos = $app['photos']->getPhotosByIds($request->get('ids'));
 
         $builder = $app['form.factory']->createBuilder(FormType::class);
-        $builder->add('Photos', CollectionType::class, array(
+        $builder->add('photos', CollectionType::class, [
             'entry_type' => PhotoType::class,
-        ));
+            'data' => $photos
+        ]);
 
         $form = $builder->getForm();
-        $form->get('Photos')->setData($photos);
-
         return $app['twig']->render('admin/edit.twig', [
             'form' => $form->createView()
         ]);

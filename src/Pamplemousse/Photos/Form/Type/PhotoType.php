@@ -4,12 +4,14 @@ namespace Pamplemousse\Photos\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextAreaType;
 
 class PhotoType extends AbstractType
 {
@@ -17,8 +19,19 @@ class PhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('id', HiddenType::class);
-        $builder->add('description', TextType::class);
-        $builder->add('is_favorite', CheckboxType::class);
+        $builder->add('description', TextAreaType::class, [ 
+            'attr' => ['placeholder' => 'Description']
+        ]);
+        $builder->add('is_favorite', CheckboxType::class, [
+            'label' => "Marquer comme favori"
+        ]);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $data = $form->getData();
+        $label = ($data->description) ? $data->description : $data->filename;
+        $view->vars['name'] = $label;
     }
 
     public function configureOptions(OptionsResolver $resolver)
