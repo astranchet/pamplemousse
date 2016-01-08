@@ -61,6 +61,14 @@ class Service
         return $this->itemToPhoto($item);
     }
 
+    public function updatePhoto($id, $photo)
+    {
+        $data = [
+            'description' => $photo->description,
+            'is_favorite' => $photo->is_favorite,
+        ];
+        return $this->conn->update('pamplemousse__item', $data, array('id' => $id));
+    }
 
     protected function itemToPhoto($item)
     {

@@ -50,6 +50,9 @@ class Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            foreach ($photos as $id => $photo) {
+                $app['photos']->updatePhoto($id, $photo);
+            }
         }
 
         return $app['twig']->render('admin/edit.twig', [
