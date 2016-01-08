@@ -46,6 +46,12 @@ class Controller
             ])
             ->getForm();
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+        }
+
         return $app['twig']->render('admin/edit.twig', [
             'form' => $form->createView()
         ]);

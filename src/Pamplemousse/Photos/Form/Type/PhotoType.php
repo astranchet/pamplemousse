@@ -20,10 +20,12 @@ class PhotoType extends AbstractType
     {
         $builder->add('id', HiddenType::class);
         $builder->add('description', TextAreaType::class, [ 
-            'attr' => ['placeholder' => 'Description']
+            'attr' => ['placeholder' => 'Description'],
+            'required' => false
         ]);
         $builder->add('is_favorite', CheckboxType::class, [
-            'label' => "Marquer comme favori"
+            'label' => "Marquer comme favori",
+            'required' => false
         ]);
     }
 
