@@ -41,7 +41,10 @@
                     var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
                     gallery.init();
                 };
-                openPhotoSwipe();
+                $(".image").on('click', function(e) {
+                    e.preventDefault();
+                    openPhotoSwipe();
+                });
                 </script>
             </div>
         </div>
