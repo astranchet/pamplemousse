@@ -19,6 +19,8 @@
                         <img src="{{ path('thumbnail', { 'filename': photo.filename, 'width': 800, 'height': 800 }) }}" alt="{{ photo.filename }}" />
                     </a>
                 {% endfor %}
+
+                {% include 'partials/photoswipe.twig' %}
             </div>
         </div>
     </section>
