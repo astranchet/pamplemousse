@@ -18,6 +18,7 @@
                 {% for photo in photos %}
                     {% set slide = {
                         src: photo.url,
+                        title: photo.description,
                         w: photo.width,
                         h: photo.height
                     } %}
