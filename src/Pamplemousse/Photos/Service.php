@@ -17,11 +17,15 @@ class Service
 
     public function add($filepath)
     {
-        $image = $this->app['imagine']->open(__DIR__. '/../../../web/'. $filepath);
+        $relativePath = __DIR__. '/../../../web/'. $filepath;
+        $image = $this->app['imagine']->open($relativePath);
+        list($width, $height) = getimagesize($relativePath);
         $metadata = $image->metadata();
         $this->conn->insert('pamplemousse__item', [
             'path' => $filepath,
             'date_taken' => $metadata["exif.DateTimeOriginal"],
+            'width' => $width,
+            'height' => $height,
         ]);
 
         return $this->conn->lastInsertId();
@@ -70,11 +74,14 @@ class Service
         return $this->conn->update('pamplemousse__item', $data, array('id' => $id));
     }
 
+    // TODO : use entity everywhere
     protected function itemToPhoto($item)
     {
         return [
             'id' => $item['id'],
             'url' => $item['path'],
+            'width' => $item['width'],
+            'height' => $item['height'],
             'is_favorite' => $item['is_favorite'],
             'description' => $item['description'],
             'filename' => basename($item['path'])

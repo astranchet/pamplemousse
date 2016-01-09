@@ -18,8 +18,8 @@
                 {% for photo in photos %}
                     {% set slide = {
                         src: photo.url,
-                        w: 600,
-                        h: 400
+                        w: photo.width,
+                        h: photo.height
                     } %}
                     {% set slides = slides|merge([slide]) %}
                     <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'id': photo.id }) }}">
