@@ -14,13 +14,34 @@
             <h1>Mois après mois</h1>
 
             <div id="gallery">
+                {% set slides = [] %}
                 {% for photo in photos %}
+                    {% set slide = {
+                        src: photo.url,
+                        w: 600,
+                        h: 400
+                    } %}
+                    {% set slides = slides|merge([slide]) %}
                     <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'id': photo.id }) }}">
                         <img src="{{ path('thumbnail', { 'filename': photo.filename, 'width': 800, 'height': 800 }) }}" alt="{{ photo.filename }}" />
                     </a>
                 {% endfor %}
 
                 {% include 'partials/photoswipe.twig' %}
+
+                <script>
+                var openPhotoSwipe = function() {
+                    var pswpElement = document.querySelectorAll('.pswp')[0];
+                    var items = {{ slides|json_encode(constant('JSON_PRETTY_PRINT'))|raw }};
+                    var options = {
+                        index: 0 // start at first slide
+                    };
+                    // Initializes and opens PhotoSwipe
+                    var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                    gallery.init();
+                };
+                openPhotoSwipe();
+                </script>
             </div>
         </div>
     </section>
