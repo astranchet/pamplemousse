@@ -1,9 +1,14 @@
 <?php
 namespace Pamplemousse\Admin;
 
+use Pamplemousse\Photos\Form\Type\PhotoType;
+
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use Upload\Storage\FileSystem;
 use Upload\File;
@@ -22,6 +27,37 @@ class Controller
     {
         return $app['twig']->render('admin/index.twig', [
             'photos' => $app['photos']->getPhotos()
+        ]);
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @return Response
+     */
+    public function editAction(Application $app, Request $request)
+    {
+        $photos = $app['photos']->getPhotosByIds($request->get('ids'));
+
+        $form = $app['form.factory']->createBuilder(FormType::class)
+            ->add('photos', CollectionType::class, [
+                'entry_type' => PhotoType::class,
+                'data' => $photos
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            foreach ($photos as $id => $photo) {
+                $app['photos']->updatePhoto($id, $photo);
+            }
+            return $app->redirect($app['url_generator']->generate('admin'));
+        }
+
+        return $app['twig']->render('admin/edit.twig', [
+            'form' => $form->createView()
         ]);
     }
 
@@ -67,13 +103,13 @@ class Controller
         // Save file to db
         try {
             $filepath = sprintf("%s%s.%s",$app['config']['upload_dir'], $file->getName(), $file->getExtension());
-            $app['photos']->add($filepath);
+            $photoId = $app['photos']->add($filepath);
         } catch (\Exception $exception) {
             $app['monolog']->addError(sprintf("Error during file upload: %s", $exception->getMessage()));
             return new Response(sprintf("Erreur : %s", $exception->getMessage()), 400);
         }
 
-        return new Response();
+        return new Response($photoId);
     }
 
 }

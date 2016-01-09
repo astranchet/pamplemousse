@@ -1,0 +1,14 @@
+{% extends "bootstrap_3_layout.html.twig" %}
+
+{% block photo_widget %}
+    {% spaceless %}
+        <div class="photo-widget">
+            <img src="{{ path('thumbnail', { 'filename': data.filename, 'width': '200', 'height': '200' }) }}" alt="{{ data.description }}" />
+            <div class="fields">
+                {{ form_widget(form.id) }}
+                {{ form_widget(form.description) }}
+                {{ form_widget(form.is_favorite) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

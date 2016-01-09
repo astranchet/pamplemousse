@@ -16,7 +16,11 @@ class Router implements ControllerProviderInterface
     {
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/', Controller::class . "::indexAction");
+        $controllers->get('/', Controller::class . "::indexAction")
+            ->bind('admin');
+
+        $controllers->match('/edit', Controller::class . "::editAction")
+            ->bind('edit-photos');
 
         $controllers->post('/file-upload', Controller::class . "::fileUploadAction")
             ->bind('file-upload');
