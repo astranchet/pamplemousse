@@ -28,6 +28,8 @@
                     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
                     <script>window.html5 || document.write('<script src="{{ app.config.web_dir }}js/vendor/html5shiv.js"><\/script>')</script>
                 <![endif]-->
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+                <script>window.jQuery || document.write('<script src="{{ app.config.web_dir }}js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
                 <script src="{{ app.config.web_dir }}js/vendor/photoswipe.min.js"></script>
                 <script src="{{ app.config.web_dir }}js/vendor/photoswipe-ui-default.min.js"></script>
             {% endblock %}
@@ -37,8 +39,6 @@
         {% block content %}{% endblock %}
 
         {% block footer_js %}
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-            <script>window.jQuery || document.write('<script src="{{ app.config.web_dir }}js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
             <script src="{{ app.config.web_dir }}js/bootstrap/bootstrap.min.js"></script>
             <script src="{{ app.config.web_dir }}js/vendor/smooth-scroll.min.js"></script>
             <script src="{{ app.config.web_dir }}js/main.js"></script>
