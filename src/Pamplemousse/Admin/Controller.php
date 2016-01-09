@@ -53,6 +53,7 @@ class Controller
             foreach ($photos as $id => $photo) {
                 $app['photos']->updatePhoto($id, $photo);
             }
+            return $app->redirect($app['url_generator']->generate('admin'));
         }
 
         return $app['twig']->render('admin/edit.twig', [
