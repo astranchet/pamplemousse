@@ -24,7 +24,7 @@
                     } %}
                     {% set slides = slides|merge([slide]) %}
                     <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'id': photo.id }) }}">
-                        <img src="{{ path('thumbnail', { 'filename': photo.filename, 'width': 800, 'height': 800 }) }}" alt="{{ photo.filename }}" />
+                        <img src="{{ path('thumbnail', { 'id': photo.id, 'width': 800, 'height': 800 }) }}" alt="{{ photo.filename }}" />
                     </a>
                 {% endfor %}
 
