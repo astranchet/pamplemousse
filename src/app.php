@@ -32,6 +32,11 @@ $app->register(new TranslationServiceProvider(), array(
 $app->register(new TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
+$app['twig'] = $app->share($app->extend('twig', function($twig) {
+    $twig->addExtension(new Pamplemousse\Twig_Extension\TimeAgoFilter());
+    return $twig;
+}));
+
 $app->register(new UrlGeneratorServiceProvider());
 
 /** Services */

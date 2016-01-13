@@ -13,21 +13,23 @@ class Controller
     /**
      * @param  Application $app
      * @param  Request     $request
-     * @param  string      $filename
+     * @param  int         $id
      * @param  int         $width
      * @param  int         $height
      * @return Response
      */
-    public function thumbnailAction(Application $app, Request $request, $filename, $width, $height)
+    public function thumbnailAction(Application $app, Request $request, $id, $width, $height = null)
     {
+        $photo = $app['photos']->getPhoto($id);
+        $filename = $photo->filename;
+
         $webDirectory = __DIR__.'/../../../web';
         $destDirectory = $webDirectory . $app['config']['thumbnail_dir'] . $width . 'x' . $height . DIRECTORY_SEPARATOR;
 
         $destFile = $destDirectory . $filename;
         if (file_exists($destFile)) {
             $thumbnail = imagecreatefromjpeg($destFile);
-
-             ob_start();
+            ob_start();
             imagejpeg($thumbnail);
             $content = ob_get_clean();
 
@@ -38,8 +40,11 @@ class Controller
         }
 
         $layer = ImageWorkshop::initFromPath($webDirectory . $app['config']['upload_dir'] . $filename);
-        $layer->cropMaximumInPixel(0, 0, "MM");
-        $layer->resizeInPixel($width, $height);
+        if ($width == $height) {
+            // Square crop
+            $layer->cropMaximumInPixel(0, 0, "MM");
+        }
+        $layer->resizeInPixel($width, $height, true);
         $thumbnail = $layer->getResult();
 
         $createFolders = true;

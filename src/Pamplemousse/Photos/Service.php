@@ -17,11 +17,15 @@ class Service
 
     public function add($filepath)
     {
-        $image = $this->app['imagine']->open(__DIR__. '/../../../web/'. $filepath);
+        $relativePath = __DIR__. '/../../../web/'. $filepath;
+        $image = $this->app['imagine']->open($relativePath);
+        list($width, $height) = getimagesize($relativePath);
         $metadata = $image->metadata();
         $this->conn->insert('pamplemousse__item', [
             'path' => $filepath,
             'date_taken' => $metadata["exif.DateTimeOriginal"],
+            'width' => $width,
+            'height' => $height,
         ]);
 
         return $this->conn->lastInsertId();
@@ -32,7 +36,7 @@ class Service
         $items = $this->conn->fetchAll('SELECT * FROM pamplemousse__item WHERE type = ? ORDER BY date_taken DESC', array('picture'));
         $photos = [];
         foreach ($items as $id => $item) {
-            $photos[] = $this->itemToPhoto($item);
+            $photos[] = new Entity\Photo($item);
         }
 
         return $photos;
@@ -58,7 +62,7 @@ class Service
     {
         // TODO : check id exists
         $item = $this->conn->fetchAssoc('SELECT * FROM pamplemousse__item WHERE id = ?', array($id));
-        return $this->itemToPhoto($item);
+        return new Entity\Photo($item);
     }
 
     public function updatePhoto($id, $photo)
@@ -70,14 +74,4 @@ class Service
         return $this->conn->update('pamplemousse__item', $data, array('id' => $id));
     }
 
-    protected function itemToPhoto($item)
-    {
-        return [
-            'id' => $item['id'],
-            'url' => $item['path'],
-            'is_favorite' => $item['is_favorite'],
-            'description' => $item['description'],
-            'filename' => basename($item['path'])
-        ];
-    }
 }

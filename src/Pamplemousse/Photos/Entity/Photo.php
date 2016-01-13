@@ -7,18 +7,28 @@ class Photo
     public 
         $id,
         $url,
-        $is_favorite,
+        $filename,
         $description,
-        $filename
+        $date_taken,
+        $like,
+        $is_favorite,
+        $width,
+        $height
     ;
 
     public function __construct($data)
     {
         $this->id = $data['id'];
+
         $this->url = $data['path'];
-        $this->is_favorite = (boolean) $data['is_favorite'];
-        $this->description = $data['description'];
         $this->filename = basename($data['path']);
+
+        $this->description = $data['description'];
+        $this->date_taken = $data['date_taken'];
+        $this->like = $data['like'];
+        $this->is_favorite = (boolean) $data['is_favorite'];
+        $this->width = $data['width'];
+        $this->height = $data['height'];
     }
 
 }
