@@ -24,7 +24,7 @@
                         timeago: photo.date_taken|timeago
                     } %}
                     {% set slides = slides|merge([slide]) %}
-                    <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'id': photo.id }) }}">
+                    <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'photo': photo.id }) }}">
                         <img src="{{ path('thumbnail', { 'id': photo.id, 'width': 800, 'height': 800 }) }}" alt="{{ photo.filename }}" />
                     </a>
                 {% endfor %}

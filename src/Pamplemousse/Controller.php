@@ -5,6 +5,8 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Pamplemousse\Photos\Entity\Photo;
+
 class Controller
 {
 
@@ -23,12 +25,13 @@ class Controller
     /**
      * @param  Application $app
      * @param  Request     $request
+     * @param  Photo       $photo
      * @return Response
      */
-    public function photoAction(Application $app, Request $request, $id)
+    public function photoAction(Application $app, Request $request, Photo $photo)
     {
         return $app['twig']->render('photo.twig', [
-            'photo' => $app['photos']->getPhoto($id)
+            'photo' => $photo
         ]);
     }
 
