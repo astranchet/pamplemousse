@@ -17,7 +17,7 @@
                 {% set slides = [] %}
                 {% for photo in photos %}
                     {% set slide = {
-                        src: photo.url,
+                        src: path('thumbnail-by-width', { 'id': photo.id, 'width': 1200 }),
                         title: photo.description,
                         w: photo.width,
                         h: photo.height
