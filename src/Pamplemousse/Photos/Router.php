@@ -16,12 +16,14 @@ class Router implements ControllerProviderInterface
     {
         $controllers = $app['controllers_factory'];
 
-        # TODO : check filename and dimensions
-        $controllers->get('/thumbnail/{id}/{width}x{height}', Controller::class . "::thumbnailAction")
-            ->bind('thumbnail');
+        # TODO : check dimensions
+        $controllers->get('/thumbnail/{photo}/{width}x{height}', Controller::class . "::thumbnailAction")
+            ->bind('thumbnail')
+            ->convert('photo', 'photos:getPhoto');
 
-        $controllers->get('/thumbnail/{id}/{width}', Controller::class . "::thumbnailAction")
-            ->bind('thumbnail-by-width');
+        $controllers->get('/thumbnail/{photo}/{width}', Controller::class . "::thumbnailAction")
+            ->bind('thumbnail-by-width')
+            ->convert('photo', 'photos:getPhoto');
 
         return $controllers;
     }

@@ -7,20 +7,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 use PHPImageWorkshop\ImageWorkshop;
 
+use Pamplemousse\Photos\Entity\Photo;
+
 class Controller
 {
 
     /**
      * @param  Application $app
      * @param  Request     $request
-     * @param  int         $id
+     * @param  Photo       $photo
      * @param  int         $width
      * @param  int         $height
      * @return Response
      */
-    public function thumbnailAction(Application $app, Request $request, $id, $width, $height = null)
+    public function thumbnailAction(Application $app, Request $request, $photo, $width, $height = null)
     {
-        $photo = $app['photos']->getPhoto($id);
         if (!$photo) {
             return $app->abort(404);
         }
