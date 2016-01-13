@@ -23,7 +23,7 @@
         {% for photo in photos %}
             <div class="image">
                 {% if photo.is_favorite %}<span class="favorite glyphicon glyphicon-star"></span>{% endif %}
-                <a href="{{ photo.url }}"><img src="{{ path('thumbnail', { 'id': photo.id, 'width': '200', 'height': '200' }) }}" alt="{{ photo.filename }}" /></a>
+                <a href="{{ photo.url }}"><img src="{{ path('thumbnail', { 'photo': photo.id, 'width': '200', 'height': '200' }) }}" alt="{{ photo.filename }}" /></a>
             </div>
         {% endfor %}
         </div>
