@@ -29,8 +29,7 @@ class Controller
         $destFile = $destDirectory . $filename;
         if (file_exists($destFile)) {
             $thumbnail = imagecreatefromjpeg($destFile);
-
-             ob_start();
+            ob_start();
             imagejpeg($thumbnail);
             $content = ob_get_clean();
 
