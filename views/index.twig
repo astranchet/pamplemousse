@@ -18,9 +18,10 @@
                 {% for photo in photos %}
                     {% set slide = {
                         src: path('thumbnail-by-width', { 'id': photo.id, 'width': 1200 }),
-                        title: photo.description,
+                        title: photo.description|default(app.config.kid.name),
                         w: photo.width,
-                        h: photo.height
+                        h: photo.height,
+                        timeago: photo.date_taken|timeago
                     } %}
                     {% set slides = slides|merge([slide]) %}
                     <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'id': photo.id }) }}">
@@ -35,7 +36,17 @@
                     var pswpElement = document.querySelectorAll('.pswp')[0];
                     var items = {{ slides|json_encode(constant('JSON_PRETTY_PRINT'))|raw }};
                     var options = {
-                        index: 0 // start at first slide
+                        // Start at first slide
+                        index: 0,
+                        // Add timeago in caption
+                        addCaptionHTMLFn: function(item, captionEl) {
+                            if(!item.title) {
+                                captionEl.children[0].innerHTML = '';
+                                return false;
+                            }
+                            captionEl.children[0].innerHTML = item.title + ' — ' + item.timeago;
+                            return true;
+                        }
                     };
                     // Initializes and opens PhotoSwipe
                     var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
