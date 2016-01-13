@@ -60,9 +60,11 @@ class Service
 
     public function getPhoto($id)
     {
-        // TODO : check id exists
         $item = $this->conn->fetchAssoc('SELECT * FROM pamplemousse__item WHERE id = ?', array($id));
-        return new Entity\Photo($item);
+        if ($item) {
+            return new Entity\Photo($item);
+        }
+        return false;
     }
 
     public function updatePhoto($id, $photo)

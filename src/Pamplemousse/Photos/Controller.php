@@ -21,6 +21,10 @@ class Controller
     public function thumbnailAction(Application $app, Request $request, $id, $width, $height = null)
     {
         $photo = $app['photos']->getPhoto($id);
+        if (!$photo) {
+            return $app->abort(404);
+        }
+
         $filename = $photo->filename;
 
         $webDirectory = __DIR__.'/../../../web';
