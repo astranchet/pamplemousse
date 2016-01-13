@@ -36,7 +36,7 @@ class Service
         $items = $this->conn->fetchAll('SELECT * FROM pamplemousse__item WHERE type = ? ORDER BY date_taken DESC', array('picture'));
         $photos = [];
         foreach ($items as $id => $item) {
-            $photos[] = $this->itemToPhoto($item);
+            $photos[] = new Entity\Photo($item);
         }
 
         return $photos;
@@ -74,17 +74,4 @@ class Service
         return $this->conn->update('pamplemousse__item', $data, array('id' => $id));
     }
 
-    // TODO : use entity everywhere
-    protected function itemToPhoto($item)
-    {
-        return [
-            'id' => $item['id'],
-            'url' => $item['path'],
-            'width' => $item['width'],
-            'height' => $item['height'],
-            'is_favorite' => $item['is_favorite'],
-            'description' => $item['description'],
-            'filename' => basename($item['path'])
-        ];
-    }
 }
