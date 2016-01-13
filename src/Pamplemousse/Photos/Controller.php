@@ -37,21 +37,7 @@ class Controller
             return $this->imageStream($app, $thumbnailPath, $fileName);
         }
 
-        $layer = ImageWorkshop::initFromPath($this->webDir . $app['config']['upload_dir'] . $fileName);
-        if ($width == $height) {
-            // Square crop
-            $layer->cropMaximumInPixel(0, 0, "MM");
-        }
-        $layer->resizeInPixel($width, $height, true);
-        $thumbnail = $layer->getResult();
-
-        $createFolders = true;
-        $backgroundColor = null;
-        $imageQuality = 95;
-
-        $layer->save($thumbnailDir, $fileName, $createFolders, $backgroundColor, $imageQuality);
-        $app['monolog']->addDebug(sprintf("Thumbnail generated: %s/%s", $thumbnailDir, $fileName));
-
+        $thumbnail = $this->generateThumbnail($app, $photo, $width, $height, $thumbnailDir);
         return $this->imageStream($app, $thumbnail, $fileName);
     }
 
@@ -68,6 +54,28 @@ class Controller
             'Content-type'        => 'image/jpeg',
             'Content-Disposition' => sprintf('filename="%s"', $name),
         ]);
+    }
+
+    private function generateThumbnail($app, $photo, $width, $height, $thumbnailDir)
+    {
+        $fileName = $photo->filename;
+
+        $layer = ImageWorkshop::initFromPath($this->webDir . $app['config']['upload_dir'] . $fileName);
+        if ($width == $height) {
+            // Square crop
+            $layer->cropMaximumInPixel(0, 0, "MM");
+        }
+        $layer->resizeInPixel($width, $height, true);
+        $thumbnail = $layer->getResult();
+
+        $createFolders = true;
+        $backgroundColor = null;
+        $imageQuality = 95;
+
+        $layer->save($thumbnailDir, $fileName, $createFolders, $backgroundColor, $imageQuality);
+        $app['monolog']->addDebug(sprintf("Thumbnail generated: %s/%s", $thumbnailDir, $fileName));
+
+        return $thumbnail;
     }
 
 }
