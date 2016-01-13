@@ -20,6 +20,9 @@ class Router implements ControllerProviderInterface
         $controllers->get('/thumbnail/{id}/{width}x{height}', Controller::class . "::thumbnailAction")
             ->bind('thumbnail');
 
+        $controllers->get('/thumbnail/{id}/{width}', Controller::class . "::thumbnailAction")
+            ->bind('thumbnail-by-width');
+
         return $controllers;
     }
 }

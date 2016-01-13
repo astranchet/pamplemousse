@@ -18,7 +18,7 @@ class Controller
      * @param  int         $height
      * @return Response
      */
-    public function thumbnailAction(Application $app, Request $request, $id, $width, $height)
+    public function thumbnailAction(Application $app, Request $request, $id, $width, $height = null)
     {
         $photo = $app['photos']->getPhoto($id);
         $filename = $photo->filename;
@@ -41,8 +41,11 @@ class Controller
         }
 
         $layer = ImageWorkshop::initFromPath($webDirectory . $app['config']['upload_dir'] . $filename);
-        $layer->cropMaximumInPixel(0, 0, "MM");
-        $layer->resizeInPixel($width, $height);
+        if ($width == $height) {
+            // Square crop
+            $layer->cropMaximumInPixel(0, 0, "MM");
+        }
+        $layer->resizeInPixel($width, $height, true);
         $thumbnail = $layer->getResult();
 
         $createFolders = true;
