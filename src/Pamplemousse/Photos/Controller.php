@@ -12,6 +12,8 @@ use Pamplemousse\Photos\Entity\Photo;
 class Controller
 {
 
+    protected $webDir = __DIR__.'/../../../web';
+
     /**
      * @param  Application $app
      * @param  Request     $request
@@ -26,25 +28,16 @@ class Controller
             return $app->abort(404);
         }
 
-        $filename = $photo->filename;
+        $fileName = $photo->filename;
 
-        $webDirectory = __DIR__.'/../../../web';
-        $destDirectory = $webDirectory . $app['config']['thumbnail_dir'] . $width . 'x' . $height . DIRECTORY_SEPARATOR;
+        $thumbnailDir = $this->webDir . $app['config']['thumbnail_dir'] . $width . 'x' . $height . DIRECTORY_SEPARATOR;
+        $thumbnailPath = $thumbnailDir . $fileName;
 
-        $destFile = $destDirectory . $filename;
-        if (file_exists($destFile)) {
-            $stream = function () use ($destFile) {
-                $thumbnail = imagecreatefromjpeg($destFile);
-                imagejpeg($thumbnail);
-            };
-
-            return $app->stream($stream, 200, [
-                'Content-type'        => 'image/jpeg',
-                'Content-Disposition' => sprintf('filename="%s"', $filename),
-            ]);
+        if (file_exists($thumbnailPath)) {
+            return $this->imageStream($app, $thumbnailPath, $fileName);
         }
 
-        $layer = ImageWorkshop::initFromPath($webDirectory . $app['config']['upload_dir'] . $filename);
+        $layer = ImageWorkshop::initFromPath($this->webDir . $app['config']['upload_dir'] . $fileName);
         if ($width == $height) {
             // Square crop
             $layer->cropMaximumInPixel(0, 0, "MM");
@@ -56,16 +49,24 @@ class Controller
         $backgroundColor = null;
         $imageQuality = 95;
 
-        $layer->save($destDirectory, $filename, $createFolders, $backgroundColor, $imageQuality);
-        $app['monolog']->addDebug(sprintf("Thumbnail generated: %s/%s", $destDirectory, $filename));
+        $layer->save($thumbnailDir, $fileName, $createFolders, $backgroundColor, $imageQuality);
+        $app['monolog']->addDebug(sprintf("Thumbnail generated: %s/%s", $thumbnailDir, $fileName));
 
-        $stream = function () use ($thumbnail) {
-            imagejpeg($thumbnail);
+        return $this->imageStream($app, $thumbnail, $fileName);
+    }
+
+    private function imageStream($app, $image, $name)
+    {
+        $stream = function () use ($image) {
+            if (!is_resource($image)) {
+                $image = imagecreatefromjpeg($image);
+            }
+            imagejpeg($image);
         };
 
         return $app->stream($stream, 200, [
             'Content-type'        => 'image/jpeg',
-            'Content-Disposition' => sprintf('filename="%s"', $filename),
+            'Content-Disposition' => sprintf('filename="%s"', $name),
         ]);
     }
 
