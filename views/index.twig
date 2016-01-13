@@ -55,10 +55,40 @@
                     var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
                     gallery.init();
                 };
+
+                var photoswipeParseHash = function() {
+                    var hash = window.location.hash.substring(1),
+                    params = {};
+
+                    if(hash.length < 5) {
+                        return params;
+                    }
+
+                    var vars = hash.split('&');
+                    for (var i = 0; i < vars.length; i++) {
+                        if(!vars[i]) {
+                            continue;
+                        }
+                        var pair = vars[i].split('=');
+                        if(pair.length < 2) {
+                            continue;
+                        }
+                        params[pair[0]] = pair[1];
+                    }
+
+                    return params;
+                };
+
                 $(".image").on('click', function(e) {
                     e.preventDefault();
                     openPhotoSwipe(this.getAttribute('data-index'));
                 });
+
+                // Parse URL and open gallery if it contains #&pid=X
+                var hashData = photoswipeParseHash();
+                if(hashData.pid) {
+                    openPhotoSwipe(hashData.pid - 1);
+                }
                 </script>
             </div>
         </div>
