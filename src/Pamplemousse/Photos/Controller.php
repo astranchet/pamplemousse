@@ -33,12 +33,12 @@ class Controller
 
         $destFile = $destDirectory . $filename;
         if (file_exists($destFile)) {
-            $thumbnail = imagecreatefromjpeg($destFile);
-            ob_start();
-            imagejpeg($thumbnail);
-            $content = ob_get_clean();
+            $stream = function () use ($destFile) {
+                $thumbnail = imagecreatefromjpeg($destFile);
+                imagejpeg($thumbnail);
+            };
 
-            return new Response($content, 200, [
+            return $app->stream($stream, 200, [
                 'Content-type'        => 'image/jpeg',
                 'Content-Disposition' => sprintf('filename="%s"', $filename),
             ]);
@@ -59,11 +59,11 @@ class Controller
         $layer->save($destDirectory, $filename, $createFolders, $backgroundColor, $imageQuality);
         $app['monolog']->addDebug(sprintf("Thumbnail generated: %s/%s", $destDirectory, $filename));
 
-        ob_start();
-        imagejpeg($thumbnail);
-        $content = ob_get_clean();
+        $stream = function () use ($thumbnail) {
+            imagejpeg($thumbnail);
+        };
 
-        return new Response($content, 200, [
+        return $app->stream($stream, 200, [
             'Content-type'        => 'image/jpeg',
             'Content-Disposition' => sprintf('filename="%s"', $filename),
         ]);
