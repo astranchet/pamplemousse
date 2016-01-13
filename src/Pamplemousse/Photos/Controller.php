@@ -21,7 +21,7 @@ class Controller
     public function thumbnailAction(Application $app, Request $request, $id, $width, $height)
     {
         $photo = $app['photos']->getPhoto($id);
-        $filename = $photo['filename'];
+        $filename = $photo->filename;
 
         $webDirectory = __DIR__.'/../../../web';
         $destDirectory = $webDirectory . $app['config']['thumbnail_dir'] . $width . 'x' . $height . DIRECTORY_SEPARATOR;
