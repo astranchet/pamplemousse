@@ -9,7 +9,9 @@ class Photo
         $url,
         $is_favorite,
         $description,
-        $filename
+        $filename,
+        $width,
+        $height
     ;
 
     public function __construct($data)
@@ -19,6 +21,8 @@ class Photo
         $this->is_favorite = (boolean) $data['is_favorite'];
         $this->description = $data['description'];
         $this->filename = basename($data['path']);
+        $this->width = $data['width'];
+        $this->height = $data['height'];
     }
 
 }
