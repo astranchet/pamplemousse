@@ -36,13 +36,22 @@ class TimeagoFilter extends Twig_Extension
 
         foreach ($units as $unit => $labels) {
             if ($time < $unit) continue;
-            $numberOfUnits = floor($time / $unit);
             $labelSingular = $labels[0];
-            $labelPlurar = $labels[1];
+            $labelPlural = $labels[1];
+
             if ($labelSingular == 'seconde') {
                 return "À l'instant";
+            } elseif (in_array($labelSingular, ['mois', 'année'])) {
+                $numberOfUnits = round(($time / $unit) * 2) / 2;
+                if ($numberOfUnits == floor($numberOfUnits)) {
+                    return sprintf("Il y a %s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                } else {
+                    $numberOfUnits = floor($numberOfUnits);
+                    return sprintf("Il y a %s %s et demi", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                }
             } else {
-                return sprintf("Il y a %s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlurar);
+                $numberOfUnits = floor($time / $unit);
+                return sprintf("Il y a %s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
             }
         }
 
