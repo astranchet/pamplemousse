@@ -4,6 +4,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\MonologServiceProvider;
+use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
@@ -24,6 +25,18 @@ $app->register(new MonologServiceProvider(), array(
     'monolog.logfile'    => __DIR__ . '/../log/app.log',
     'monolog.name'       => 'pamplemousse',
     'monolog.level'      => 100
+));
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+        'admin' => array(
+            'pattern' => '^/admin',
+            'http' => true,
+            'users' => array(
+                // raw password is foo
+                'admin' => array('ROLE_ADMIN', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg=='),
+            ),
+        )
+    )
 ));
 $app->register(new SessionServiceProvider());
 $app->register(new TranslationServiceProvider(), array(
