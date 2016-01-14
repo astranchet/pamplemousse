@@ -31,6 +31,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
         'admin' => array(
             'pattern' => '^/admin',
             'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
+            'logout' => array('logout_path' => '/admin/logout', 'invalidate_session' => true),
             'users' => array(
                 // raw password is foo
                 'admin' => array('ROLE_ADMIN', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg=='),
