@@ -35,6 +35,16 @@ class Controller
      * @param  Request     $request
      * @return Response
      */
+    public function loginCheckAction(Application $app, Request $request)
+    {
+        return true;
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @return Response
+     */
     public function editAction(Application $app, Request $request)
     {
         $photos = $app['photos']->getPhotosByIds($request->get('ids'));
