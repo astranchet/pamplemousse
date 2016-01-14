@@ -24,7 +24,7 @@
                         timeago: photo.date_taken|timeago
                     } %}
                     {% set slides = slides|merge([slide]) %}
-                    <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'photo': photo.id }) }}">
+                    <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
                         <img src="{{ path('thumbnail', { 'photo': photo.id, 'width': 800, 'height': 800 }) }}" alt="{{ photo.filename }}" />
                     </a>
                 {% endfor %}
@@ -32,12 +32,11 @@
                 {% include 'partials/photoswipe.twig' %}
 
                 <script>
-                var openPhotoSwipe = function() {
+                var openPhotoSwipe = function(index) {
                     var pswpElement = document.querySelectorAll('.pswp')[0];
                     var items = {{ slides|json_encode(constant('JSON_PRETTY_PRINT'))|raw }};
                     var options = {
-                        // Start at first slide
-                        index: 0,
+                        index: index,
                         // Add timeago in caption
                         addCaptionHTMLFn: function(item, captionEl) {
                             if(!item.title) {
@@ -56,10 +55,40 @@
                     var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
                     gallery.init();
                 };
+
+                var photoswipeParseHash = function() {
+                    var hash = window.location.hash.substring(1),
+                    params = {};
+
+                    if(hash.length < 5) {
+                        return params;
+                    }
+
+                    var vars = hash.split('&');
+                    for (var i = 0; i < vars.length; i++) {
+                        if(!vars[i]) {
+                            continue;
+                        }
+                        var pair = vars[i].split('=');
+                        if(pair.length < 2) {
+                            continue;
+                        }
+                        params[pair[0]] = pair[1];
+                    }
+
+                    return params;
+                };
+
                 $(".image").on('click', function(e) {
                     e.preventDefault();
-                    openPhotoSwipe();
+                    openPhotoSwipe(this.getAttribute('data-index'));
                 });
+
+                // Parse URL and open gallery if it contains #&pid=X
+                var hashData = photoswipeParseHash();
+                if(hashData.pid) {
+                    openPhotoSwipe(hashData.pid - 1);
+                }
                 </script>
             </div>
         </div>
