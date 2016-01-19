@@ -26,6 +26,18 @@
     border-radius: 50%;
   }
 
+  .errors {
+    background: #F8C4A5;
+    border: 1px solid #DF622C;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: #DF622C;
+    padding: 1em;
+    font-weight: bold;
+    margin: 2em 0;
+  }
+
   form {
 
     input {
