@@ -19,6 +19,9 @@ class Router implements ControllerProviderInterface
         $controllers->get('/', Controller::class . "::indexAction")
             ->bind('admin');
 
+        $controllers->get('/login_check', Controller::class . "::loginCheckAction");
+        $controllers->get('/logout', Controller::class . "::logoutAction");
+
         $controllers->match('/edit', Controller::class . "::editAction")
             ->bind('edit-photos');
 

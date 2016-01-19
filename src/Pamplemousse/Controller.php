@@ -25,6 +25,19 @@ class Controller
     /**
      * @param  Application $app
      * @param  Request     $request
+     * @return Response
+     */
+    public function loginAction(Application $app, Request $request)
+    {
+        return $app['twig']->render('login.twig', [
+            'error'         => $app['security.last_error']($request),
+            'last_username' => $app['session']->get('_security.last_username'),
+        ]);
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
      * @param  Photo       $photo
      * @return Response
      */

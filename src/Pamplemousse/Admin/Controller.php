@@ -26,8 +26,29 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         return $app['twig']->render('admin/index.twig', [
+            'user' => $app['security.token_storage']->getToken()->getUser(),
             'photos' => $app['photos']->getPhotos()
         ]);
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @return Response
+     */
+    public function loginCheckAction(Application $app, Request $request)
+    {
+        return true;
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @return Response
+     */
+    public function logoutAction(Application $app, Request $request)
+    {
+        return true;
     }
 
     /**
