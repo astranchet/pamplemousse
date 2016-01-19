@@ -1,6 +1,14 @@
-<form action="{{ path('admin_login_check') }}" method="post">
-    {{ error }}
-    <input type="text" name="_username" value="{{ last_username }}" />
-    <input type="password" name="_password" value="" />
-    <input type="submit" />
-</form>
+{% extends "base.html" %}
+
+{% block title %}Login / {{ parent() }}{% endblock %}
+
+{% block content %}
+    <section>
+        <form action="{{ path('admin_login_check') }}" method="post">
+            {{ error }}
+            <input type="text" name="_username" value="{{ last_username }}" />
+            <input type="password" name="_password" value="" />
+            <input type="submit" />
+        </form>
+    </section>
+{% endblock %}
