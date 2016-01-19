@@ -15,7 +15,7 @@
 
 {% block content %}
     <section>
-        <a href="{{ path('admin_logout') }}">Déconnexion</a>
+        <a href="{{ path('admin_logout') }}">Déconnexion ({{ user.username }})</a>
 
         <h1>Upload de fichier</h1>
         <form action="{{ path('file-upload') }}" class="dropzone"></form>
