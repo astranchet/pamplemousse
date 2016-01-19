@@ -1,14 +1,20 @@
-{% extends "base.html" %}
+{% extends "admin/index.twig" %}
+
+{% block id %}login{% endblock %}
 
 {% block title %}Login / {{ parent() }}{% endblock %}
 
 {% block content %}
-    <section>
-        <form action="{{ path('admin_login_check') }}" method="post">
-            {{ error }}
-            <input type="text" name="_username" value="{{ last_username }}" />
-            <input type="password" name="_password" value="" />
-            <input type="submit" />
-        </form>
+    <section class="container">
+        <div class="card">
+            <img class="profile-img-card" src="{{ app.config.web_dir }}images/bg-tiny.jpg" />
+
+            <form action="{{ path('admin_login_check') }}" method="post" class="form-signin">
+                {{ error }}
+                <input type="text" name="_username" value="{{ last_username }}" class="form-control" placeholder="Nom d'utilisateur" required autofocus />
+                <input type="password" name="_password" value="" class="form-control" placeholder="Mot de passe" required />
+                <button type="submit">Login</button>
+            </form>
+        </div>
     </section>
 {% endblock %}
