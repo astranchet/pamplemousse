@@ -25,8 +25,15 @@ class Controller
      */
     public function indexAction(Application $app, Request $request)
     {
+        $token = $app['security.token_storage']->getToken();
+        if ($token !== null) {
+            $user = $token->getUser();
+        } else {
+            $user = null;
+        }
+
         return $app['twig']->render('admin/index.twig', [
-            'user' => $app['security.token_storage']->getToken()->getUser(),
+            'user' => $user,
             'photos' => $app['photos']->getPhotos()
         ]);
     }
