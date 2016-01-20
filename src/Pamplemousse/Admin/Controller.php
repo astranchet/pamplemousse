@@ -84,9 +84,13 @@ class Controller
             return $app->redirect($app['url_generator']->generate('admin'));
         }
 
-        return $app['twig']->render('admin/edit.twig', [
-            'form' => $form->createView()
-        ]);
+        if ($request->get('modal')) {
+            return $app['twig']->render('admin/modal/edit.twig', [
+                'form' => $form->createView()
+            ]);
+        } else {
+            return "Hello world";
+        }
     }
 
     /**

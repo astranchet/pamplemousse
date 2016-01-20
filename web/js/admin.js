@@ -16,7 +16,7 @@ $(function() {
     });
 
     if (ids.length) {
-      var url = "edit?" + $.param({ 'ids': ids });
+      var url = "edit?" + $.param({ 'ids': ids, 'modal': true });
       $("#modal").load(url, function() {
         $("#editForm").modal();
       });
