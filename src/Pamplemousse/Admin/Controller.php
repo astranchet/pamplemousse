@@ -78,12 +78,15 @@ class Controller
         }
 
         if ($request->get('modal')) {
-            return $app['twig']->render('admin/modal/edit.twig', [
-                'form' => $form->createView()
-            ]);
+            $template = 'admin/modal/edit.twig';
         } else {
-            return "Hello world";
+            $template = 'admin/edit.twig';
         }
+
+        return $app['twig']->render($template, [
+            'user' => $this->getUser($app),
+            'form' => $form->createView()
+        ]);
     }
 
     /**
