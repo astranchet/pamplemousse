@@ -1,49 +1,16 @@
-{% extends "base.html" %}
+{% extends "admin/templates/base.html" %}
 
-{% block title %}Admin / {{ parent() }}{% endblock %}
+{% block sidebar %}
+    <div class="panel panel-default">
+        <div class="panel-heading">Upload de fichier</div>
 
-{% block css %}
-    {{ parent() }}
-    <link href="{{ app.config.web_dir }}css/admin.css" rel="stylesheet">
-    <link href="{{ app.config.web_dir }}css/dropzone/dropzone.css" rel="stylesheet">
-{% endblock %}
-
-{% block js %}
-    {{ parent() }}
-    <script src="{{ app.config.web_dir }}js/vendor/dropzone.js"></script>
-{% endblock %}
-
-{% block content %}
-
-
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{ path('admin_logout') }}">Pamplemousse</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ path('index') }}" target="_blank">Accès au site</a></li>
-                <li><a href="{{ path('admin_logout') }}" target="_blank">Déconnexion {% if user %}({{ user.username }}){% endif %}</a></li>
-            </ul>
+        <div class="panel-body">
+            <form action="{{ path('file-upload') }}" class="dropzone"></form>
         </div>
     </div>
-</nav>
+{% endblock %}
 
-<div class="container-fluid main-container">
-
-    <div class="col-md-2 sidebar">
-        <div class="panel panel-default">
-            <div class="panel-heading">Upload de fichier</div>
-
-            <div class="panel-body">
-                <form action="{{ path('file-upload') }}" class="dropzone"></form>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-10 content">
+{% block page_content %}
         <div class="panel panel-default">
             <div class="panel-heading"><h1>Images</h1></div>
             <div class="panel-body">
@@ -72,13 +39,4 @@
 
         </div>
     </div>
-
-</div>
-
-<div id="modal"></div>
-{% endblock %}
-
-{% block footer_js %}
-    {{ parent() }}
-    <script src="{{ app.config.web_dir }}js/admin.js"></script>
 {% endblock %}
