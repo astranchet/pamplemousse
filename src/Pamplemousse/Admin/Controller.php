@@ -25,15 +25,8 @@ class Controller
      */
     public function indexAction(Application $app, Request $request)
     {
-        $token = $app['security.token_storage']->getToken();
-        if ($token !== null) {
-            $user = $token->getUser();
-        } else {
-            $user = null;
-        }
-
         return $app['twig']->render('admin/index.twig', [
-            'user' => $user,
+            'user' => $this->getUser($app),
             'photos' => $app['photos']->getPhotos()
         ]);
     }
@@ -144,4 +137,14 @@ class Controller
         return new Response($photoId);
     }
 
+
+    protected function getUser($app)
+    {
+        $token = $app['security.token_storage']->getToken();
+        if ($token !== null) {
+            return $token->getUser();
+        }
+
+        return null;
+    }
 }
