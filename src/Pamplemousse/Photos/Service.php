@@ -4,6 +4,8 @@ namespace Pamplemousse\Photos;
 
 use Symfony\Component\HttpFoundation\Request;
 
+use PHPImageWorkshop\ImageWorkshop;
+
 class Service
 {
     const TABLE_NAME = 'pamplemousse__item';
@@ -94,6 +96,46 @@ class Service
             unlink($thumbnail);
         }
         return $this->conn->delete(self::TABLE_NAME, array('id' => $photo->id));
+    }
+
+    /**
+     * Get thumbnail (or generate it) for given photo and size
+     * 
+     * @param  Photo $photo
+     * @param  int   $width
+     * @param  int   $height
+     * @return resource
+     */
+    public function getThumbnail($photo, $width, $height)
+    {
+        $thumbnailDir = $this->getThumbnailDir($width, $height);
+        $thumbnailPath = $thumbnailDir . $photo->filename;
+
+        if (file_exists($thumbnailPath)) {
+            return imagecreatefromjpeg($thumbnailPath);
+        }
+
+        // Generate thumbnail
+        $layer = ImageWorkshop::initFromPath($photo->getImagePath());
+        if ($width == $height) {
+            $layer->cropMaximumInPixel(0, 0, "MM"); // Square crop
+        }
+        $layer->resizeInPixel($width, $height, true);
+        $thumbnail = $layer->getResult();
+
+        $createFolders = true;
+        $backgroundColor = null;
+        $imageQuality = 95;
+        $layer->save($thumbnailDir, $photo->filename, $createFolders, $backgroundColor, $imageQuality);
+
+        $this->app['monolog']->addDebug(sprintf("Thumbnail generated: %s/%s", $thumbnailDir, $photo->filename));
+
+        return $thumbnail;
+    }
+
+    protected function getThumbnailDir($width, $height)
+    {
+        return __DIR__.'/../../../web' . $this->config['thumbnail_dir'] . $width . 'x' . $height . DIRECTORY_SEPARATOR;
     }
 
 }
