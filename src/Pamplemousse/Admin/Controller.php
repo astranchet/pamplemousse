@@ -1,6 +1,7 @@
 <?php
 namespace Pamplemousse\Admin;
 
+use Pamplemousse\Photos\Entity\Photo;
 use Pamplemousse\Photos\Form\Type\PhotoType;
 
 use Silex\Application;
@@ -87,6 +88,16 @@ class Controller
             'user' => $this->getUser($app),
             'form' => $form->createView()
         ]);
+    }
+
+    public function deleteAction(Application $app, Request $request, Photo $photo)
+    {
+        if (!$photo) {
+            return $app->abort(404);
+        }
+
+        $app['photos']->deletePhoto($photo);
+        return $app->redirect($app['url_generator']->generate('admin'));
     }
 
     /**

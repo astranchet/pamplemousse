@@ -25,6 +25,10 @@ class Router implements ControllerProviderInterface
         $controllers->match('/edit', Controller::class . "::editAction")
             ->bind('edit-photos');
 
+        $controllers->match('/delete/{photo}', Controller::class . "::deleteAction")
+            ->convert('photo', 'photos:getPhoto')
+            ->bind('delete-photo');
+
         $controllers->post('/file-upload', Controller::class . "::fileUploadAction")
             ->bind('file-upload');
 
