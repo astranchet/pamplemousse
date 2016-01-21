@@ -135,7 +135,7 @@ class Service
 
     protected function getThumbnailDir($width, $height)
     {
-        return __DIR__.'/../../../web' . $this->config['thumbnail_dir'] . $width . 'x' . $height . DIRECTORY_SEPARATOR;
+        return __DIR__.'/../../../web' . $this->config['thumbnails']['dir'] . $width . 'x' . $height . DIRECTORY_SEPARATOR;
     }
 
 }
