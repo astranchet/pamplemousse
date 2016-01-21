@@ -104,32 +104,17 @@ class Controller
      */
     public function fileUploadAction(Application $app, Request $request)
     {
-        $webDirectory = __DIR__.'/../../../web';
-        $storage = new FileSystem($webDirectory . $app['config']['upload_dir']);
-        $file = new File('file', $storage);
-
-        // Validate file upload
+        $file = new File('file', new FileSystem(__DIR__.'/../../../web' . $app['config']['upload_dir']));
         $file->addValidations(array(
             new Mimetype(array('image/png', 'image/gif', 'image/jpeg')),
             new Size('5M')
         ));
 
-        // Access data about the file that has been uploaded
-        $data = array(
-            'name'       => $file->getNameWithExtension(),
-            'extension'  => $file->getExtension(),
-            'mime'       => $file->getMimetype(),
-            'size'       => $file->getSize(),
-            'md5'        => $file->getMd5(),
-            'dimensions' => $file->getDimensions()
-        );
-
-        $app['monolog']->addDebug(sprintf("File uploaded: %s", json_encode($data)));
-
         // Upload file to server
         try {
             $file->setName($app['slug']->slugify($file->getName()));
             $file->upload();
+            $app['monolog']->addDebug(sprintf("File uploaded: %s", json_encode($file->getNameWithExtension())));
         } catch (\Exception $exception) {
             $errorMessage = join('<br />', $file->getErrors());
             $app['monolog']->addError(sprintf("Error during file upload: %s", $errorMessage));
@@ -138,10 +123,9 @@ class Controller
 
         // Save file to db
         try {
-            $filepath = sprintf("%s%s.%s",$app['config']['upload_dir'], $file->getName(), $file->getExtension());
-            $photoId = $app['photos']->add($filepath);
+            $photoId = $app['photos']->add($file->getNameWithExtension());
         } catch (\Exception $exception) {
-            $app['monolog']->addError(sprintf("Error during file upload: %s", $exception->getMessage()));
+            $app['monolog']->addError(sprintf("Error during file insertion: %s", $exception->getMessage()));
             return new Response(sprintf("Erreur : %s", $exception->getMessage()), 400);
         }
 

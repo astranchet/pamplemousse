@@ -21,21 +21,21 @@ class Service
         $this->conn = $app['db'];
     }
 
-    public function add($filepath)
+    public function add($filename)
     {
-        $this->conn->insert(self::TABLE_NAME, $this->getDataFromFile($filepath));
+        $this->conn->insert(self::TABLE_NAME, $this->getDataFromFile($filename));
         return $this->conn->lastInsertId();
     }
 
-    protected function getDataFromFile($filepath)
+    protected function getDataFromFile($filename)
     {
-        $relativePath = __DIR__. '/../../../web/'. $filepath;
-        $image = $this->app['imagine']->open($relativePath);
-        list($width, $height) = getimagesize($relativePath);
+        $filepath = $this->getUploadDir() . $filename;
+        $image = $this->app['imagine']->open($filepath);
+        list($width, $height) = getimagesize($filepath);
         $metadata = $image->metadata();
 
         return [
-            'path' => $filepath,
+            'path' => $this->app['config']['upload_dir'] . $filename,
             'date_taken' => $metadata["exif.DateTimeOriginal"],
             'width' => $width,
             'height' => $height,
@@ -136,6 +136,11 @@ class Service
         $this->app['monolog']->addDebug(sprintf("Thumbnail generated: %s/%s", $thumbnailDir, $photo->filename));
 
         return $thumbnail;
+    }
+
+    protected function getUploadDir()
+    {
+        return __DIR__.'/../../../web' . $this->config['upload_dir'] . DIRECTORY_SEPARATOR;
     }
 
     protected function getThumbnailDir($width, $height)
