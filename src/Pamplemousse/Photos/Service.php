@@ -4,6 +4,8 @@ namespace Pamplemousse\Photos;
 
 class Service
 {
+    const TABLE_NAME = 'pamplemousse__item';
+
     protected $app;
     protected $config;
     protected $conn;
@@ -21,7 +23,7 @@ class Service
         $image = $this->app['imagine']->open($relativePath);
         list($width, $height) = getimagesize($relativePath);
         $metadata = $image->metadata();
-        $this->conn->insert('pamplemousse__item', [
+        $this->conn->insert(self::TABLE_NAME, [
             'path' => $filepath,
             'date_taken' => $metadata["exif.DateTimeOriginal"],
             'width' => $width,
@@ -33,7 +35,7 @@ class Service
 
     public function getPhotos()
     {
-        $items = $this->conn->fetchAll('SELECT * FROM pamplemousse__item WHERE type = ? ORDER BY date_taken DESC', array('picture'));
+        $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s WHERE type = ? ORDER BY date_taken DESC', self::TABLE_NAME), array('picture'));
         $photos = [];
         foreach ($items as $id => $item) {
             $photos[] = new Entity\Photo($item);
@@ -44,8 +46,7 @@ class Service
 
     public function getPhotosByIds($ids)
     {
-        $statement = $this->conn->executeQuery(
-            'SELECT * FROM pamplemousse__item WHERE type = "picture" AND id IN (?) ORDER BY date_taken DESC',
+        $statement = $this->conn->executeQuery(sprintf('SELECT * FROM %s WHERE type = "picture" AND id IN (?) ORDER BY date_taken DESC', self::TABLE_NAME),
             [$ids],
             [\Doctrine\DBAL\Connection::PARAM_INT_ARRAY]);
         $items = $statement->fetchAll();
@@ -60,7 +61,7 @@ class Service
 
     public function getPhoto($id)
     {
-        $item = $this->conn->fetchAssoc('SELECT * FROM pamplemousse__item WHERE id = ?', array($id));
+        $item = $this->conn->fetchAssoc(sprintf('SELECT * FROM %s WHERE id = ?', self::TABLE_NAME), array($id));
         if ($item) {
             return new Entity\Photo($item);
         }
@@ -73,7 +74,7 @@ class Service
             'description' => $photo->description,
             'is_favorite' => $photo->is_favorite,
         ];
-        return $this->conn->update('pamplemousse__item', $data, array('id' => $id));
+        return $this->conn->update(self::TABLE_NAME, $data, array('id' => $id));
     }
 
     public function deletePhoto($photo)
@@ -83,7 +84,7 @@ class Service
         foreach ($thumbnails as $thumbnail) {
             unlink($thumbnail);
         }
-        return $this->conn->delete('pamplemousse__item', array('id' => $photo->id));
+        return $this->conn->delete(self::TABLE_NAME, array('id' => $photo->id));
     }
 
 }
