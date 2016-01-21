@@ -16,6 +16,10 @@ class Router implements ControllerProviderInterface
     {
         $controllers = $app['controllers_factory'];
 
+        $controllers->get('/{photo}', Controller::class . "::photoAction")
+            ->bind('photo')
+            ->convert('photo', 'photos:getPhoto');
+
         $controllers->get('/thumbnail/{photo}/{width}x{height}', Controller::class . "::thumbnailAction")
             ->bind('thumbnail')
             ->convert('photo', 'photos:getPhoto')

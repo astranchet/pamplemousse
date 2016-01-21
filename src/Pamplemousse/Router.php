@@ -21,10 +21,6 @@ class Router implements ControllerProviderInterface
             ;
         $controllers->get('/login', Controller::class . "::loginAction");
 
-        $controllers->get('/photo/{photo}', Controller::class . "::photoAction")
-            ->bind('photo')
-            ->convert('photo', 'photos:getPhoto');
-
         return $controllers;
     }
 }

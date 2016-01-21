@@ -76,7 +76,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 $app->mount('/', new Pamplemousse\Router());
-$app->mount('/photos/', new Pamplemousse\Photos\Router());
+$app->mount('/photo/', new Pamplemousse\Photos\Router());
 $app->mount('/admin/', new Pamplemousse\Admin\Router());
 
 return $app;
