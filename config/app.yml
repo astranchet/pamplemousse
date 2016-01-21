@@ -1,6 +1,5 @@
 web_dir: '/'
 upload_dir: '/upload/'
-thumbnail_dir: '/thumbnail/'
 
 kid:
   name: Pamplemousse
@@ -13,6 +12,13 @@ database:
   password: root
   host: localhost
   driver: 'pdo_mysql'
+
+thumbnails:
+  dir: '/thumbnail/'
+  size:
+    - 200x200
+    - 800x800
+    - 1200x
 
 users:
   admin:

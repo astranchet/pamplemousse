@@ -51,6 +51,14 @@ $app['twig'] = $app->share($app->extend('twig', function($twig) {
 $app->register(new UrlGeneratorServiceProvider());
 
 /** Services */
+$app['user'] = $app->share(function ($app) {
+    $token = $app['security.token_storage']->getToken();
+    if ($token !== null) {
+        return $token->getUser();
+    }
+
+    return null;
+});
 $app['photos'] = $app->share(function ($app) {
     return new Pamplemousse\Photos\Service($app);
 });
@@ -68,7 +76,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 $app->mount('/', new Pamplemousse\Router());
-$app->mount('/photos/', new Pamplemousse\Photos\Router());
+$app->mount('/photo/', new Pamplemousse\Photos\Router());
 $app->mount('/admin/', new Pamplemousse\Admin\Router());
 
 return $app;

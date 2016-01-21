@@ -5,6 +5,9 @@ use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 class Router implements ControllerProviderInterface
 {
     /**
@@ -16,9 +19,24 @@ class Router implements ControllerProviderInterface
     {
         $controllers = $app['controllers_factory'];
 
+        $controllers->get('/{photo}', Controller::class . "::photoAction")
+            ->bind('photo')
+            ->convert('photo', 'photos:getPhoto');
+
+        $checkThumbnailsSize = function (Request $request, Application $app) {
+            foreach ($app['config']['thumbnails']['size'] as $size) {
+                list($width, $height) = split('x', $size);
+                if ($width == $request->get('width') && $height == $request->get('height')) {
+                    return null;
+                }
+            }
+            return new Response('Bad thumbnail size', 400);
+        };
+
         $controllers->get('/thumbnail/{photo}/{width}x{height}', Controller::class . "::thumbnailAction")
             ->bind('thumbnail')
             ->convert('photo', 'photos:getPhoto')
+            ->before($checkThumbnailsSize)
             ->assert('width', '\d+')
             ->assert('height', '\d+')
             ;
@@ -26,6 +44,7 @@ class Router implements ControllerProviderInterface
         $controllers->get('/thumbnail/{photo}/{width}', Controller::class . "::thumbnailAction")
             ->bind('thumbnail-by-width')
             ->convert('photo', 'photos:getPhoto')
+            ->before($checkThumbnailsSize)
             ->assert('width', '\d+')
             ;
 

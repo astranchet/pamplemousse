@@ -18,13 +18,13 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ path('admin_logout') }}">Pamplemousse</a>
+            <a class="navbar-brand" href="{{ path('admin') }}">Pamplemousse</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ path('index') }}" target="_blank">Accès au site</a></li>
-                <li><a href="{{ path('admin_logout') }}" target="_blank">Déconnexion {% if user %}({{ user.username }}){% endif %}</a></li>
+                <li><a href="{{ path('admin_logout') }}" target="_blank">Déconnexion {% if app.user %}({{ app.user.username }}){% endif %}</a></li>
             </ul>
         </div>
     </div>

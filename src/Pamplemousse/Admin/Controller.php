@@ -27,8 +27,7 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         return $app['twig']->render('admin/index.twig', [
-            'user' => $this->getUser($app),
-            'photos' => $app['photos']->getPhotos()
+            'photos' => $app['photos']->getAll()
         ]);
     }
 
@@ -55,12 +54,11 @@ class Controller
     /**
      * @param  Application $app
      * @param  Request     $request
+     * @param  [Photos]    $photos
      * @return Response
      */
-    public function editAction(Application $app, Request $request)
+    public function editAction(Application $app, Request $request, $photos)
     {
-        $photos = $app['photos']->getPhotosByIds($request->get('ids'));
-
         $form = $app['form.factory']->createBuilder(FormType::class)
             ->add('photos', CollectionType::class, [
                 'entry_type' => PhotoType::class,
@@ -73,7 +71,7 @@ class Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             foreach ($photos as $id => $photo) {
-                $app['photos']->updatePhoto($id, $photo);
+                $app['photos']->update($photo);
             }
             return $app->redirect($app['url_generator']->generate('admin'));
         }
@@ -85,7 +83,6 @@ class Controller
         }
 
         return $app['twig']->render($template, [
-            'user' => $this->getUser($app),
             'form' => $form->createView()
         ]);
     }
@@ -96,7 +93,7 @@ class Controller
             return $app->abort(404);
         }
 
-        $app['photos']->deletePhoto($photo);
+        $app['photos']->delete($photo);
         return $app->redirect($app['url_generator']->generate('admin'));
     }
 
@@ -107,32 +104,18 @@ class Controller
      */
     public function fileUploadAction(Application $app, Request $request)
     {
-        $webDirectory = __DIR__.'/../../../web';
-        $storage = new FileSystem($webDirectory . $app['config']['upload_dir']);
-        $file = new File('file', $storage);
-
-        // Validate file upload
+        $uploadDir = __DIR__.'/../../../web' . $app['config']['upload_dir'];
+        $file = new File('file', new FileSystem($uploadDir));
         $file->addValidations(array(
             new Mimetype(array('image/png', 'image/gif', 'image/jpeg')),
             new Size('5M')
         ));
 
-        // Access data about the file that has been uploaded
-        $data = array(
-            'name'       => $file->getNameWithExtension(),
-            'extension'  => $file->getExtension(),
-            'mime'       => $file->getMimetype(),
-            'size'       => $file->getSize(),
-            'md5'        => $file->getMd5(),
-            'dimensions' => $file->getDimensions()
-        );
-
-        $app['monolog']->addDebug(sprintf("File uploaded: %s", json_encode($data)));
-
         // Upload file to server
         try {
             $file->setName($app['slug']->slugify($file->getName()));
             $file->upload();
+            $app['monolog']->addDebug(sprintf("File uploaded: %s", json_encode($file->getNameWithExtension())));
         } catch (\Exception $exception) {
             $errorMessage = join('<br />', $file->getErrors());
             $app['monolog']->addError(sprintf("Error during file upload: %s", $errorMessage));
@@ -141,24 +124,18 @@ class Controller
 
         // Save file to db
         try {
-            $filepath = sprintf("%s%s.%s",$app['config']['upload_dir'], $file->getName(), $file->getExtension());
-            $photoId = $app['photos']->add($filepath);
+            $photo = $app['photos']->add($file->getNameWithExtension());
         } catch (\Exception $exception) {
-            $app['monolog']->addError(sprintf("Error during file upload: %s", $exception->getMessage()));
+            $app['monolog']->addError(sprintf("Error during file insertion: %s", $exception->getMessage()));
+            // Remove file from upload dir
+            unlink($uploadDir.$file->getNameWithExtension());
             return new Response(sprintf("Erreur : %s", $exception->getMessage()), 400);
         }
 
-        return new Response($photoId);
+        // Generate thumbnails
+        $app['photos']->generateThumbnails($photo);
+
+        return new Response($photo->id);
     }
 
-
-    protected function getUser($app)
-    {
-        $token = $app['security.token_storage']->getToken();
-        if ($token !== null) {
-            return $token->getUser();
-        }
-
-        return null;
-    }
 }

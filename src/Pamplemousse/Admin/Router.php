@@ -23,6 +23,7 @@ class Router implements ControllerProviderInterface
         $controllers->get('/logout', Controller::class . "::logoutAction");
 
         $controllers->match('/edit', Controller::class . "::editAction")
+            ->convert('photos', 'photos:getPhotosByIds')
             ->bind('edit-photos');
 
         $controllers->match('/delete/{photo}', Controller::class . "::deleteAction")

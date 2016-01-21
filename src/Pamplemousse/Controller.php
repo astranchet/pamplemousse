@@ -18,7 +18,7 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         return $app['twig']->render('index.twig', [
-            'photos' => $app['photos']->getPhotos()
+            'photos' => $app['photos']->getAll()
         ]);
     }
 
@@ -32,19 +32,6 @@ class Controller
         return $app['twig']->render('login.twig', [
             'error'         => $app['security.last_error']($request),
             'last_username' => $app['session']->get('_security.last_username'),
-        ]);
-    }
-
-    /**
-     * @param  Application $app
-     * @param  Request     $request
-     * @param  Photo       $photo
-     * @return Response
-     */
-    public function photoAction(Application $app, Request $request, Photo $photo)
-    {
-        return $app['twig']->render('photo.twig', [
-            'photo' => $photo
         ]);
     }
 
