@@ -21,18 +21,23 @@ class Service
 
     public function add($filepath)
     {
+        $this->conn->insert(self::TABLE_NAME, $this->getDataFromFile($filepath));
+        return $this->conn->lastInsertId();
+    }
+
+    protected function getDataFromFile($filepath)
+    {
         $relativePath = __DIR__. '/../../../web/'. $filepath;
         $image = $this->app['imagine']->open($relativePath);
         list($width, $height) = getimagesize($relativePath);
         $metadata = $image->metadata();
-        $this->conn->insert(self::TABLE_NAME, [
+
+        return [
             'path' => $filepath,
             'date_taken' => $metadata["exif.DateTimeOriginal"],
             'width' => $width,
             'height' => $height,
-        ]);
-
-        return $this->conn->lastInsertId();
+        ];
     }
 
     public function getAll()
