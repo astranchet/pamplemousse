@@ -73,7 +73,7 @@ class Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             foreach ($photos as $id => $photo) {
-                $app['photos']->updatePhoto($id, $photo);
+                $app['photos']->update($photo);
             }
             return $app->redirect($app['url_generator']->generate('admin'));
         }
@@ -96,7 +96,7 @@ class Controller
             return $app->abort(404);
         }
 
-        $app['photos']->deletePhoto($photo);
+        $app['photos']->delete($photo);
         return $app->redirect($app['url_generator']->generate('admin'));
     }
 

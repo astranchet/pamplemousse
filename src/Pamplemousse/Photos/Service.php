@@ -68,16 +68,16 @@ class Service
         return false;
     }
 
-    public function updatePhoto($id, $photo)
+    public function update($photo)
     {
         $data = [
             'description' => $photo->description,
             'is_favorite' => $photo->is_favorite,
         ];
-        return $this->conn->update(self::TABLE_NAME, $data, array('id' => $id));
+        return $this->conn->update(self::TABLE_NAME, $data, array('id' => $photo->id));
     }
 
-    public function deletePhoto($photo)
+    public function delete($photo)
     {
         unlink($photo->getImagePath());
         $thumbnails = $photo->getThumbnails();
