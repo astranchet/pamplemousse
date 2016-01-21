@@ -104,7 +104,8 @@ class Controller
      */
     public function fileUploadAction(Application $app, Request $request)
     {
-        $file = new File('file', new FileSystem(__DIR__.'/../../../web' . $app['config']['upload_dir']));
+        $uploadDir = __DIR__.'/../../../web' . $app['config']['upload_dir'];
+        $file = new File('file', new FileSystem($uploadDir));
         $file->addValidations(array(
             new Mimetype(array('image/png', 'image/gif', 'image/jpeg')),
             new Size('5M')
@@ -126,6 +127,8 @@ class Controller
             $photoId = $app['photos']->add($file->getNameWithExtension());
         } catch (\Exception $exception) {
             $app['monolog']->addError(sprintf("Error during file insertion: %s", $exception->getMessage()));
+            // Remove file from upload dir
+            unlink($uploadDir.$file->getNameWithExtension());
             return new Response(sprintf("Erreur : %s", $exception->getMessage()), 400);
         }
 
