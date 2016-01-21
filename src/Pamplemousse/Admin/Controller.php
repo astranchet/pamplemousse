@@ -27,7 +27,7 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         return $app['twig']->render('admin/index.twig', [
-            'photos' => $app['photos']->getPhotos()
+            'photos' => $app['photos']->getAll()
         ]);
     }
 

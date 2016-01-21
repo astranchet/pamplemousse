@@ -35,7 +35,7 @@ class Service
         return $this->conn->lastInsertId();
     }
 
-    public function getPhotos()
+    public function getAll()
     {
         $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s WHERE type = ? ORDER BY date_taken DESC', self::TABLE_NAME), array('picture'));
         $photos = [];
