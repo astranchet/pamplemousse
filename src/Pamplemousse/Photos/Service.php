@@ -24,7 +24,7 @@ class Service
     public function add($filename)
     {
         $this->conn->insert(self::TABLE_NAME, $this->getDataFromFile($filename));
-        return $this->conn->lastInsertId();
+        return $this->getPhoto($this->conn->lastInsertId());
     }
 
     protected function getDataFromFile($filename)
@@ -136,6 +136,14 @@ class Service
         $this->app['monolog']->addDebug(sprintf("Thumbnail generated: %s/%s", $thumbnailDir, $photo->filename));
 
         return $thumbnail;
+    }
+
+    public function generateThumbnails($photo)
+    {
+        foreach ($this->app['config']['thumbnails']['size'] as $size) {
+            list($width, $height) = split('x', $size);
+            $this->generateThumbnail($photo, $width, $height);
+        }
     }
 
     protected function getUploadDir()

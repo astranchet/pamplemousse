@@ -124,7 +124,7 @@ class Controller
 
         // Save file to db
         try {
-            $photoId = $app['photos']->add($file->getNameWithExtension());
+            $photo = $app['photos']->add($file->getNameWithExtension());
         } catch (\Exception $exception) {
             $app['monolog']->addError(sprintf("Error during file insertion: %s", $exception->getMessage()));
             // Remove file from upload dir
@@ -132,7 +132,10 @@ class Controller
             return new Response(sprintf("Erreur : %s", $exception->getMessage()), 400);
         }
 
-        return new Response($photoId);
+        // Generate thumbnails
+        $app['photos']->generateThumbnails($photo);
+
+        return new Response($photo->id);
     }
 
 }
