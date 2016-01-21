@@ -27,7 +27,6 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         return $app['twig']->render('admin/index.twig', [
-            'user' => $this->getUser($app),
             'photos' => $app['photos']->getPhotos()
         ]);
     }
@@ -85,7 +84,6 @@ class Controller
         }
 
         return $app['twig']->render($template, [
-            'user' => $this->getUser($app),
             'form' => $form->createView()
         ]);
     }
@@ -151,14 +149,4 @@ class Controller
         return new Response($photoId);
     }
 
-
-    protected function getUser($app)
-    {
-        $token = $app['security.token_storage']->getToken();
-        if ($token !== null) {
-            return $token->getUser();
-        }
-
-        return null;
-    }
 }

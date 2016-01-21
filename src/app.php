@@ -51,6 +51,14 @@ $app['twig'] = $app->share($app->extend('twig', function($twig) {
 $app->register(new UrlGeneratorServiceProvider());
 
 /** Services */
+$app['user'] = $app->share(function ($app) {
+    $token = $app['security.token_storage']->getToken();
+    if ($token !== null) {
+        return $token->getUser();
+    }
+
+    return null;
+});
 $app['photos'] = $app->share(function ($app) {
     return new Pamplemousse\Photos\Service($app);
 });
