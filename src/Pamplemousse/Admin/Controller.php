@@ -54,12 +54,11 @@ class Controller
     /**
      * @param  Application $app
      * @param  Request     $request
+     * @param  [Photos]    $photos
      * @return Response
      */
-    public function editAction(Application $app, Request $request)
+    public function editAction(Application $app, Request $request, $photos)
     {
-        $photos = $app['photos']->getPhotosByIds($request->get('ids'));
-
         $form = $app['form.factory']->createBuilder(FormType::class)
             ->add('photos', CollectionType::class, [
                 'entry_type' => PhotoType::class,

@@ -2,6 +2,8 @@
 
 namespace Pamplemousse\Photos;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class Service
 {
     const TABLE_NAME = 'pamplemousse__item';
@@ -44,8 +46,12 @@ class Service
         return $photos;
     }
 
-    public function getPhotosByIds($ids)
+    public function getPhotosByIds($ids, Request $request = null)
     {
+        if (is_null($ids)) {
+            $ids = $request->get('ids');
+        }
+
         $statement = $this->conn->executeQuery(sprintf('SELECT * FROM %s WHERE type = "picture" AND id IN (?) ORDER BY date_taken DESC', self::TABLE_NAME),
             [$ids],
             [\Doctrine\DBAL\Connection::PARAM_INT_ARRAY]);
