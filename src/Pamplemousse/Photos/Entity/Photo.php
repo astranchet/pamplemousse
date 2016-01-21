@@ -2,6 +2,11 @@
 
 namespace Pamplemousse\Photos\Entity;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RegexIterator;
+use RecursiveRegexIterator;
+
 class Photo
 {
     public 
@@ -29,6 +34,22 @@ class Photo
         $this->is_favorite = (boolean) $data['is_favorite'];
         $this->width = $data['width'];
         $this->height = $data['height'];
+    }
+
+    public function getImagePath()
+    {
+        return __DIR__.'/../../../../web' . $this->url;
+    }
+
+    public function getThumbnails()
+    {
+        $directory = new RecursiveDirectoryIterator(__DIR__.'/../../../../web/thumbnail');
+        $regex = sprintf('/%s$/i', addcslashes($this->filename, '\.'));
+        $iterator = new RegexIterator(new RecursiveIteratorIterator($directory), $regex, RecursiveRegexIterator::GET_MATCH);
+
+        foreach ($iterator as $thumbnailPath => $thumbnailName) {
+            yield $thumbnailPath;
+        }
     }
 
 }

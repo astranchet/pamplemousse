@@ -1,6 +1,7 @@
 <?php
 namespace Pamplemousse\Admin;
 
+use Pamplemousse\Photos\Entity\Photo;
 use Pamplemousse\Photos\Form\Type\PhotoType;
 
 use Silex\Application;
@@ -26,7 +27,7 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         return $app['twig']->render('admin/index.twig', [
-            'user' => $app['security.token_storage']->getToken()->getUser(),
+            'user' => $this->getUser($app),
             'photos' => $app['photos']->getPhotos()
         ]);
     }
@@ -77,9 +78,26 @@ class Controller
             return $app->redirect($app['url_generator']->generate('admin'));
         }
 
-        return $app['twig']->render('admin/edit.twig', [
+        if ($request->get('modal')) {
+            $template = 'admin/modal/edit.twig';
+        } else {
+            $template = 'admin/edit.twig';
+        }
+
+        return $app['twig']->render($template, [
+            'user' => $this->getUser($app),
             'form' => $form->createView()
         ]);
+    }
+
+    public function deleteAction(Application $app, Request $request, Photo $photo)
+    {
+        if (!$photo) {
+            return $app->abort(404);
+        }
+
+        $app['photos']->deletePhoto($photo);
+        return $app->redirect($app['url_generator']->generate('admin'));
     }
 
     /**
@@ -133,4 +151,14 @@ class Controller
         return new Response($photoId);
     }
 
+
+    protected function getUser($app)
+    {
+        $token = $app['security.token_storage']->getToken();
+        if ($token !== null) {
+            return $token->getUser();
+        }
+
+        return null;
+    }
 }

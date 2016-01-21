@@ -76,4 +76,14 @@ class Service
         return $this->conn->update('pamplemousse__item', $data, array('id' => $id));
     }
 
+    public function deletePhoto($photo)
+    {
+        unlink($photo->getImagePath());
+        $thumbnails = $photo->getThumbnails();
+        foreach ($thumbnails as $thumbnail) {
+            unlink($thumbnail);
+        }
+        return $this->conn->delete('pamplemousse__item', array('id' => $photo->id));
+    }
+
 }

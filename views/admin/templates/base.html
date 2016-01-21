@@ -1,0 +1,50 @@
+{% extends "templates/base.html" %}
+
+{% block title %}Admin / {{ parent() }}{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link href="{{ app.config.web_dir }}css/admin.css" rel="stylesheet">
+    <link href="{{ app.config.web_dir }}css/dropzone/dropzone.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ app.config.web_dir }}js/vendor/dropzone.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ path('admin_logout') }}">Pamplemousse</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ path('index') }}" target="_blank">Accès au site</a></li>
+                <li><a href="{{ path('admin_logout') }}" target="_blank">Déconnexion {% if user %}({{ user.username }}){% endif %}</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid main-container">
+
+    <div class="col-md-2 sidebar">
+        {% block sidebar %}{% endblock %}
+    </div>
+
+    <div class="col-md-10 content">
+        {% block page_content %}{% endblock %}
+    </div>
+</div>
+
+<div id="modal"></div>
+{% endblock %}
+
+{% block footer_js %}
+    {{ parent() }}
+    <script src="{{ app.config.web_dir }}js/admin.js"></script>
+{% endblock %}

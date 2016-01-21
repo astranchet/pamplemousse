@@ -1,29 +1,19 @@
-{% extends "admin/templates/modal.twig" %}
+{% extends "admin/templates/base.html" %}
 
 {# TODO : should be set in app.php #}
 {% form_theme form 'Form/fields.html.twig' %}
 
 {% block id %}editFormLabel{% endblock %}
 
-
-{% block beforeContent %}
-    <form action="{{ path('edit-photos', { ids: app.request.get('ids') } ) }}" method="post">
-{% endblock %}
-
-    {% block contentTitle %}Upload{% endblock %}
-
-    {% block content %}
-        {{ form_widget(form.photos) }}
-        {{ form_rest(form) }}
-
-        {{ form_errors(form) }}
-    {% endblock %}
-
-    {% block contentFooter %}
-        <button type="button" class="btn btn-default" data-dismiss="modal">Quitter</button>
-        <button type="submit" class="btn btn-primary">Sauvegarder</button>
-    {% endblock %}
-
-{% block afterContent %}
-    </form>
+{% block page_content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form action="{{ path('edit-photos', { ids: app.request.get('ids') } ) }}" method="post">
+            {{ form_widget(form.photos) }}
+            {{ form_rest(form) }}
+            {{ form_errors(form) }}
+            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
