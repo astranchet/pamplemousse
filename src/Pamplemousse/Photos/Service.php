@@ -115,7 +115,11 @@ class Service
             return imagecreatefromjpeg($thumbnailPath);
         }
 
-        // Generate thumbnail
+        return $this->generateThumbnail($photo, $width, $height);
+    }
+
+    protected function generateThumbnail($photo, $width, $height)
+    {
         $layer = ImageWorkshop::initFromPath($photo->getImagePath());
         if ($width == $height) {
             $layer->cropMaximumInPixel(0, 0, "MM"); // Square crop
@@ -123,6 +127,7 @@ class Service
         $layer->resizeInPixel($width, $height, true);
         $thumbnail = $layer->getResult();
 
+        $thumbnailDir = $this->getThumbnailDir($width, $height);
         $createFolders = true;
         $backgroundColor = null;
         $imageQuality = 95;
