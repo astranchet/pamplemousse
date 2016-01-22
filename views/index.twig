@@ -3,7 +3,7 @@
 {% block content %}
     <section id="home">
         <div class="container">
-            <h1>{{ app.config.kid.name }}</h1>
+            <h1 id="responsive_headline">{{ app.config.kid.name }}</h1>
             <h2>{{ app.config.kid.baseline|raw }}</strong></h2>
             <a data-scroll href="#photos"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
         </div>
@@ -97,4 +97,11 @@
     <section id="footer">
         <p id="warning">Comme ses parents, {{ app.config.kid.name }} n’aime pas trop trop les réseaux sociaux. C’est pourquoi nous vous invitons à imprimer et échanger les photos présentes sur ce site par voie privée (emails, cartes postales, pigeons voyageurs) mais de bien vouloir éviter de les diffuser sur les site marchands (Facebook, Twitter, Google+ et autre). Merci pour {{ app.config.kid.name }} !</p>
     </section>
+{% endblock %}
+
+{% block footer_js %}
+    {{ parent() }}
+    <script>
+      window.fitText(document.getElementById("responsive_headline"), 1.2);
+    </script>
 {% endblock %}
