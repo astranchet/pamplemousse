@@ -6,6 +6,7 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
             <title>{% block title %}{{ app.config.kid.name }}{% endblock %}</title>
             <meta name="description" content="">
+            <meta name="robots" content="noindex,nofollow">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link href="{{ app.config.web_dir }}apple-touch-icon.png" rel="apple-touch-icon" >
 
@@ -32,6 +33,7 @@
                 <script>window.jQuery || document.write('<script src="{{ app.config.web_dir }}js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
                 <script src="{{ app.config.web_dir }}js/vendor/photoswipe.min.js"></script>
                 <script src="{{ app.config.web_dir }}js/vendor/photoswipe-ui-default.min.js"></script>
+                <script src="{{ app.config.web_dir }}js/vendor/fittext.js"></script>
             {% endblock %}
         {% endblock %}
     </head>
