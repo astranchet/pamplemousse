@@ -36,7 +36,7 @@
                     var pswpElement = document.querySelectorAll('.pswp')[0];
                     var items = {{ slides|json_encode(constant('JSON_PRETTY_PRINT'))|raw }};
                     var options = {
-                        index: index,
+                        index: parseInt(index),
                         // Add timeago in caption
                         addCaptionHTMLFn: function(item, captionEl) {
                             if(!item.title) {
