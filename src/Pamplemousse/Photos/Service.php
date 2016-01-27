@@ -90,7 +90,9 @@ class Service
 
     public function delete($photo)
     {
-        unlink($photo->getImagePath());
+        if ($photo->exists()) {
+            unlink($photo->getImagePath());
+        }
         $thumbnails = $photo->getThumbnails();
         foreach ($thumbnails as $thumbnail) {
             unlink($thumbnail);
