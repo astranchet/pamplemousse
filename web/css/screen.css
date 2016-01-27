@@ -76,6 +76,13 @@
 #photos h1::after {
   content: " ▶";
 }
+#photos #fullpage-photo {
+  display: block;
+  padding: 1em;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 70vh;
+}
 #photos #gallery {
   display: flex;
   flex-flow: row wrap;
