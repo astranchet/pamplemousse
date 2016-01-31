@@ -79,6 +79,15 @@ class Service
         return false;
     }
 
+    public function findFromFilename($filename)
+    {
+        $item = $this->conn->fetchAssoc(sprintf('SELECT * FROM %s WHERE path LIKE ?', self::TABLE_NAME), array("%/".$filename));
+        if ($item) {
+            return new Entity\Photo($item);
+        }
+        return false;
+    }
+
     public function update($photo)
     {
         $data = [
@@ -148,7 +157,7 @@ class Service
         }
     }
 
-    protected function getUploadDir()
+    public function getUploadDir()
     {
         return __DIR__.'/../../../web' . $this->config['upload_dir'] . DIRECTORY_SEPARATOR;
     }

@@ -3,6 +3,19 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 $app = require_once __DIR__.'/../src/app.php';
 
+$iterator = new RecursiveDirectoryIterator($app['photos']->getUploadDir(), FilesystemIterator::SKIP_DOTS);
+foreach ($iterator as $imagePath) {
+    $photo = $app['photos']->findFromFilename(basename($imagePath));
+    if ($photo) {
+        # TODO : generate thumbnails
+        echo $photo->id . PHP_EOL;
+    } else {
+        # TODO : add file to db
+        echo "Could not find $imagePath in db". PHP_EOL;
+    }
+}
+
+
 $photos = $app['photos']->getAll();
 foreach ($photos as $photo) {
     if (!$photo->exists()) {
