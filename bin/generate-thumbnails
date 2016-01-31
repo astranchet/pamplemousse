@@ -8,13 +8,19 @@ $iterator = new RecursiveDirectoryIterator($app['photos']->getUploadDir(), Files
 foreach ($iterator as $imagePath) {
     $photo = $app['photos']->findFromFilename(basename($imagePath));
     if ($photo) {
-        # TODO : generate thumbnails
-        echo $photo->id . PHP_EOL;
+        echo $photo->url . PHP_EOL;
+        foreach ($app['config']['thumbnails']['size'] as $size) {
+            list($width, $height) = split('x', $size);
+            $app['photos']->getThumbnail($photo, $width, $height);
+        }
     } else {
         # TODO : add file to db
         echo "Could not find $imagePath in db". PHP_EOL;
     }
 }
+
+# TODO : remove useless thumbnails
+
 
 # Remove obsolete images from db
 $photos = $app['photos']->getAll();
