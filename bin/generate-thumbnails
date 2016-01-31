@@ -3,6 +3,7 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 $app = require_once __DIR__.'/../src/app.php';
 
+# Sync filesystem photos with database
 $iterator = new RecursiveDirectoryIterator($app['photos']->getUploadDir(), FilesystemIterator::SKIP_DOTS);
 foreach ($iterator as $imagePath) {
     $photo = $app['photos']->findFromFilename(basename($imagePath));
@@ -15,7 +16,7 @@ foreach ($iterator as $imagePath) {
     }
 }
 
-
+# Remove obsolete images from db
 $photos = $app['photos']->getAll();
 foreach ($photos as $photo) {
     if (!$photo->exists()) {
