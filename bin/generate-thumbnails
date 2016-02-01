@@ -16,8 +16,10 @@ foreach ($iterator as $imagePath) {
             $app['photos']->getThumbnail($photo, $width, $height);
         }
     } else {
-        # TODO : add file to db
-        echo "Could not find $imagePath in db". PHP_EOL;
+        # TODO : check file is valid?
+        $filename = basename($imagePath);
+        $photo = $app['photos']->add($filename);
+        $app['photos']->generateThumbnails($photo);
     }
 }
 
