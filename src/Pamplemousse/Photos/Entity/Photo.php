@@ -52,4 +52,9 @@ class Photo
         }
     }
 
+    public function exists()
+    {
+        return file_exists($this->getImagePath());
+    }
+
 }

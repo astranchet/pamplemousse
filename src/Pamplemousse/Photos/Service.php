@@ -79,6 +79,15 @@ class Service
         return false;
     }
 
+    public function findFromFilename($filename)
+    {
+        $item = $this->conn->fetchAssoc(sprintf('SELECT * FROM %s WHERE path LIKE ?', self::TABLE_NAME), array("%/".$filename));
+        if ($item) {
+            return new Entity\Photo($item);
+        }
+        return false;
+    }
+
     public function update($photo)
     {
         $data = [
@@ -90,7 +99,9 @@ class Service
 
     public function delete($photo)
     {
-        unlink($photo->getImagePath());
+        if ($photo->exists()) {
+            unlink($photo->getImagePath());
+        }
         $thumbnails = $photo->getThumbnails();
         foreach ($thumbnails as $thumbnail) {
             unlink($thumbnail);
@@ -146,14 +157,18 @@ class Service
         }
     }
 
-    protected function getUploadDir()
+    public function getUploadDir()
     {
         return __DIR__.'/../../../web' . $this->config['upload_dir'] . DIRECTORY_SEPARATOR;
     }
 
-    protected function getThumbnailDir($width, $height)
+    public function getThumbnailDir($width = null, $height = null)
     {
-        return __DIR__.'/../../../web' . $this->config['thumbnails']['dir'] . $width . 'x' . $height . DIRECTORY_SEPARATOR;
+        $thumbnailDir = __DIR__.'/../../../web' . $this->config['thumbnails']['dir'];
+        if (!is_null($width) || !is_null($height)) {
+            $thumbnailDir .= $width . 'x' . $height . DIRECTORY_SEPARATOR;
+        }
+        return $thumbnailDir;
     }
 
 }
