@@ -10,7 +10,6 @@ $iterator = new RecursiveDirectoryIterator($app['photos']->getUploadDir(), Files
 foreach ($iterator as $imagePath) {
     $photo = $app['photos']->findFromFilename(basename($imagePath));
     if ($photo) {
-        echo $photo->url . PHP_EOL;
         foreach ($thumbnailSizes as $size) {
             list($width, $height) = split('x', $size);
             $app['photos']->getThumbnail($photo, $width, $height);
@@ -18,6 +17,7 @@ foreach ($iterator as $imagePath) {
     } else {
         # TODO : check file is valid?
         $filename = basename($imagePath);
+        echo "Uploading $filename";
         $photo = $app['photos']->add($filename);
         $app['photos']->generateThumbnails($photo);
     }
