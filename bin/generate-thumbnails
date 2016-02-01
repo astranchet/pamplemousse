@@ -3,13 +3,15 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 $app = require_once __DIR__.'/../src/app.php';
 
+$thumbnailSizes = $app['config']['thumbnails']['size'];
+
 # Sync filesystem photos with database
 $iterator = new RecursiveDirectoryIterator($app['photos']->getUploadDir(), FilesystemIterator::SKIP_DOTS);
 foreach ($iterator as $imagePath) {
     $photo = $app['photos']->findFromFilename(basename($imagePath));
     if ($photo) {
         echo $photo->url . PHP_EOL;
-        foreach ($app['config']['thumbnails']['size'] as $size) {
+        foreach ($thumbnailSizes as $size) {
             list($width, $height) = split('x', $size);
             $app['photos']->getThumbnail($photo, $width, $height);
         }
@@ -19,8 +21,20 @@ foreach ($iterator as $imagePath) {
     }
 }
 
-# TODO : remove useless thumbnails
-
+# Remove useless thumbnails
+$iterator = new RecursiveDirectoryIterator($app['photos']->getThumbnailDir(), FilesystemIterator::SKIP_DOTS);
+foreach ($iterator as $dirPath) {
+    $path_chunks = split(DIRECTORY_SEPARATOR, $dirPath);
+    $size = end($path_chunks);
+    if (!in_array($size, $thumbnailSizes)) {
+        echo "Removing $size thumbnails" . PHP_EOL;
+        $thumbnailIterator = new RecursiveDirectoryIterator($dirPath, FilesystemIterator::SKIP_DOTS);
+        foreach ($thumbnailIterator as $thumbPath) {
+            unlink($thumbPath);
+        }
+        rmdir($dirPath);
+    }
+}
 
 # Remove obsolete images from db
 $photos = $app['photos']->getAll();

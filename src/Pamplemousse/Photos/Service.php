@@ -162,9 +162,13 @@ class Service
         return __DIR__.'/../../../web' . $this->config['upload_dir'] . DIRECTORY_SEPARATOR;
     }
 
-    protected function getThumbnailDir($width, $height)
+    public function getThumbnailDir($width = null, $height = null)
     {
-        return __DIR__.'/../../../web' . $this->config['thumbnails']['dir'] . $width . 'x' . $height . DIRECTORY_SEPARATOR;
+        $thumbnailDir = __DIR__.'/../../../web' . $this->config['thumbnails']['dir'];
+        if (!is_null($width) || !is_null($height)) {
+            $thumbnailDir .= $width . 'x' . $height . DIRECTORY_SEPARATOR;
+        }
+        return $thumbnailDir;
     }
 
 }
