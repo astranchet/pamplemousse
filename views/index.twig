@@ -102,6 +102,7 @@
 
 {% block footer_js %}
     {{ parent() }}
+    <script src="{{ app.config.web_dir }}js/main.js"></script>
     <script>
       window.fitText(document.getElementById("responsive_headline"), 1.2);
     </script>
