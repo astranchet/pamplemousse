@@ -5,12 +5,6 @@
 {% block css %}
     {{ parent() }}
     <link href="{{ app.config.web_dir }}css/admin.css" rel="stylesheet">
-    <link href="{{ app.config.web_dir }}css/dropzone/dropzone.css" rel="stylesheet">
-{% endblock %}
-
-{% block js %}
-    {{ parent() }}
-    <script src="{{ app.config.web_dir }}js/vendor/dropzone.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -48,9 +42,4 @@
 </div>
 
 <div id="modal"></div>
-{% endblock %}
-
-{% block footer_js %}
-    {{ parent() }}
-    <script src="{{ app.config.web_dir }}js/admin.js"></script>
 {% endblock %}
