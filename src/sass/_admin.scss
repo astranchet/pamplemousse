@@ -16,6 +16,21 @@
         top: .5em;
         right: .5em;
       }
+
+      .crop {
+        position: absolute;
+        bottom: .5em;
+        left: .5em;
+        background-color: #000;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border-radius: .5em;
+        padding: .2em .4em;
+
+        &:hover {
+          background-color: #000;
+        }
+      }
     }
 
   }

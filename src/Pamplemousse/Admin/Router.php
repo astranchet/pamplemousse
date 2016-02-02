@@ -26,6 +26,10 @@ class Router implements ControllerProviderInterface
             ->convert('photos', 'photos:getPhotosByIds')
             ->bind('edit-photos');
 
+        $controllers->match('/crop/{photo}', Controller::class . "::cropAction")
+            ->convert('photo', 'photos:getPhoto')
+            ->bind('crop-photo');
+
         $controllers->match('/delete/{photo}', Controller::class . "::deleteAction")
             ->convert('photo', 'photos:getPhoto')
             ->bind('delete-photo');
