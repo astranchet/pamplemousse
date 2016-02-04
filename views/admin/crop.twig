@@ -12,6 +12,11 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h1>Crop</h1></div>
             <div class="panel-body">
+
+                <img src="{{ path('thumbnail', { 'photo': photo.id, 'width': '200', 'height': '200' }) }}" alt="{{ photo.filename }}" />
+                <img src="/tmp/cropped-entropy.jpg" />
+                <img src="/tmp/cropped-balanced.jpg" />
+
                 <img src="{{ photo.url }}" alt="{{ photo.filename }}" />
             </div>
         </div>
