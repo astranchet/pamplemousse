@@ -95,6 +95,9 @@ div[id$='crop_algorithm'] {
 div[id$='crop_algorithm'] .thumbnail_choice {
   padding-right: 1em;
 }
+div[id$='crop_algorithm'] .thumbnail_choice img {
+  max-width: 150px;
+}
 div[id$='crop_algorithm'] .thumbnail_choice input[type='radio'] {
   height: 100%;
   vertical-align: middle;

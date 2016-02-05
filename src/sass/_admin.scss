@@ -30,6 +30,10 @@ div[id$='crop_algorithm'] {
   .thumbnail_choice {
     padding-right: 1em;
 
+    img {
+      max-width: 150px;
+    }
+
     input[type='radio'] {
       height: 100%;
       vertical-align: middle;
