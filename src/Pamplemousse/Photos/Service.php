@@ -26,6 +26,15 @@ class Service
         $this->conn = $app['db'];
     }
 
+    public static function getCropAlgorithms()
+    {
+        return [
+            self::CROP_CENTER,
+            self::CROP_ENTROPY,
+            self::CROP_BALANCED,
+        ];
+    }
+
     public function add($filename)
     {
         $this->conn->insert(self::TABLE_NAME, $this->getDataFromFile($filename));
