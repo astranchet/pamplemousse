@@ -37,12 +37,7 @@ class Router implements ControllerProviderInterface
         };
 
         $checkAlgorithm = function (Request $request, Application $app) {
-            $algorithms = [
-                Service::CROP_CENTER,
-                Service::CROP_ENTROPY,
-                Service::CROP_BALANCED,
-            ];
-            if (!in_array($request->get('algorithm'), $algorithms)) {
+            if (!in_array($request->get('algorithm'), Service::getCropAlgorithms())) {
                 return new Response('Bad algorithm', 400);
             }
             return null;
