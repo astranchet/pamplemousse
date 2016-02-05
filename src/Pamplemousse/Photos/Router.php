@@ -29,23 +29,28 @@ class Router implements ControllerProviderInterface
                 if ($width == $request->get('width') && $height == $request->get('height')) {
                     return null;
                 }
+                if ($width == $request->get('size') && $height == $request->get('size')) {
+                    return null;
+                }
             }
             return new Response('Bad thumbnail size', 400);
         };
 
+        $controllers->get('/thumbnail/square/{photo}/{size}/{algorithm}', Controller::class . "::thumbnailSquareAction")
+            ->bind('thumbnail-square')
+            ->convert('photo', 'photos:getPhoto')
+            ->value('algorithm', Service::CROP_CENTER)
+            ->before($checkThumbnailsSize)
+            ->assert('width', '\d+')
+            ;
+
         $controllers->get('/thumbnail/{photo}/{width}x{height}', Controller::class . "::thumbnailAction")
             ->bind('thumbnail')
             ->convert('photo', 'photos:getPhoto')
+            ->value('height', null)
             ->before($checkThumbnailsSize)
             ->assert('width', '\d+')
             ->assert('height', '\d+')
-            ;
-
-        $controllers->get('/thumbnail/{photo}/{width}', Controller::class . "::thumbnailAction")
-            ->bind('thumbnail-by-width')
-            ->convert('photo', 'photos:getPhoto')
-            ->before($checkThumbnailsSize)
-            ->assert('width', '\d+')
             ;
 
         return $controllers;

@@ -18,7 +18,7 @@
                 {% set slides = [] %}
                 {% for photo in photos %}
                     {% set slide = {
-                        src: path('thumbnail-by-width', { 'photo': photo.id, 'width': 1200 }),
+                        src: path('thumbnail', { 'photo': photo.id, 'width': 1200 }),
                         title: photo.description|default(app.config.kid.name),
                         w: photo.width,
                         h: photo.height,
@@ -26,7 +26,7 @@
                     } %}
                     {% set slides = slides|merge([slide]) %}
                     <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
-                        <img src="{{ path('thumbnail', { 'photo': photo.id, 'width': 800, 'height': 800 }) }}" alt="{{ photo.filename }}" />
+                        <img src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': 800 }) }}" alt="{{ photo.filename }}" />
                     </a>
                 {% endfor %}
 

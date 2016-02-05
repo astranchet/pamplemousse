@@ -99,14 +99,8 @@ class Controller
             return $app->abort(404);
         }
 
-        $crops = [];
-        $crops[] = $app['photos']->getThumbnail($photo, 200, 200, \Pamplemousse\Photos\Service::CROP_ENTROPY);
-        $crops[] = $app['photos']->getThumbnail($photo, 200, 200, \Pamplemousse\Photos\Service::CROP_BALANCED);
-        $crops[] = $app['photos']->getThumbnail($photo, 200, 200, \Pamplemousse\Photos\Service::CROP_CENTER);
-
         return $app['twig']->render('admin/crop.twig', [
-            'photo' => $photo,
-            'crops' => $crops
+            'photo' => $photo
         ]);
     }
 

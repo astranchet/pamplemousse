@@ -4,7 +4,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">Miniature</div>
 
-        <img src="{{ path('thumbnail', { 'photo': photo.id, 'width': '200', 'height': '200' }) }}" alt="{{ photo.filename }}" />
+        <img src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': '200' }) }}" alt="{{ photo.filename }}" />
     </div>
 {% endblock %}
 
@@ -13,9 +13,11 @@
             <div class="panel-heading"><h1>Crop</h1></div>
             <div class="panel-body">
 
-                {% for crop in crops %}
-                    <img src="{{ crop }}" alt="{{ photo.filename }}" />
-                {% endfor %}
+                <img src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': 200 }) }}" />
+                <img src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': 200, 'algorithm': 'Entropy' }) }}" />
+                <img src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': 200, 'algorithm': 'Balanced' }) }}" />
+
+                <img src="{{ path('thumbnail', { 'photo': photo.id, 'width': 1200 }) }}" />
 
                 <img src="{{ photo.url }}" alt="{{ photo.filename }}" />
             </div>

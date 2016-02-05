@@ -3,7 +3,7 @@
 {% block photo_widget %}
     {% spaceless %}
         <div class="photo-widget">
-            <img src="{{ path('thumbnail', { 'photo': data.id, 'width': '200', 'height': '200' }) }}" alt="{{ data.description }}" />
+            <img src="{{ path('thumbnail-square', { 'photo': data.id, 'size': '200' }) }}" alt="{{ data.description }}" />
             <div class="fields">
                 {{ form_widget(form.id) }}
                 {{ form_widget(form.description) }}
