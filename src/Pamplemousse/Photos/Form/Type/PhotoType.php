@@ -32,6 +32,7 @@ class PhotoType extends AbstractType
         $cropAlgorithms = \Pamplemousse\Photos\Service::getCropAlgorithms();
         $builder->add('crop_algorithm', ChoiceType::class, [
             'label' => "Miniature",
+            'label_attr' => [ 'class' => 'thumbnail_choice'],
             'choices' => array_combine($cropAlgorithms, $cropAlgorithms),
             'expanded' => true,
         ]);

@@ -21,3 +21,18 @@
   }
 
 }
+
+div[id$='crop_algorithm'] {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  .thumbnail_choice {
+    padding-right: 1em;
+
+    input[type='radio'] {
+      height: 100%;
+      vertical-align: middle;
+    }
+  }
+}
