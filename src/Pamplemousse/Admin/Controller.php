@@ -99,19 +99,9 @@ class Controller
             return $app->abort(404);
         }
 
-        $tmpDir = __DIR__.'/../../../web' . $app['config']['tmp_dir'];
-
-        $cropper = new \stojg\crop\CropCenter($photo->getImagePath());
-        $croppedImage = $cropper->resizeAndCrop(200, 200);
-        $croppedImage->writeimage($tmpDir . 'cropped-center.jpg');
-
-        $cropper = new \stojg\crop\CropEntropy($photo->getImagePath());
-        $croppedImage = $cropper->resizeAndCrop(200, 200);
-        $croppedImage->writeimage($tmpDir . 'cropped-entropy.jpg');
-
-        $cropper = new \stojg\crop\CropBalanced($photo->getImagePath());
-        $croppedImage = $cropper->resizeAndCrop(200, 200);
-        $croppedImage->writeimage($tmpDir . 'cropped-balanced.jpg');
+        $thumbnail = $app['photos']->getThumbnail($photo, 200, 200, \Pamplemousse\Photos\Service::CROP_ENTROPY);
+        $thumbnail = $app['photos']->getThumbnail($photo, 200, 200, \Pamplemousse\Photos\Service::CROP_BALANCED);
+        $thumbnail = $app['photos']->getThumbnail($photo, 200, 200, \Pamplemousse\Photos\Service::CROP_CENTER);
 
         return $app['twig']->render('admin/crop.twig', [
             'photo' => $photo
