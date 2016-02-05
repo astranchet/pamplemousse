@@ -125,14 +125,33 @@ class Service
      */
     public function getThumbnail($photo, $width, $height, $cropAlgorithm = null)
     {
-        $thumbnailDir = $this->getThumbnailDir($width, $height);
-        $thumbnailPath = $thumbnailDir . $photo->filename;
+        $thumbnailPath = $this->getThumbnailPath($photo, $width, $height, $cropAlgorithm);
 
-        if (file_exists($thumbnailPath) && is_null($cropAlgorithm)) {
+        if (file_exists($thumbnailPath)) {
             return imagecreatefromjpeg($thumbnailPath);
         }
 
         return $this->generateThumbnail($photo, $width, $height, $cropAlgorithm);
+    }
+
+    public function getThumbnailPath($photo, $width, $height, $cropAlgorithm = null)
+    {
+        $thumbnailDir = $this->getThumbnailDir($width, $height);
+        switch ($cropAlgorithm) {
+            case self::CROP_BALANCED:
+                $filename = $cropAlgorithm . '-' . $photo->filename;
+                break;
+            case self::CROP_ENTROPY:
+                $cropper = new \stojg\crop\CropEntropy();
+                $filename = $cropAlgorithm . '-' . $photo->filename;
+                break;
+            case self::CROP_CENTER:
+            default:
+                $filename = $photo->filename;
+                break;
+        }
+
+        return $thumbnailDir . $filename;
     }
 
     protected function generateThumbnail($photo, $width, $height, $cropAlgorithm = null)
@@ -141,8 +160,6 @@ class Service
             return $this->generateSquareThumbnail($photo, $width, $height, $cropAlgorithm);
         }
 
-        $thumbnailDir = $this->getThumbnailDir($width, $height);
-
         $layer = ImageWorkshop::initFromPath($photo->getImagePath());
         $layer->resizeInPixel($width, $height, true);
         $thumbnail = $layer->getResult();
@@ -150,9 +167,14 @@ class Service
         $createFolders = true;
         $backgroundColor = null;
         $imageQuality = 95;
-        $layer->save($thumbnailDir, $photo->filename, $createFolders, $backgroundColor, $imageQuality);
 
-        $this->app['monolog']->addDebug(sprintf("Thumbnail generated: %s/%s", $thumbnailDir, $photo->filename));
+        $thumbnailPath = $this->getThumbnailPath($photo, $width, $height, $cropAlgorithm);
+        $thumbnailDir = dirname($thumbnailPath);
+        $thumbnailName = basename($thumbnailPath);
+
+        $layer->save($thumbnailDir, $thumbnailName, $createFolders, $backgroundColor, $imageQuality);
+
+        $this->app['monolog']->addDebug(sprintf("Thumbnail generated: %s", $thumbnailPath));
 
         return $thumbnail;
     }
@@ -167,25 +189,20 @@ class Service
 
     protected function generateSquareThumbnail($photo, $width, $height, $cropAlgorithm = null)
     {
-        $thumbnailDir = $this->getThumbnailDir($width, $height);
+        $thumbnailPath = $this->getThumbnailPath($photo, $width, $height, $cropAlgorithm);
 
         switch ($cropAlgorithm) {
             case self::CROP_BALANCED:
                 $cropper = new \stojg\crop\CropBalanced();
-                $filename = $cropAlgorithm . '-' . $photo->filename;
                 break;
             case self::CROP_ENTROPY:
                 $cropper = new \stojg\crop\CropEntropy();
-                $filename = $cropAlgorithm . '-' . $photo->filename;
                 break;
             case self::CROP_CENTER:
             default:
                 $cropper = new \stojg\crop\CropCenter();
-                $filename = $photo->filename;
                 break;
         }
-
-        $thumbnailPath = $thumbnailDir . $filename;
 
         $cropper->setImage(new \Imagick($photo->getImagePath()));
         $croppedImage = $cropper->resizeAndCrop($width, $height);
