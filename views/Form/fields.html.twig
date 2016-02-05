@@ -6,7 +6,7 @@
     {% endif %}
     <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
         {{- widget|raw }}
-        <img src="{{ path('thumbnail-square', { 'photo': app.request.get('ids')|first, 'size': '200', 'algorithm': label }) }}" />
+        <img src="{{ path('thumbnail-square', { 'photo': form.parent.parent.vars.data.id, 'size': '200', 'algorithm': label }) }}" />
     </label>
 {% endblock %}
 
