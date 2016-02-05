@@ -135,6 +135,10 @@ class Service
      */
     public function getThumbnail($photo, $width, $height, $cropAlgorithm = null)
     {
+        if (is_null($cropAlgorithm)) {
+            $cropAlgorithm = $photo->crop_algorithm;
+        }
+
         $thumbnailPath = $this->getThumbnailPath($photo, $width, $height, $cropAlgorithm);
 
         if (file_exists($thumbnailPath)) {
