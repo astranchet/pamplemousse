@@ -1,5 +1,13 @@
 {% extends "bootstrap_3_layout.html.twig" %}
 
+{% block radio_label -%}
+    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        {{- widget|raw }}
+        <img src="{{ path('thumbnail-square', { 'photo': app.request.get('ids')|first, 'size': '200', 'algorithm': label }) }}" />
+    </label>
+{% endblock %}
+
+
 {% block photo_widget %}
     {% spaceless %}
         <div class="photo-widget">
