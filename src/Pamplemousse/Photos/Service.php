@@ -115,20 +115,20 @@ class Service
     }
 
     /**
-     * Get thumbnail (or generate it) for given photo and size
+     * Retrieve thumbnail (or generate it) for given photo and size
      * 
      * @param  Photo $photo
      * @param  int   $width
      * @param  int   $height
      * @param  string $cropAlgorithm
-     * @return resource
+     * @return string The thumbnail path
      */
     public function getThumbnail($photo, $width, $height, $cropAlgorithm = null)
     {
         $thumbnailPath = $this->getThumbnailPath($photo, $width, $height, $cropAlgorithm);
 
         if (file_exists($thumbnailPath)) {
-            return imagecreatefromjpeg($thumbnailPath);
+            return $thumbnailPath;
         }
 
         return $this->generateThumbnail($photo, $width, $height, $cropAlgorithm);
@@ -160,23 +160,21 @@ class Service
             return $this->generateSquareThumbnail($photo, $width, $height, $cropAlgorithm);
         }
 
-        $layer = ImageWorkshop::initFromPath($photo->getImagePath());
-        $layer->resizeInPixel($width, $height, true);
-        $thumbnail = $layer->getResult();
-
-        $createFolders = true;
-        $backgroundColor = null;
-        $imageQuality = 95;
-
         $thumbnailPath = $this->getThumbnailPath($photo, $width, $height, $cropAlgorithm);
         $thumbnailDir = dirname($thumbnailPath);
         $thumbnailName = basename($thumbnailPath);
 
+        $layer = ImageWorkshop::initFromPath($photo->getImagePath());
+        $layer->resizeInPixel($width, $height, true);
+
+        $createFolders = true;
+        $backgroundColor = null;
+        $imageQuality = 95;
         $layer->save($thumbnailDir, $thumbnailName, $createFolders, $backgroundColor, $imageQuality);
 
         $this->app['monolog']->addDebug(sprintf("Thumbnail generated: %s", $thumbnailPath));
 
-        return $thumbnail;
+        return $thumbnailPath;
     }
 
     public function generateThumbnails($photo)
@@ -208,11 +206,9 @@ class Service
         $croppedImage = $cropper->resizeAndCrop($width, $height);
         $croppedImage->writeimage($thumbnailPath);
 
-        $resource = imagecreatefromjpeg($thumbnailPath);
-
         $this->app['monolog']->addDebug(sprintf("Thumbnail generated: %s", $thumbnailPath));
 
-        return $resource;
+        return $thumbnailPath;
     }
 
     public function getUploadDir()

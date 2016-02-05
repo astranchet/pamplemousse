@@ -13,9 +13,9 @@
             <div class="panel-heading"><h1>Crop</h1></div>
             <div class="panel-body">
 
-                <img src="{{ path('thumbnail', { 'photo': photo.id, 'width': '200', 'height': '200' }) }}" alt="{{ photo.filename }}" />
-                <img src="/thumbnail/200x200/Entropy-fs-8.jpg" />
-                <img src="/thumbnail/200x200/Balanced-fs-8.jpg" />
+                {% for crop in crops %}
+                    <img src="{{ crop }}" alt="{{ photo.filename }}" />
+                {% endfor %}
 
                 <img src="{{ photo.url }}" alt="{{ photo.filename }}" />
             </div>

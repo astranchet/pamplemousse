@@ -37,9 +37,10 @@ class Controller
             return $app->abort(404);
         }
 
-        $thumbnail = $app['photos']->getThumbnail($photo, $width, $height);
-        $stream = function () use ($thumbnail) {
-            imagejpeg($thumbnail);
+        $thumbnailPath = $app['photos']->getThumbnail($photo, $width, $height);
+        $stream = function () use ($thumbnailPath) {
+            $resource = imagecreatefromjpeg($thumbnailPath);
+            imagejpeg($resource);
         };
 
         return $app->stream($stream, 200, [
