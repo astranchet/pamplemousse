@@ -107,6 +107,7 @@ class Service
         $data = [
             'description' => $photo->description,
             'is_favorite' => $photo->is_favorite,
+            'crop_algorithm' => $photo->crop_algorithm
         ];
         return $this->conn->update(self::TABLE_NAME, $data, array('id' => $photo->id));
     }
