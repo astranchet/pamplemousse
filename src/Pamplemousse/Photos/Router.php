@@ -36,11 +36,24 @@ class Router implements ControllerProviderInterface
             return new Response('Bad thumbnail size', 400);
         };
 
+        $checkAlgorithm = function (Request $request, Application $app) {
+            $algorithms = [
+                Service::CROP_CENTER,
+                Service::CROP_ENTROPY,
+                Service::CROP_BALANCED,
+            ];
+            if (!in_array($request->get('algorithm'), $algorithms)) {
+                return new Response('Bad algorithm', 400);
+            }
+            return null;
+        };
+
         $controllers->get('/thumbnail/square/{photo}/{size}/{algorithm}', Controller::class . "::thumbnailSquareAction")
             ->bind('thumbnail-square')
             ->convert('photo', 'photos:getPhoto')
             ->value('algorithm', Service::CROP_CENTER)
             ->before($checkThumbnailsSize)
+            ->before($checkAlgorithm)
             ->assert('width', '\d+')
             ;
 
