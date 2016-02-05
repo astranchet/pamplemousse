@@ -1,5 +1,15 @@
 {% extends "admin/templates/base.html" %}
 
+{% block css %}
+    {{ parent() }}
+    <link href="{{ app.config.web_dir }}css/dropzone/dropzone.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ app.config.web_dir }}js/vendor/dropzone.js"></script>
+{% endblock %}
+
 {% block sidebar %}
     <div class="panel panel-default">
         <div class="panel-heading">Upload de fichier</div>
@@ -21,7 +31,7 @@
 
                             <div class="image">
                                 {% if photo.is_favorite %}<span class="favorite glyphicon glyphicon-star"></span>{% endif %}
-                                <a href="{{ photo.url }}"><img src="{{ path('thumbnail', { 'photo': photo.id, 'width': '200', 'height': '200' }) }}" alt="{{ photo.filename }}" /></a>
+                                <a href="{{ photo.url }}"><img src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': '200' }) }}" alt="{{ photo.filename }}" /></a>
                             </div>
 
                             <div class="content">
@@ -39,4 +49,9 @@
 
         </div>
     </div>
+{% endblock %}
+
+{% block footer_js %}
+    {{ parent() }}
+    <script src="{{ app.config.web_dir }}js/admin.js"></script>
 {% endblock %}

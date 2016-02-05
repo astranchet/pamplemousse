@@ -1,6 +1,13 @@
 Pamplemousse
 =============
 
+Requirements
+------------
+
+* PHP 5.6
+* ImageMagick
+* mysql
+
 Components
 ----------
 

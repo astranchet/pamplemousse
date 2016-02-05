@@ -29,17 +29,19 @@ class Controller
      * @param  Photo       $photo
      * @param  int         $width
      * @param  int         $height
+     * @param  string      $algorithm
      * @return Response
      */
-    public function thumbnailAction(Application $app, Request $request, $photo, $width, $height = null)
+    public function thumbnailAction(Application $app, Request $request, $photo, $width, $height = null, $algorithm = null)
     {
         if (!$photo) {
             return $app->abort(404);
         }
 
-        $thumbnail = $app['photos']->getThumbnail($photo, $width, $height);
-        $stream = function () use ($thumbnail) {
-            imagejpeg($thumbnail);
+        $thumbnailPath = $app['photos']->getThumbnail($photo, $width, $height, $algorithm);
+        $stream = function () use ($thumbnailPath) {
+            $resource = imagecreatefromjpeg($thumbnailPath);
+            imagejpeg($resource);
         };
 
         return $app->stream($stream, 200, [
@@ -48,4 +50,16 @@ class Controller
         ]);
     }
 
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @param  Photo       $photo
+     * @param  int         $size
+     * @param  string      $algorithm
+     * @return Response
+     */
+    public function thumbnailSquareAction(Application $app, Request $request, $photo, $size, $algorithm = null)
+    {
+        return $this->thumbnailAction($app, $request, $photo, $size, $size, $algorithm);
+    }
 }

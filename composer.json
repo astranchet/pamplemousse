@@ -21,7 +21,8 @@
         "symfony/config": "^3.0",
         "symfony/translation": "^3.0",
         "symfony/security-csrf": "^3.0",
-        "symfony/security": "^3.0"
+        "symfony/security": "^3.0",
+        "stojg/crop": "^1.2"
     },
     "autoload": {
         "psr-0": {

@@ -10,6 +10,11 @@ class Service
 {
     const TABLE_NAME = 'pamplemousse__item';
 
+    const 
+        CROP_CENTER   = 'Center',
+        CROP_ENTROPY  = 'Entropy',
+        CROP_BALANCED = 'Balanced';
+
     protected $app;
     protected $config;
     protected $conn;
@@ -19,6 +24,15 @@ class Service
         $this->app = $app;
         $this->config = $app['config'];
         $this->conn = $app['db'];
+    }
+
+    public static function getCropAlgorithms()
+    {
+        return [
+            self::CROP_CENTER,
+            self::CROP_ENTROPY,
+            self::CROP_BALANCED,
+        ];
     }
 
     public function add($filename)
@@ -93,6 +107,7 @@ class Service
         $data = [
             'description' => $photo->description,
             'is_favorite' => $photo->is_favorite,
+            'crop_algorithm' => $photo->crop_algorithm
         ];
         return $this->conn->update(self::TABLE_NAME, $data, array('id' => $photo->id));
     }
@@ -110,43 +125,70 @@ class Service
     }
 
     /**
-     * Get thumbnail (or generate it) for given photo and size
+     * Retrieve thumbnail (or generate it) for given photo and size
      * 
      * @param  Photo $photo
      * @param  int   $width
      * @param  int   $height
-     * @return resource
+     * @param  string $cropAlgorithm
+     * @return string The thumbnail path
      */
-    public function getThumbnail($photo, $width, $height)
+    public function getThumbnail($photo, $width, $height, $cropAlgorithm = null)
     {
-        $thumbnailDir = $this->getThumbnailDir($width, $height);
-        $thumbnailPath = $thumbnailDir . $photo->filename;
+        if (is_null($cropAlgorithm)) {
+            $cropAlgorithm = $photo->crop_algorithm;
+        }
+
+        $thumbnailPath = $this->getThumbnailPath($photo, $width, $height, $cropAlgorithm);
 
         if (file_exists($thumbnailPath)) {
-            return imagecreatefromjpeg($thumbnailPath);
+            return $thumbnailPath;
         }
 
-        return $this->generateThumbnail($photo, $width, $height);
+        return $this->generateThumbnail($photo, $width, $height, $cropAlgorithm);
     }
 
-    protected function generateThumbnail($photo, $width, $height)
+    public function getThumbnailPath($photo, $width, $height, $cropAlgorithm = null)
     {
-        $layer = ImageWorkshop::initFromPath($photo->getImagePath());
-        if ($width == $height) {
-            $layer->cropMaximumInPixel(0, 0, "MM"); // Square crop
-        }
-        $layer->resizeInPixel($width, $height, true);
-        $thumbnail = $layer->getResult();
-
         $thumbnailDir = $this->getThumbnailDir($width, $height);
+        switch ($cropAlgorithm) {
+            case self::CROP_BALANCED:
+                $filename = $cropAlgorithm . '-' . $photo->filename;
+                break;
+            case self::CROP_ENTROPY:
+                $cropper = new \stojg\crop\CropEntropy();
+                $filename = $cropAlgorithm . '-' . $photo->filename;
+                break;
+            case self::CROP_CENTER:
+            default:
+                $filename = $photo->filename;
+                break;
+        }
+
+        return $thumbnailDir . $filename;
+    }
+
+    protected function generateThumbnail($photo, $width, $height, $cropAlgorithm = null)
+    {
+        if ($width == $height) {
+            return $this->generateSquareThumbnail($photo, $width, $height, $cropAlgorithm);
+        }
+
+        $thumbnailPath = $this->getThumbnailPath($photo, $width, $height, $cropAlgorithm);
+        $thumbnailDir = dirname($thumbnailPath);
+        $thumbnailName = basename($thumbnailPath);
+
+        $layer = ImageWorkshop::initFromPath($photo->getImagePath());
+        $layer->resizeInPixel($width, $height, true);
+
         $createFolders = true;
         $backgroundColor = null;
         $imageQuality = 95;
-        $layer->save($thumbnailDir, $photo->filename, $createFolders, $backgroundColor, $imageQuality);
+        $layer->save($thumbnailDir, $thumbnailName, $createFolders, $backgroundColor, $imageQuality);
 
-        $this->app['monolog']->addDebug(sprintf("Thumbnail generated: %s/%s", $thumbnailDir, $photo->filename));
+        $this->app['monolog']->addDebug(sprintf("Thumbnail generated: %s", $thumbnailPath));
 
-        return $thumbnail;
+        return $thumbnailPath;
     }
 
     public function generateThumbnails($photo)
@@ -155,6 +197,32 @@ class Service
             list($width, $height) = split('x', $size);
             $this->generateThumbnail($photo, $width, $height);
         }
+    }
+
+    protected function generateSquareThumbnail($photo, $width, $height, $cropAlgorithm = null)
+    {
+        $thumbnailPath = $this->getThumbnailPath($photo, $width, $height, $cropAlgorithm);
+
+        switch ($cropAlgorithm) {
+            case self::CROP_BALANCED:
+                $cropper = new \stojg\crop\CropBalanced();
+                break;
+            case self::CROP_ENTROPY:
+                $cropper = new \stojg\crop\CropEntropy();
+                break;
+            case self::CROP_CENTER:
+            default:
+                $cropper = new \stojg\crop\CropCenter();
+                break;
+        }
+
+        $cropper->setImage(new \Imagick($photo->getImagePath()));
+        $croppedImage = $cropper->resizeAndCrop($width, $height);
+        $croppedImage->writeimage($thumbnailPath);
+
+        $this->app['monolog']->addDebug(sprintf("Thumbnail generated: %s", $thumbnailPath));
+
+        return $thumbnailPath;
     }
 
     public function getUploadDir()

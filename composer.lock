@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fca051eab42a1619732a4e09787406f0",
-    "content-hash": "39823e87a5e0f2ca223698ee3e580972",
+    "hash": "2a69a31c95dac76fa5e353c62f2649bd",
+    "content-hash": "2aab9ab7b51dc5bb69b8280c41176ec6",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1048,6 +1048,52 @@
                 "microframework"
             ],
             "time": "2015-09-15 06:53:42"
+        },
+        {
+            "name": "stojg/crop",
+            "version": "1.2.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stojg/crop.git",
+                "reference": "63b2a3f505e57c100c65bccd3cce9c3ef41dd28b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stojg/crop/zipball/63b2a3f505e57c100c65bccd3cce9c3ef41dd28b",
+                "reference": "63b2a3f505e57c100c65bccd3cce9c3ef41dd28b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "stojg\\crop": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2"
+            ],
+            "authors": [
+                {
+                    "name": "Stig Lindqvist",
+                    "email": "stojg.lindqvist@gmail.com",
+                    "homepage": "https://stojg.se/"
+                },
+                {
+                    "name": "Julien Deniau jdeniau",
+                    "email": "julien.deniau@gmail.com",
+                    "homepage": "http://www.mapado.com"
+                }
+            ],
+            "description": "Image cropping classes",
+            "homepage": "http://github.com/stojg/crop",
+            "keywords": [
+                "image"
+            ],
+            "time": "2014-10-25 08:42:29"
         },
         {
             "name": "sybio/image-workshop",

@@ -18,7 +18,8 @@ class Photo
         $like,
         $is_favorite,
         $width,
-        $height
+        $height,
+        $crop_algorithm
     ;
 
     public function __construct($data)
@@ -34,6 +35,7 @@ class Photo
         $this->is_favorite = (boolean) $data['is_favorite'];
         $this->width = $data['width'];
         $this->height = $data['height'];
+        $this->crop_algorithm = $data['crop_algorithm'];
     }
 
     public function getImagePath()

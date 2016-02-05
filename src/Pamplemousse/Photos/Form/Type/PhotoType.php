@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextAreaType;
@@ -26,6 +27,14 @@ class PhotoType extends AbstractType
         $builder->add('is_favorite', CheckboxType::class, [
             'label' => "Marquer comme favori",
             'required' => false
+        ]);
+
+        $cropAlgorithms = \Pamplemousse\Photos\Service::getCropAlgorithms();
+        $builder->add('crop_algorithm', ChoiceType::class, [
+            'label' => "Miniature",
+            'label_attr' => [ 'class' => 'thumbnail_choice'],
+            'choices' => array_combine($cropAlgorithms, $cropAlgorithms),
+            'expanded' => true,
         ]);
     }
 
