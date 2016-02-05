@@ -87,23 +87,6 @@ class Controller
         ]);
     }
 
-    /**
-     * @param  Application $app
-     * @param  Request     $request
-     * @param  [Photos]    $photos
-     * @return Response
-     */
-    public function cropAction(Application $app, Request $request, Photo $photo)
-    {
-        if (!$photo) {
-            return $app->abort(404);
-        }
-
-        return $app['twig']->render('admin/crop.twig', [
-            'photo' => $photo
-        ]);
-    }
-
     public function deleteAction(Application $app, Request $request, Photo $photo)
     {
         if (!$photo) {
