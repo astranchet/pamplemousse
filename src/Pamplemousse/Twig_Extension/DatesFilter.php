@@ -79,7 +79,13 @@ class DatesFilter extends Twig_Extension
         } elseif ($daysToBirth > 0) {
             return sprintf("Bébé a %s jours (%s)", $daysToBirth, $datetime->format('d/m/Y'));
         } else {
-            return sprintf("%s mois de grossesse (%s)", round($daysToPregnancy/30), $datetime->format('d/m/Y'));
+            $numberOfMonths = round(($daysToPregnancy/30) * 2) / 2;
+            if ($numberOfMonths != floor($numberOfMonths)) {
+                $numberOfMonths = sprintf("%s mois et de demi", floor($numberOfMonths));
+            } else {
+                $numberOfMonths = sprintf("%s mois", floor($numberOfMonths));
+            }
+            return sprintf("À %s de grossesse", $numberOfMonths);
         }
     }
 
