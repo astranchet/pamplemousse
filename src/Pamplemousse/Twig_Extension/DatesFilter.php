@@ -77,7 +77,33 @@ class DatesFilter extends Twig_Extension
         if ($daysToBirth == 0) {
             return 'Le jour J !';
         } elseif ($daysToBirth > 0) {
-            return sprintf("Bébé a %s jours (%s)", $daysToBirth, $datetime->format('d/m/Y'));
+
+            $units = [
+                365 => ['année','années'],
+                30 => ['mois','mois'],
+                7 => ['semaine','semaines'],
+                1 => ['jour','jours']
+            ];
+
+            foreach ($units as $unit => $labels) {
+                if ($daysToBirth < $unit) continue;
+
+                $labelSingular = $labels[0];
+                $labelPlural = $labels[1];
+
+                if (in_array($labelSingular, ['mois', 'année'])) {
+                    $numberOfUnits = round(($daysToBirth / $unit) * 2) / 2;
+                    if ($numberOfUnits == floor($numberOfUnits)) {
+                        return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                    } else {
+                        $numberOfUnits = floor($numberOfUnits);
+                        return sprintf("%s %s et demi", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                    }
+                } else {
+                    $numberOfUnits = floor($daysToBirth / $unit);
+                    return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                }
+            }
         } else {
             $numberOfMonths = round(($daysToPregnancy/30) * 2) / 2;
             if ($numberOfMonths != floor($numberOfMonths)) {
