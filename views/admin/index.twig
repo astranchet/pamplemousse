@@ -31,7 +31,7 @@
 
                             <div class="image">
                                 {% if photo.is_favorite %}<span class="favorite glyphicon glyphicon-star"></span>{% endif %}
-                                <a href="{{ photo.url }}"><img src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': '200' }) }}" alt="{{ photo.filename }}" /></a>
+                                <a href="{{ path('edit-photos', { 'ids': [photo.id] }) }}"><img src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': '200' }) }}" alt="{{ photo.filename }}" /></a>
                             </div>
 
                             <div class="content">
