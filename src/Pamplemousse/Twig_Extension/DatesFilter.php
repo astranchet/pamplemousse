@@ -2,21 +2,30 @@
 
 namespace Pamplemousse\Twig_Extension;
 
+use DateTime;
 use Twig_Extension;
 use Twig_SimpleFilter;
 
-class TimeagoFilter extends Twig_Extension
+class DatesFilter extends Twig_Extension
 {
+    protected $birthdate, $pregnancydate;
+
+    public function __construct($config)
+    {
+        $this->birthdate = new DateTime($config['kid']['birthdate']);
+        $this->pregnancydate = new DateTime($config['kid']['pregnancydate']);
+    }
 
     public function getName()
     {
-        return 'timeago';
+        return 'dates';
     }
 
     public function getFilters()
     {
         return [
             new Twig_SimpleFilter('timeago', [$this, 'timeagoFilter']),
+            new Twig_SimpleFilter('age', [$this, 'ageFilter']),
         ];
     }
 
@@ -56,6 +65,22 @@ class TimeagoFilter extends Twig_Extension
         }
 
         return $time;
+    }
+
+    public function ageFilter($datetime)
+    {
+        $datetime = new DateTime($datetime);
+
+        $daysToBirth = intval($this->birthdate->diff($datetime)->format('%R%a'));
+        $daysToPregnancy = intval($this->pregnancydate->diff($datetime)->format('%R%a'));
+
+        if ($daysToBirth == 0) {
+            return 'Le jour J !';
+        } elseif ($daysToBirth > 0) {
+            return sprintf("Bébé a %s jours (%s)", $daysToBirth, $datetime->format('d/m/Y'));
+        } else {
+            return sprintf("%s mois de grossesse (%s)", round($daysToPregnancy/30), $datetime->format('d/m/Y'));
+        }
     }
 
 }

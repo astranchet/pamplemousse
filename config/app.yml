@@ -4,8 +4,10 @@ tmp_dir: '/tmp/'
 
 kid:
   name: Pamplemousse
-  baseline: "Mise en production prévu <strong>fin mars 2016</strong>"
-  birthdate: 26/06/2016
+  baseline: "Née le <strong>29 septembre 2015</strong>"
+  pregnancydate: 13-02-2015
+  birthdate: 29-09-2015
+
 
 database:
   dbname: pamplemousse
