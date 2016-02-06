@@ -53,6 +53,7 @@ class Service
             'date_taken' => $metadata["exif.DateTimeOriginal"],
             'width' => $width,
             'height' => $height,
+            'crop_algorithm' => self::CROP_ENTROPY
         ];
     }
 
