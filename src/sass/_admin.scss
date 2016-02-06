@@ -31,12 +31,18 @@ div[id$='crop_algorithm'] {
     padding-right: 1em;
 
     img {
-      max-width: 150px;
+      width: 130px;
     }
 
     input[type='radio'] {
       height: 100%;
       vertical-align: middle;
+
+      &:checked+img {
+        width: 200px;
+        border: 4px solid grey;
+        box-shadow: 0 1px 5px rgba(0,0,0,.6);
+      }
     }
   }
 }
