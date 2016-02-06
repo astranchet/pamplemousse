@@ -43,8 +43,8 @@ $app->register(new TranslationServiceProvider(), array(
 $app->register(new TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
-$app['twig'] = $app->share($app->extend('twig', function($twig) {
-    $twig->addExtension(new Pamplemousse\Twig_Extension\TimeAgoFilter());
+$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+    $twig->addExtension(new Pamplemousse\Twig_Extension\DatesFilter($app['config']));
     return $twig;
 }));
 

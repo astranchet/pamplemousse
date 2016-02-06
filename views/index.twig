@@ -22,7 +22,7 @@
                         title: photo.description|default(app.config.kid.name),
                         w: photo.width,
                         h: photo.height,
-                        timeago: photo.date_taken|timeago
+                        age: photo.date_taken|age
                     } %}
                     {% set slides = slides|merge([slide]) %}
                     <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
@@ -38,13 +38,13 @@
                     var items = {{ slides|json_encode(constant('JSON_PRETTY_PRINT'))|raw }};
                     var options = {
                         index: parseInt(index),
-                        // Add timeago in caption
+                        // Add age in caption
                         addCaptionHTMLFn: function(item, captionEl) {
                             if(!item.title) {
                                 captionEl.children[0].innerHTML = '';
                                 return false;
                             }
-                            captionEl.children[0].innerHTML = item.title + ' — ' + item.timeago;
+                            captionEl.children[0].innerHTML = item.title + ' — ' + item.age;
                             return true;
                         },
                         // Share buttons
