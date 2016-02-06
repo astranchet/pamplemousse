@@ -107,7 +107,7 @@ class DatesFilter extends Twig_Extension
         } else {
             $numberOfMonths = round(($daysToPregnancy/30) * 2) / 2;
             if ($numberOfMonths != floor($numberOfMonths)) {
-                $numberOfMonths = sprintf("%s mois et de demi", floor($numberOfMonths));
+                $numberOfMonths = sprintf("%s mois et demi", floor($numberOfMonths));
             } else {
                 $numberOfMonths = sprintf("%s mois", floor($numberOfMonths));
             }
