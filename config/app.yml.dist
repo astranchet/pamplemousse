@@ -4,9 +4,9 @@ tmp_dir: '/tmp/'
 
 kid:
   name: Pamplemousse
-  baseline: "Née le <strong>29 septembre 2015</strong>"
-  pregnancydate: 13-02-2015
-  birthdate: 29-09-2015
+  baseline: "Née le <strong>17 septembre 2015</strong>"
+  pregnancydate: 17-02-2015
+  birthdate: 17-09-2015
 
 
 database:
@@ -26,5 +26,4 @@ thumbnails:
 users:
   admin:
     - ROLE_ADMIN
-    # raw password is foo
     - 5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==

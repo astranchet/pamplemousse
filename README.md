@@ -29,6 +29,7 @@ git clone https://github.com/astranchet/pamplemousse.git .
 cd pamplemousse
 curl -s http://getcomposer.org/installer | php
 php composer.phar install
+cp config/app.yml.dist config/app.yml
 ```
 
 Run locally
