@@ -39,6 +39,9 @@ php -S localhost:8000 -t web .router.php
 compass watch
 ```
 
+* [Frontend](http://localhost:8000/)
+* [Backend](http://localhost:8000/admin/) (login/pwd: admin/foo)
+
 Run migrations
 --------------
 
