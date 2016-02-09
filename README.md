@@ -4,8 +4,7 @@ Pamplemousse
 Requirements
 ------------
 
-* PHP 5.6
-* ImageMagick
+* PHP 5.6 with ext-exif and ImageMagick extensions
 * mysql
 
 Components
