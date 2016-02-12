@@ -1,6 +1,8 @@
 {% extends "templates/base.html" %}
 
 {% block content %}
+    <script src="{{ app.config.web_dir }}js/vendor/lazyload.min.js"></script>
+
     <section id="home">
         <div class="container">
             <h1 id="responsive_headline">{{ app.config.kid.name }}</h1>
@@ -26,7 +28,12 @@
                     } %}
                     {% set slides = slides|merge([slide]) %}
                     <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
-                        <img src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': 800 }) }}" alt="{{ photo.filename }}" />
+                        <img 
+                            data-src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': 800 }) }}" 
+                            alt="{{ photo.filename }}" 
+                            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                            onload="lzld(this)"
+                        />
                     </a>
                 {% endfor %}
 
