@@ -80,6 +80,11 @@
   text-align: center;
   font-family: PT Sans, sans-serif;
 }
+@media (max-width: 767px) {
+  #photos h1 {
+    padding: .5em 0;
+  }
+}
 #photos h1::before, #photos h1::after {
   font-size: .7em;
   padding: 0 1em;
