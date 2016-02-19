@@ -4,8 +4,7 @@ Pamplemousse
 Requirements
 ------------
 
-* PHP 5.6
-* ImageMagick
+* PHP 5.6 with ext-exif and ImageMagick extensions
 * mysql
 
 Components
@@ -29,6 +28,7 @@ git clone https://github.com/astranchet/pamplemousse.git .
 cd pamplemousse
 curl -s http://getcomposer.org/installer | php
 php composer.phar install
+cp config/app.yml.dist config/app.yml
 ```
 
 Run locally
@@ -38,6 +38,9 @@ Run locally
 php -S localhost:8000 -t web .router.php
 compass watch
 ```
+
+* [Frontend](http://localhost:8000/)
+* [Backend](http://localhost:8000/admin/) (login/pwd: admin/foo)
 
 Run migrations
 --------------

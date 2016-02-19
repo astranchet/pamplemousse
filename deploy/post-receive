@@ -1,0 +1,30 @@
+#!/bin/bash
+
+GIT_DIR="$HOME/pamplemousse.git"
+WEB_DIR="$HOME/pamplemousse"
+
+echo "Force checkout of the latest deploy"
+git --work-tree="${WEB_DIR}" --git-dir="${GIT_DIR}" checkout --force master
+
+cd "${WEB_DIR}" || exit
+
+echo "Update composer"
+if [ -f composer.json ]; then
+    # Install composer
+    curl -s http://getcomposer.org/installer | php >/dev/null
+    composer='php composer.phar'
+
+    # Run composer if composer.json is updated
+    if [ -e composer.lock ]; then
+        # Install or update depending on lock file
+        echo "Updating Composer packages"
+        $composer install || $composer update
+    else
+        # Regenerating autoload files
+        echo "Composer packages up to date"
+        $composer dump-autoload
+    fi
+fi
+
+#echo "Apply migrations"
+./bin/doctrine migrations:migrate --no-interaction
