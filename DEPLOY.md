@@ -81,3 +81,9 @@ Some directories need to be created manually:
 mkdir pamplemousse/web/{upload,thumbnail}
 chmod 777 pamplemousse/web/{upload,thumbnail}
 ```
+
+## Deploying
+
+```bash
+git push prod <branch>
+```
