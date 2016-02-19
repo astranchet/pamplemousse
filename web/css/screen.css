@@ -12,6 +12,12 @@
   padding: 1em;
   background: #fff;
 }
+@media (max-width: 1023px) {
+  #footer #warning {
+    width: 100%;
+    font-size: 1.4em;
+  }
+}
 
 #home {
   height: 100vh;
