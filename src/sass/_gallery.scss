@@ -1,6 +1,16 @@
+$small-devices: "(max-width: 1023px)";
+
 #photos {
   padding: 3em;
   min-height: 80vh;
+
+  @media #{$small-devices} {
+    padding: 0;
+
+    .container {
+      padding: 0;
+    }
+  }
 
   h1 {
     text-align: center;
@@ -11,6 +21,10 @@
       vertical-align: 20%;
       content: "◀ ";
       color: #DF622C;
+      @media #{$small-devices} {
+        padding: 0;
+      }
+
     }
     &::after {
       content: " ▶";
@@ -32,8 +46,19 @@
     width: 20%;
     padding: 1em;
 
+    @media #{$small-devices} {
+      width: 90%;
+      margin-left: 5%;
+    }
+
+
     &.favorite {
       width: 40%;
+      @media #{$small-devices} {
+        width: 100%;
+        margin: 0;
+        padding: 1em 0;
+      }
     }
 
     img {
