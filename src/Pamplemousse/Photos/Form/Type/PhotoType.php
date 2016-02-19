@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextAreaType;
@@ -27,6 +28,14 @@ class PhotoType extends AbstractType
         $builder->add('is_favorite', CheckboxType::class, [
             'label' => "Marquer comme favori",
             'required' => false
+        ]);
+        $builder->add('date_taken', DateTimeType::class, [
+            'label' => "Date de prise de vue",
+            'input' => 'string',
+            'date_widget' => 'single_text',
+            'time_widget' => 'single_text',
+            'html5' => true,
+            'required' => true
         ]);
 
         $cropAlgorithms = \Pamplemousse\Photos\Service::getCropAlgorithms();
