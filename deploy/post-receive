@@ -1,10 +1,12 @@
 #!/bin/bash
 
+read oldrev newrev ref
+BRANCHNAME=${ref#refs/heads/}
 GIT_DIR="$HOME/pamplemousse.git"
 WEB_DIR="$HOME/pamplemousse"
 
 echo "Force checkout of the latest deploy"
-git --work-tree="${WEB_DIR}" --git-dir="${GIT_DIR}" checkout --force master
+git --work-tree="${WEB_DIR}" --git-dir="${GIT_DIR}" checkout --force "${BRANCHNAME}"
 
 cd "${WEB_DIR}" || exit
 
