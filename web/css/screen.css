@@ -12,7 +12,7 @@
   padding: 1em;
   background: #fff;
 }
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   #footer #warning {
     width: 100%;
     font-size: 1.4em;
@@ -68,7 +68,7 @@
   padding: 3em;
   min-height: 80vh;
 }
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   #photos {
     padding: 0;
   }
@@ -87,7 +87,7 @@
   content: "◀ ";
   color: #DF622C;
 }
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   #photos h1::before, #photos h1::after {
     padding: 0;
   }
@@ -108,7 +108,7 @@
   width: 20%;
   padding: 1em;
 }
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   #gallery .image, #gallery .grid-sizer {
     width: 90%;
     margin-left: 5%;
@@ -117,7 +117,7 @@
 #gallery .image.favorite, #gallery .grid-sizer.favorite {
   width: 40%;
 }
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   #gallery .image.favorite, #gallery .grid-sizer.favorite {
     width: 100%;
     margin: 0;
