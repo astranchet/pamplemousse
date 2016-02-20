@@ -33,7 +33,7 @@ class PhotoType extends AbstractType
             'label' => "Date de prise de vue",
             'input' => 'string',
             'date_widget' => 'single_text',
-            'time_widget' => 'single_text',
+            'time_widget' => 'choice',
             'html5' => true,
             'required' => true
         ]);
