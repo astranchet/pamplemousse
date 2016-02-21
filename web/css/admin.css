@@ -108,6 +108,11 @@ div[id$='crop_algorithm'] .thumbnail_choice input[type='radio']:checked + img {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
 }
 
+div[id$='date_taken'] select[id$='time_hour'],
+div[id$='date_taken'] select[id$='time_minute'] {
+  display: none;
+}
+
 .photo-widget {
   display: flex;
 }
