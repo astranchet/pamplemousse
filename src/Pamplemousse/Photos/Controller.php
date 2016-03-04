@@ -28,6 +28,13 @@ class Controller
             ->add('comment', TextAreaType::class)
             ->getForm();
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $app['comments']->add($photo, $form->getData());
+            return $app->redirect($app['url_generator']->generate('photo', [ 'photo' => $photo->id ]));
+        }
+
         return $app['twig']->render('photo.twig', [
             'photo' => $photo,
             'form' => $form->createView()

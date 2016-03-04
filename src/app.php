@@ -59,6 +59,9 @@ $app['user'] = $app->share(function ($app) {
 
     return null;
 });
+$app['comments'] = $app->share(function ($app) {
+    return new Pamplemousse\Comments\Service($app);
+});
 $app['photos'] = $app->share(function ($app) {
     return new Pamplemousse\Photos\Service($app);
 });
