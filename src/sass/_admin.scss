@@ -26,6 +26,7 @@ div[id$='crop_algorithm'] {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   .thumbnail_choice {
     padding-right: 1em;
@@ -39,10 +40,18 @@ div[id$='crop_algorithm'] {
       vertical-align: middle;
 
       &:checked+img {
-        width: 200px;
+        width: 190px;
         border: 4px solid grey;
         box-shadow: 0 1px 5px rgba(0,0,0,.6);
       }
     }
+  }
+}
+
+div[id$='date_taken'] {
+  .form-control {
+    width: inherit;
+    display: inline;
+    margin: .5em;
   }
 }
