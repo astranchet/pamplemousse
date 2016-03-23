@@ -46,10 +46,3 @@ div[id$='crop_algorithm'] {
     }
   }
 }
-
-div[id$='date_taken'] {
-    select[id$='time_hour'],
-    select[id$='time_minute'] {
-      display: none;
-    }
-}
