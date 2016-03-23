@@ -52,7 +52,6 @@
   font-size: 2.7em;
   display: inline-block;
   position: relative;
-  mix-blend-mode: overlay;
 }
 #home .container a[data-scroll] {
   font-size: 3em;
