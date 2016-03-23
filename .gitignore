@@ -3,6 +3,6 @@
 /vendor/
 /log/*
 /.sass-cache/*
-/web/images/bg.jpg
+/web/images/bg*
 /web/upload/*
 /web/thumbnail/*
