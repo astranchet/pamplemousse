@@ -25,7 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url(../images/bg.jpg) no-repeat center fixed;
+  background: url(../images/bg0.png) no-repeat center fixed;
   background-size: cover;
   /* version standardisée */
 }
