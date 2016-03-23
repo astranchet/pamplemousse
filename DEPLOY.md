@@ -73,7 +73,7 @@ scp deploy/.htaccess <alwaysdata-user>@ssh-<alwaysdata-project>.alwaysdata.net:/
 # Prod configuration
 scp config/app.prod.yml <alwaysdata-user>@ssh-<alwaysdata-project>.alwaysdata.net:/home/<alwaysdata-project>/pamplemousse/config/app.yml
 # Background image
-scp web/images/bg.jpg <alwaysdata-user>@ssh-<alwaysdata-project>.alwaysdata.net:/home/<alwaysdata-project>/pamplemousse/web/images/bg.jpg
+scp web/images/bg* <alwaysdata-user>@ssh-<alwaysdata-project>.alwaysdata.net:/home/<alwaysdata-project>/pamplemousse/web/images/
 ```
 
 Some directories need to be created manually:
