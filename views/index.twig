@@ -24,7 +24,7 @@
                         title: photo.description|default(app.config.kid.name),
                         w: photo.width,
                         h: photo.height,
-                        date: photo.date_taken|date("m/d/Y"),
+                        date: photo.date_taken|date("d/m/Y"),
                         age: photo.date_taken|age
                     } %}
                     {% set slides = slides|merge([slide]) %}
