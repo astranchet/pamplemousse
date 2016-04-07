@@ -13,7 +13,7 @@
 
     <section id="photos">
         <div class="container">
-            <h1>Mois après mois</h1>
+            <h1>Jour après jour</h1>
 
             <div id="gallery">
                 <div class="grid-sizer"></div>
@@ -24,6 +24,7 @@
                         title: photo.description|default(app.config.kid.name),
                         w: photo.width,
                         h: photo.height,
+                        date: photo.date_taken|date("m/d/Y"),
                         age: photo.date_taken|age
                     } %}
                     {% set slides = slides|merge([slide]) %}
@@ -52,7 +53,7 @@
                                 captionEl.children[0].innerHTML = '';
                                 return false;
                             }
-                            captionEl.children[0].innerHTML = item.title + ' — ' + item.age;
+                            captionEl.children[0].innerHTML = item.title + ' — ' + item.age + ' — ' + item.date;
                             return true;
                         },
                         // Share buttons
