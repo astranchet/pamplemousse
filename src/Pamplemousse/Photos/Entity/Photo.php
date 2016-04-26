@@ -23,7 +23,7 @@ class Photo
         $comments
     ;
 
-    public function __construct($data)
+    public function __construct($data, $comments = [])
     {
         $this->id = $data['id'];
 
@@ -38,8 +38,14 @@ class Photo
         $this->height = $data['height'];
         $this->crop_algorithm = $data['crop_algorithm'];
 
-        // TODO : get comments
-        $this->comments = [];
+
+        $this->comments = $comments;
+
+        $count = 0;
+        foreach ($comments as $comment) {
+            $count++;
+        }
+        $this->comments_count = $count;
     }
 
     public function getImagePath()

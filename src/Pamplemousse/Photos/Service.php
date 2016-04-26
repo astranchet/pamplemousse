@@ -62,7 +62,7 @@ class Service
         $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s WHERE type = ? ORDER BY date_taken DESC', self::TABLE_NAME), array('picture'));
 
         foreach ($items as $id => $item) {
-            yield new Entity\Photo($item);
+            yield new Entity\Photo($item, $this->app['comments']->getComments($item['id']));
         }
     }
 
