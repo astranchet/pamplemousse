@@ -140,3 +140,8 @@
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
   transform: rotate(1deg) scale(1.05);
 }
+
+.pswp__caption a {
+  color: #fff;
+  font-weight: bold;
+}
