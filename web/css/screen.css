@@ -220,3 +220,11 @@
   background: #DF622C;
   border: 1px solid #F9A674;
 }
+#photo #navigation {
+  max-width: 800px;
+  margin: 1em auto;
+}
+#photo #navigation a {
+  color: #7F7F81;
+  border-bottom: 1px solid #82B4BF;
+}
