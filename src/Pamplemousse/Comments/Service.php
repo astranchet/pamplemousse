@@ -28,7 +28,16 @@ class Service
         $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s WHERE item_id = ?', self::TABLE_NAME), array($photoId));
 
         foreach ($items as $id => $item) {
-            yield new Entity\Comment($item);
+            yield new Entity\Comment($this->app, $item);
+        }
+    }
+
+    public function getLast($limit = 10)
+    {
+        $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s ORDER BY ID DESC LIMIT 10', self::TABLE_NAME, $limit));
+
+        foreach ($items as $id => $item) {
+            yield new Entity\Comment($this->app, $item);
         }
     }
 
