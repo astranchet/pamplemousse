@@ -2,30 +2,33 @@
 
 {% block content %}
 
-    <section id="photos">
-        <div class="container">
+    <section id="photo">
+        <h1>
+            <a href="#" alt="Photo précédente"> ◀ </a>
+            {{ photo.description|default(photo.date_taken|date("m/d/Y")) }}
+            <a href="#" alt="Photo suivante"> ▶ </a>
+        </h1>
 
-            <h1>{{ photo.description|default(photo.date_taken|timeago) }}</h1>
+        <img src="{{ photo.url }}" alt="{{ photo.filename }}" />
 
-            <img id="fullpage-photo" src="{{ photo.url }}" alt="{{ photo.filename }}" />
 
-            <ul id="comments">
-            {% for comment in comments %}
-                <li>
-                    <div class="author">{{ comment.name }}</div>
-                    <div class="comment">{{ comment.comment }}</div>
-                </li>
-            {% endfor %}
-            </ul>
+        <h2>Commentaires</h2>
 
-            <form action="{{ path('photo', { 'photo': photo.id }) }}" method="post">
-                {{ form_widget(form.item_id, { value : photo.id }) }}
-                {{ form_rest(form) }}
-                {{ form_errors(form) }}
-                <button type="submit" class="btn btn-primary">Sauvegarder</button>
-            </form>
+        <ul id="comments">
+        {% for comment in comments %}
+            <li>
+                <div class="author">Le {{ comment.date|date("m/d/Y à H:m") }}, {{ comment.name }} a dit :</div>
+                <div class="comment">{{ comment.comment }}</div>
+            </li>
+        {% endfor %}
+        </ul>
 
-        </div>
+        <form action="{{ path('photo', { 'photo': photo.id }) }}" method="post">
+            {{ form_widget(form.item_id, { value : photo.id }) }}
+            {{ form_rest(form) }}
+            {{ form_errors(form) }}
+            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+        </form>
     </section>
 
     <section id="footer">
