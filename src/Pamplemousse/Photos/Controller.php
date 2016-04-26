@@ -5,6 +5,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextAreaType;
@@ -24,8 +25,8 @@ class Controller
     {
         $form = $app['form.factory']->createBuilder(FormType::class)
             ->add('item_id', HiddenType::class)
-            ->add('name')
-            ->add('comment', TextAreaType::class)
+            ->add('name', TextType::class, [ 'label' => "Nom" ])
+            ->add('comment', TextAreaType::class, [ 'label' => "Commentaire" ])
             ->getForm();
 
         $form->handleRequest($request);
