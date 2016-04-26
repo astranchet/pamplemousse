@@ -62,7 +62,7 @@ class Service
         $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s WHERE type = ? ORDER BY date_taken DESC', self::TABLE_NAME), array('picture'));
 
         foreach ($items as $id => $item) {
-            yield new Entity\Photo($item, $this->app['comments']->getComments($item['id']));
+            yield new Entity\Photo($this->app, $item);
         }
     }
 
@@ -79,7 +79,7 @@ class Service
 
         $photos = [];
         foreach ($items as $id => $item) {
-            $photos[$item['id']] = new Entity\Photo($item);
+            $photos[$item['id']] = new Entity\Photo($this->app, $item);
         }
 
         return $photos;
@@ -89,7 +89,7 @@ class Service
     {
         $item = $this->conn->fetchAssoc(sprintf('SELECT * FROM %s WHERE id = ?', self::TABLE_NAME), array($id));
         if ($item) {
-            return new Entity\Photo($item);
+            return new Entity\Photo($this->app, $item);
         }
         return false;
     }
@@ -98,7 +98,7 @@ class Service
     {
         $item = $this->conn->fetchAssoc(sprintf('SELECT * FROM %s WHERE path LIKE ?', self::TABLE_NAME), array("%/".$filename));
         if ($item) {
-            return new Entity\Photo($item);
+            return new Entity\Photo($this->app, $item);
         }
         return false;
     }

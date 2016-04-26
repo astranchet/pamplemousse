@@ -10,6 +10,7 @@ use RecursiveRegexIterator;
 class Photo
 {
     public 
+        $app,
         $id,
         $url,
         $filename,
@@ -23,8 +24,10 @@ class Photo
         $comments
     ;
 
-    public function __construct($data, $comments = [])
+    public function __construct($app, $data)
     {
+        $this->app = $app;
+
         $this->id = $data['id'];
 
         $this->url = $data['path'];
@@ -39,10 +42,10 @@ class Photo
         $this->crop_algorithm = $data['crop_algorithm'];
 
 
-        $this->comments = $comments;
+        $this->comments = $this->app['comments']->getComments($this->id);
 
         $count = 0;
-        foreach ($comments as $comment) {
+        foreach ($this->comments as $comment) {
             $count++;
         }
         $this->comments_count = $count;
