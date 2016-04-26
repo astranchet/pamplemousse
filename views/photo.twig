@@ -2,12 +2,40 @@
 
 {% block content %}
 
-    <section id="photos">
-        <div class="container">
+    <section id="photo">
+        <h1>
+            {% if photo.previous %}
+                <a href="{{ path('photo', { 'photo': photo.previous.id }) }}" alt="Photo précédente"> ◀ </a>
+            {% endif %}
+            {{ photo.description|default(photo.date_taken|date("d/m/Y")) }}
+            {% if photo.next %}
+                <a href="{{ path('photo', { 'photo': photo.next.id }) }}" alt="Photo suivante"> ▶ </a>
+            {% endif %}
+        </h1>
 
-            <h1>{{ photo.description|default(photo.date_taken|timeago) }}</h1>
+        <img src="{{ photo.url }}" alt="{{ photo.filename }}" />
 
-            <img id="fullpage-photo" src="{{ photo.url }}" alt="{{ photo.filename }}" />
+
+        <h2>Commentaires</h2>
+
+        <ul id="comments">
+        {% for comment in comments %}
+            <li>
+                <div class="author">Le {{ comment.date|date("d/m/Y à H:m") }}, {{ comment.name }} a dit :</div>
+                <div class="comment">{{ comment.comment }}</div>
+            </li>
+        {% endfor %}
+        </ul>
+
+        <form action="{{ path('photo', { 'photo': photo.id }) }}" method="post">
+            {{ form_widget(form.item_id, { value : photo.id }) }}
+            {{ form_rest(form) }}
+            {{ form_errors(form) }}
+            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+        </form>
+
+        <div id="navigation">
+            <a href="{{ path('index') }}">← Retour à l'accueil</a>
         </div>
     </section>
 

@@ -25,7 +25,9 @@
                         w: photo.width,
                         h: photo.height,
                         date: photo.date_taken|date("d/m/Y"),
-                        age: photo.date_taken|age
+                        age: photo.date_taken|age,
+                        comments_count: photo.comments_count,
+                        url: path('photo', { 'photo': photo.id })
                     } %}
                     {% set slides = slides|merge([slide]) %}
                     <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
@@ -54,6 +56,14 @@
                                 return false;
                             }
                             captionEl.children[0].innerHTML = item.title + ' — ' + item.age + ' — ' + item.date;
+                            if (item.comments_count == 0) {
+                                comments_invite = 'Soyez le premier à commenter !';
+                            } else if (item.comments_count == 1) {
+                                comments_invite = item.comments_count + ' commentaire';
+                            } else {
+                                comments_invite = item.comments_count + ' commentaires';
+                            }
+                            captionEl.children[0].innerHTML += '<br /><a href="' + item.url + '">' + comments_invite + '</a>';
                             return true;
                         },
                         // Share buttons

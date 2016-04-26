@@ -35,7 +35,7 @@
                             </div>
 
                             <div class="content">
-                                <h4>{{ photo.description|default(photo.date_taken|date("m/d/Y à H:m")) }}</h4>
+                                <h4>{{ photo.description|default(photo.date_taken|date("d/m/Y à H:m")) }}</h4>
                                 <p>{{ photo.date_taken | timeago }}</p>
                             </div>
 

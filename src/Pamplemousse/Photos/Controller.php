@@ -5,6 +5,11 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextAreaType;
+
 use Pamplemousse\Photos\Entity\Photo;
 
 class Controller
@@ -18,8 +23,23 @@ class Controller
      */
     public function photoAction(Application $app, Request $request, Photo $photo)
     {
+        $form = $app['form.factory']->createBuilder(FormType::class)
+            ->add('item_id', HiddenType::class)
+            ->add('name', TextType::class, [ 'label' => "Nom" ])
+            ->add('comment', TextAreaType::class, [ 'label' => "Commentaire" ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $app['comments']->add($photo, $form->getData());
+            return $app->redirect($app['url_generator']->generate('photo', [ 'photo' => $photo->id ]));
+        }
+
         return $app['twig']->render('photo.twig', [
-            'photo' => $photo
+            'photo' => $photo,
+            'comments' => $app['comments']->getComments($photo->id),
+            'form' => $form->createView()
         ]);
     }
 

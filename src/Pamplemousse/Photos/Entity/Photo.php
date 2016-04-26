@@ -10,6 +10,7 @@ use RecursiveRegexIterator;
 class Photo
 {
     public 
+        $app,
         $id,
         $url,
         $filename,
@@ -19,11 +20,14 @@ class Photo
         $is_favorite,
         $width,
         $height,
-        $crop_algorithm
+        $crop_algorithm,
+        $comments
     ;
 
-    public function __construct($data)
+    public function __construct($app, $data)
     {
+        $this->app = $app;
+
         $this->id = $data['id'];
 
         $this->url = $data['path'];
@@ -36,6 +40,15 @@ class Photo
         $this->width = $data['width'];
         $this->height = $data['height'];
         $this->crop_algorithm = $data['crop_algorithm'];
+
+
+        $this->comments = $this->app['comments']->getComments($this->id);
+
+        $count = 0;
+        foreach ($this->comments as $comment) {
+            $count++;
+        }
+        $this->comments_count = $count;
     }
 
     public function getImagePath()
@@ -52,6 +65,16 @@ class Photo
         foreach ($iterator as $thumbnailPath => $thumbnailName) {
             yield $thumbnailPath;
         }
+    }
+
+    public function getPrevious()
+    {
+        return $this->app['photos']->getPreviousPhoto($this);
+    }
+
+    public function getNext()
+    {
+        return $this->app['photos']->getNextPhoto($this);
     }
 
     public function exists()
