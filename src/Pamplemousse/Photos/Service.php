@@ -94,6 +94,24 @@ class Service
         return false;
     }
 
+    public function getNextPhoto($photo)
+    {
+        $item = $this->conn->fetchAssoc(sprintf('SELECT * FROM %s WHERE date_taken > ? ORDER BY date_taken LIMIT 1', self::TABLE_NAME), array($photo->date_taken));
+        if ($item) {
+            return new Entity\Photo($this->app, $item);
+        }
+        return false;
+    }
+
+    public function getPreviousPhoto($photo)
+    {
+        $item = $this->conn->fetchAssoc(sprintf('SELECT * FROM %s WHERE date_taken < ? ORDER BY date_taken DESC LIMIT 1', self::TABLE_NAME), array($photo->date_taken));
+        if ($item) {
+            return new Entity\Photo($this->app, $item);
+        }
+        return false;
+    }
+
     public function findFromFilename($filename)
     {
         $item = $this->conn->fetchAssoc(sprintf('SELECT * FROM %s WHERE path LIKE ?', self::TABLE_NAME), array("%/".$filename));

@@ -67,6 +67,16 @@ class Photo
         }
     }
 
+    public function getPrevious()
+    {
+        return $this->app['photos']->getPreviousPhoto($this);
+    }
+
+    public function getNext()
+    {
+        return $this->app['photos']->getNextPhoto($this);
+    }
+
     public function exists()
     {
         return file_exists($this->getImagePath());
