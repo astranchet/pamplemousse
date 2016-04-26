@@ -228,3 +228,8 @@
   color: #7F7F81;
   border-bottom: 1px solid #82B4BF;
 }
+#photo #navigation a:hover {
+  text-decoration: none;
+  color: #7F7F81;
+  border-bottom: 1px solid #7F7F81;
+}
