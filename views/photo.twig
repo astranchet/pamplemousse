@@ -7,7 +7,7 @@
             {% if photo.previous %}
                 <a href="{{ path('photo', { 'photo': photo.previous.id }) }}" alt="Photo précédente"> ◀ </a>
             {% endif %}
-            {{ photo.description|default(photo.date_taken|date("m/d/Y")) }}
+            {{ photo.description|default(photo.date_taken|date("d/m/Y")) }}
             {% if photo.next %}
                 <a href="{{ path('photo', { 'photo': photo.next.id }) }}" alt="Photo suivante"> ▶ </a>
             {% endif %}
@@ -21,7 +21,7 @@
         <ul id="comments">
         {% for comment in comments %}
             <li>
-                <div class="author">Le {{ comment.date|date("m/d/Y à H:m") }}, {{ comment.name }} a dit :</div>
+                <div class="author">Le {{ comment.date|date("d/m/Y à H:m") }}, {{ comment.name }} a dit :</div>
                 <div class="comment">{{ comment.comment }}</div>
             </li>
         {% endfor %}
