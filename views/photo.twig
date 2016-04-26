@@ -4,9 +4,9 @@
 
     <section id="photo">
         <h1>
-            <a href="#" alt="Photo précédente"> ◀ </a>
+            {# <a href="{{ path('photo', { 'photo': photo.previous.id }) }}" alt="Photo précédente"> ◀ </a> #}
             {{ photo.description|default(photo.date_taken|date("m/d/Y")) }}
-            <a href="#" alt="Photo suivante"> ▶ </a>
+            {# <a href="{{ path('photo', { 'photo': photo.next.id }) }}" alt="Photo suivante"> ▶ </a> #}
         </h1>
 
         <img src="{{ photo.url }}" alt="{{ photo.filename }}" />
