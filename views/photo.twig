@@ -9,10 +9,14 @@
 
             <img id="fullpage-photo" src="{{ photo.url }}" alt="{{ photo.filename }}" />
 
-            {% for comment in photo.comments %}
-                {{ comment.name }}
-                {{ comment.description }}
+            <ul id="comments">
+            {% for comment in comments %}
+                <li>
+                    <div class="author">{{ comment.name }}</div>
+                    <div class="comment">{{ comment.comment }}</div>
+                </li>
             {% endfor %}
+            </ul>
 
             <form action="{{ path('photo', { 'photo': photo.id }) }}" method="post">
                 {{ form_widget(form.item_id, { value : photo.id }) }}

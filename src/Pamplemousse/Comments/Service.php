@@ -23,4 +23,13 @@ class Service
         $this->conn->insert(self::TABLE_NAME, $data);
     }
 
+    public function getComments($photoId)
+    {
+        $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s WHERE item_id = ?', self::TABLE_NAME), array($photoId));
+
+        foreach ($items as $id => $item) {
+            yield new Entity\Comment($item);
+        }
+    }
+
 }

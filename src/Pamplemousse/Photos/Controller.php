@@ -37,6 +37,7 @@ class Controller
 
         return $app['twig']->render('photo.twig', [
             'photo' => $photo,
+            'comments' => $app['comments']->getComments($photo->id),
             'form' => $form->createView()
         ]);
     }
