@@ -30,7 +30,8 @@
                         url: path('photo', { 'photo': photo.id })
                     } %}
                     {% set slides = slides|merge([slide]) %}
-                    <a class="image {% if photo.is_favorite %}favorite{% endif %}" href="{{ path('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
+                    <div class="image {% if photo.is_favorite %}favorite{% endif %}">
+                    <a href="{{ path('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
                         <img 
                             data-src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': 800 }) }}" 
                             alt="{{ photo.filename }}" 
@@ -38,6 +39,10 @@
                             onload="lzld(this)"
                         />
                     </a>
+                    {% if photo.comments_count > 0 %}
+                        <a class="counter" href="{{ path('photo', { 'photo': photo.id }) }}">{{ photo.comments_count }} <span class="glyphicon glyphicon-comment"></span></a>
+                    {% endif %}
+                    </div>
                 {% endfor %}
 
                 {% include 'partials/photoswipe.twig' %}

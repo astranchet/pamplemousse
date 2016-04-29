@@ -64,6 +64,23 @@
       }
     }
 
+    .counter {
+       position: absolute;
+       bottom: 1.5em;
+       right: 1.5em;
+       background-color: rgba(1,1,1,.2);
+       border: 1px solid rgba(1,1,1,.2);
+       color: #ddd;
+       padding: .5em;
+       border-radius: .5em;
+       &:hover {
+          background: #fff;
+          color: #222;
+          text-decoration: none;
+          border: 1px solid #ddd;
+       }
+    }
+
     img {
       background-color: #fff;
       box-shadow: 0 1px 5px rgba(0,0,0,.3);

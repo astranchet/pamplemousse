@@ -128,6 +128,22 @@
     padding: 1em 0;
   }
 }
+#gallery .image .counter, #gallery .grid-sizer .counter {
+  position: absolute;
+  bottom: 1.5em;
+  right: 1.5em;
+  background-color: rgba(1, 1, 1, 0.2);
+  border: 1px solid rgba(1, 1, 1, 0.2);
+  color: #ddd;
+  padding: .5em;
+  border-radius: .5em;
+}
+#gallery .image .counter:hover, #gallery .grid-sizer .counter:hover {
+  background: #fff;
+  color: #222;
+  text-decoration: none;
+  border: 1px solid #ddd;
+}
 #gallery .image img, #gallery .grid-sizer img {
   background-color: #fff;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
