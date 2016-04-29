@@ -37,6 +37,7 @@
                             <div class="content">
                                 <h4>{{ photo.description|default(photo.date_taken|date("d/m/Y à H:m")) }}</h4>
                                 <p>{{ photo.date_taken | timeago }}</p>
+                                <p>{{ photo.comments_count }} commentaires</p>
                             </div>
 
                             <span class="buttons">
