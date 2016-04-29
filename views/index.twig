@@ -31,7 +31,7 @@
                     } %}
                     {% set slides = slides|merge([slide]) %}
                     <div class="image {% if photo.is_favorite %}favorite{% endif %}">
-                    <a href="{{ path('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
+                    <a class="swipe" href="{{ path('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
                         <img 
                             data-src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': 800 }) }}" 
                             alt="{{ photo.filename }}" 
@@ -104,7 +104,7 @@
                     return params;
                 };
 
-                $(".image").on('click', function(e) {
+                $(".swipe").on('click', function(e) {
                     e.preventDefault();
                     openPhotoSwipe(this.getAttribute('data-index'));
                 });
