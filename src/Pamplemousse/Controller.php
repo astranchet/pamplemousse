@@ -18,7 +18,7 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         return $app['twig']->render('index.twig', [
-            'photos' => $app['photos']->getAll()
+            'photos' => $app['photos']->getLast(50)
         ]);
     }
 

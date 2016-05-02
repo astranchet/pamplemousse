@@ -66,6 +66,16 @@ class Service
         }
     }
 
+    public function getLast($limit = 50)
+    {
+        $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s WHERE type = ? ORDER BY date_taken DESC LIMIT %d', 
+            self::TABLE_NAME, $limit), array('picture'));
+
+        foreach ($items as $id => $item) {
+            yield new Entity\Photo($this->app, $item);
+        }
+    }
+
     public function getPhotosByIds($ids, Request $request = null)
     {
         if (is_null($ids)) {
