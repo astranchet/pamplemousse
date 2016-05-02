@@ -5,11 +5,11 @@
     <section id="photo">
         <h1>
             {% if photo.previous %}
-                <a href="{{ path('photo', { 'photo': photo.previous.id }) }}" alt="Photo précédente"> ◀ </a>
+                <a href="{{ path('photo', { 'photo': photo.previous.id }) }}" alt="Photo précédente"> ◀&nbsp;</a>
             {% endif %}
             {{ photo.description|default(photo.date_taken|date("d/m/Y")) }}
             {% if photo.next %}
-                <a href="{{ path('photo', { 'photo': photo.next.id }) }}" alt="Photo suivante"> ▶ </a>
+                <a href="{{ path('photo', { 'photo': photo.next.id }) }}" alt="Photo suivante">&nbsp;▶ </a>
             {% endif %}
         </h1>
 
