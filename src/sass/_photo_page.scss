@@ -26,6 +26,8 @@
 
     @media #{$small-devices} {
       width: 100%;
+      height: auto;
+      max-height: inherit;
     }
   }
 
