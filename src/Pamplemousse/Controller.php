@@ -9,6 +9,7 @@ use Pamplemousse\Photos\Entity\Photo;
 
 class Controller
 {
+    const IMAGE_PER_PAGE = 50;
 
     /**
      * @param  Application $app
@@ -18,7 +19,20 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         return $app['twig']->render('index.twig', [
-            'photos' => $app['photos']->getLast(50)
+            'photos' => $app['photos']->getLast(self::IMAGE_PER_PAGE)
+        ]);
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @param  string      $date
+     * @return Response
+     */
+    public function fromAction(Application $app, Request $request, $date = null)
+    {
+        return $app['twig']->render('partials/thumbnails.twig', [
+            'photos' => $app['photos']->getLast(self::IMAGE_PER_PAGE, $date)
         ]);
     }
 
