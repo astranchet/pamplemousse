@@ -71,9 +71,11 @@ class Service
         $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s WHERE type = ? ORDER BY date_taken DESC LIMIT %d', 
             self::TABLE_NAME, $limit), array('picture'));
 
+        $photos = [];
         foreach ($items as $id => $item) {
-            yield new Entity\Photo($this->app, $item);
+            $photos[] = new Entity\Photo($this->app, $item);
         }
+        return $photos;
     }
 
     public function getPhotosByIds($ids, Request $request = null)
