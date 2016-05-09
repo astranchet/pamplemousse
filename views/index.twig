@@ -17,29 +17,7 @@
 
             <div id="gallery">
                 <div class="grid-sizer"></div>
-                {% for photo in photos %}
-                    <div class="image {% if photo.is_favorite %}favorite{% endif %}">
-                    <a class="swipe" href="{{ path('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
-                        <img 
-                            data-src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': 800 }) }}" 
-                            data-big-thumbnail="{{ path('thumbnail', { 'photo': photo.id, 'width': 1200 }) }}" 
-                            data-title="{{ photo.description|default(app.config.kid.name) }}" 
-                            data-w="{{ photo.width }}" 
-                            data-h="{{ photo.height }}" 
-                            data-date="{{ photo.date_taken|date("d/m/Y") }}" 
-                            data-age="{{ photo.date_taken|age }}" 
-                            data-comments-count="{{ photo.comments_count }}" 
-                            data-url="{{ path('photo', { 'photo': photo.id }) }}" 
-                            alt="{{ photo.filename }}" 
-                            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                            onload="lzld(this)"
-                        />
-                    </a>
-                    {% if photo.comments_count > 0 %}
-                        <a class="counter" href="{{ path('photo', { 'photo': photo.id }) }}">{{ photo.comments_count }} <span class="glyphicon glyphicon-comment"></span></a>
-                    {% endif %}
-                    </div>
-                {% endfor %}
+                {% include 'partials/thumbnails.twig' %}
 
                 {% include 'partials/photoswipe.twig' %}
 
