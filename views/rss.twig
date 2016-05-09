@@ -10,7 +10,7 @@
     <item>
         <title>{{ comment.name }}</title>
         <link>{{ url('photo', { 'photo': comment.photoId }) }}</link>
-        <guid isPermaLink="true">{{ url('photo', { 'photo': comment.photoId }) }}</guid>
+        <guid isPermaLink="true">{{ url('photo', { 'photo': comment.photoId }) }}#{{ comment.id }}</guid>
         <description><![CDATA[
             <a href="{{ url('photo', { 'photo': comment.photoId }) }}">
                 <img src="{{ url('thumbnail-square', { 'photo': comment.photoId, 'size': '200' }) }}" />
