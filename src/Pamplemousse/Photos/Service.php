@@ -68,8 +68,11 @@ class Service
 
     public function getLast($limit = 50)
     {
-        $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s WHERE type = ? ORDER BY date_taken DESC LIMIT %d', 
-            self::TABLE_NAME, $limit), array('picture'));
+        $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s WHERE type = :type ORDER BY date_taken DESC LIMIT %d', 
+            self::TABLE_NAME, $limit));
+        $stmt->bindValue('type', 'picture');
+        $stmt->execute();
+        $items = $stmt->fetchAll();
 
         $photos = [];
         foreach ($items as $id => $item) {
