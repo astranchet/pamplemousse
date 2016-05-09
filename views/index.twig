@@ -117,6 +117,9 @@
                 </script>
             </div>
         </div>
+
+        {% set photo = photos|last %}
+        <button id="load" href="#" data-after="{{ photo.date_taken }}">Voir encore plus d'images !</button>
     </section>
 
     <section id="footer">
