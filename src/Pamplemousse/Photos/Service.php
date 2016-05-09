@@ -66,11 +66,12 @@ class Service
         }
     }
 
-    public function getLast($limit = 50)
+    public function getLast($limit = 50, $from = null)
     {
-        $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s WHERE type = :type ORDER BY date_taken DESC LIMIT %d', 
+        $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s WHERE type = :type AND date_taken < :date_from ORDER BY date_taken DESC LIMIT %d', 
             self::TABLE_NAME, $limit));
         $stmt->bindValue('type', 'picture');
+        $stmt->bindValue('date_from', new \DateTime($from), "datetime");
         $stmt->execute();
         $items = $stmt->fetchAll();
 
