@@ -3,13 +3,15 @@
 <channel>
     <title>{{ app.config.kid.name }}</title>
     <link>{{ url('index') }}</link>
+    <description>Commentaires sur les photos de {{ app.config.kid.name }}</description>
     <atom:link href="{{ url('rss.comment') }}" rel="self" type="application/rss+xml" />
 
     {% for comment in comments %}
     <item>
         <title>{{ comment.name }}</title>
         <link>{{ url('photo', { 'photo': comment.photoId }) }}</link>
-        <guid isPermaLink="true">{{ url('photo', { 'photo': comment.photoId }) }}</guid>
+        <guid isPermaLink="true">{{ url('photo', { 'photo': comment.photoId }) }}#{{ comment.id }}</guid>
+        <pubDate>{{ comment.date }}</pubDate>
         <description><![CDATA[
             <a href="{{ url('photo', { 'photo': comment.photoId }) }}">
                 <img src="{{ url('thumbnail-square', { 'photo': comment.photoId, 'size': '200' }) }}" />
