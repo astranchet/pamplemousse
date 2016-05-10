@@ -16,9 +16,12 @@ $('#home').css({'background-image': 'url(../images/bg' + Math.floor(Math.random(
 $("#load").click(function() {
   var lastDate = $(".swipe img").last()[0].getAttribute("data-date-taken");
   $.get("from/"+lastDate, {}, function(data) {
-
-    $("#gallery").append(data);
-    var $content = $(data);
-    $grid.append($content).masonry('appended', $content);
+    if (!data) {
+      $("#load").hide();
+    } else {
+      $("#gallery").append(data);
+      var $content = $(data);
+      $grid.append($content).masonry('appended', $content);
+    }
   });
 });
