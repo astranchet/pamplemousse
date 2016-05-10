@@ -1,5 +1,3 @@
-<script src="{{ app.config.web_dir }}js/vendor/lazyload.min.js"></script>
-
 {% for photo in photos %}
     <div class="image {% if photo.is_favorite %}favorite{% endif %}">
     <a class="swipe" href="{{ url('photo', { 'photo': photo.id }) }}" data-index="{{ loop.index0 }}">
