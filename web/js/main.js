@@ -18,6 +18,7 @@ $("#load").click(function() {
   $.get("from/"+lastDate, {}, function(data) {
     if (!data) {
       $("#load").hide();
+      $("#load").after('<div class="warning">Désolé, c\'est fini !</div>');
     } else {
       $("#gallery").append(data);
       var $content = $(data);
