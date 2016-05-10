@@ -99,6 +99,20 @@
 #photos h1::after {
   content: " ▶";
 }
+#photos #load {
+  margin: 2em auto 2em;
+  display: block;
+  background: #DF622C;
+  color: #fff;
+  padding: 1em;
+  font-family: Lora, serif;
+  font-size: 1.3em;
+  border: none;
+  border-radius: .5em;
+}
+#photos #load:hover {
+  background: #f15b1a;
+}
 #photos #fullpage-photo {
   display: block;
   padding: 1em;
