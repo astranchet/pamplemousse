@@ -22,6 +22,11 @@ $("#load").click(function() {
       $("#gallery").append(data);
       var $content = $(data);
       $grid.append($content).masonry('appended', $content);
+
+      $(".swipe").on('click', function(e) {
+          e.preventDefault();
+          openPhotoSwipe(this.getAttribute('data-index'));
+      });
     }
   });
 });
