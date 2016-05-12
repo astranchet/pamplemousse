@@ -26,7 +26,8 @@ $("#load").click(function() {
 
       $(".swipe").on('click', function(e) {
           e.preventDefault();
-          openPhotoSwipe(this.getAttribute('data-index'));
+          var index = $("#gallery .swipe").index($(this));
+          openPhotoSwipe(index);
       });
     }
   });

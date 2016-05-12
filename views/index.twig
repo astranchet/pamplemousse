@@ -113,7 +113,8 @@
 
                 $(".swipe").on('click', function(e) {
                     e.preventDefault();
-                    openPhotoSwipe(this.getAttribute('data-index'));
+                    var index = $("#gallery .swipe").index($(this));
+                    openPhotoSwipe(index);
                 });
 
                 // Parse URL and open gallery if it contains #&pid=X
