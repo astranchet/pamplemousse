@@ -22,7 +22,7 @@ $("#load").click(function() {
     } else {
       $("#gallery").append(data);
       var $content = $(data);
-      $grid.append($content).masonry('appended', $content);
+      $grid.append($content).masonry('appended', $content).masonry('reloadItems');
 
       $(".swipe").on('click', function(e) {
           e.preventDefault();
