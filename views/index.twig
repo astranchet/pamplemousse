@@ -18,11 +18,11 @@
             <div id="gallery">
                 <div class="grid-sizer"></div>
                 {% include 'partials/thumbnails.twig' %}
-
-                {% include 'partials/photoswipe.twig' %}
-                {% include 'partials/photoswipe.js.twig' %}
             </div>
         </div>
+
+        {% include 'partials/photoswipe.twig' %}
+        {% include 'partials/photoswipe.js.twig' %}
 
         {% set photo = photos|last %}
         <button id="load" href="#" data-after="{{ photo.date_taken }}">Voir encore plus d'images !</button>
