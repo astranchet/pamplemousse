@@ -48,7 +48,8 @@ class PhotoType extends AbstractType
 
         $builder->add('tags', ChoiceType::class, [
             'label' => "Série",
-            'choices' => [1, 2, 3], // TODO : read from config
+            'choices' => $options['tags'],
+            'choice_label' => function ($value, $key, $index) { return $value; },
             'expanded' => true,
             'multiple' => true
         ]);
@@ -65,6 +66,7 @@ class PhotoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Pamplemousse\Photos\Entity\Photo',
+            'tags' => []
         ));
     }
 
