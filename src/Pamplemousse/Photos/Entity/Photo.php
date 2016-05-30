@@ -18,6 +18,7 @@ class Photo
         $date_taken,
         $like,
         $is_favorite,
+        $tags,
         $width,
         $height,
         $crop_algorithm,

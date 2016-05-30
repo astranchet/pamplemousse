@@ -45,6 +45,13 @@ class PhotoType extends AbstractType
             'choices' => array_combine($cropAlgorithms, $cropAlgorithms),
             'expanded' => true,
         ]);
+
+        $builder->add('tags', ChoiceType::class, [
+            'label' => "Série",
+            'choices' => [1, 2, 3], // TODO : read from config
+            'expanded' => true,
+            'multiple' => true
+        ]);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
