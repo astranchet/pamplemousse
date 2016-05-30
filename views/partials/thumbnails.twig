@@ -1,0 +1,24 @@
+{% for photo in photos %}
+    <div class="image {% if photo.is_favorite %}favorite{% endif %}">
+    <a class="swipe" href="{{ url('photo', { 'photo': photo.id }) }}">
+        <img 
+            data-src="{{ url('thumbnail-square', { 'photo': photo.id, 'size': 800 }) }}" 
+            data-big-thumbnail="{{ url('thumbnail', { 'photo': photo.id, 'width': 1200 }) }}" 
+            data-title="{{ photo.description|default(app.config.kid.name) }}" 
+            data-w="{{ photo.width }}" 
+            data-h="{{ photo.height }}" 
+            data-date="{{ photo.date_taken|date("d/m/Y") }}" 
+            data-age="{{ photo.date_taken|age }}" 
+            data-date-taken="{{ photo.date_taken }}" 
+            data-comments-count="{{ photo.comments_count }}" 
+            data-url="{{ url('photo', { 'photo': photo.id }) }}" 
+            alt="{{ photo.filename }}" 
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            onload="lzld(this)"
+        />
+    </a>
+    {% if photo.comments_count > 0 %}
+        <a class="counter" href="{{ url('photo', { 'photo': photo.id }) }}">{{ photo.comments_count }} <span class="glyphicon glyphicon-comment"></span></a>
+    {% endif %}
+    </div>
+{% endfor %}
