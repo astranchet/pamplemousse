@@ -13,8 +13,13 @@ class Tag
     public function __construct($app, $data)
     {
         $this->app = $app;
-        $this->item = $data['item'];
+
+        $this->itemId = $data['item_id'];
         $this->tag = $data['tag'];
     }
 
+    public function __toString()
+    {
+        return $this->tag;
+    }
 }

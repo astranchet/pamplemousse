@@ -37,9 +37,12 @@ class Service
     {
         $items = $this->conn->fetchAll(sprintf('SELECT * FROM %s WHERE item_id = ?', self::TABLE_NAME), array($photoId));
 
+        $tags = [];
         foreach ($items as $id => $item) {
-            yield new Entity\Tag($this->app, $item);
+            $tags[] = new Entity\Tag($this->app, $item);
         }
+
+        return $tags;
     }
 
 }
