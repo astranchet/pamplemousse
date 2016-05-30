@@ -68,6 +68,9 @@ $app['photos'] = $app->share(function ($app) {
 $app['slug'] = $app->share(function ($app) {
     return new Cocur\Slugify\Slugify();
 });
+$app['tags'] = $app->share(function ($app) {
+    return new Pamplemousse\Tags\Service($app);
+});
 $app['imagine'] = $app->share(function ($app) {
     $imagine = new \Imagine\Gd\Imagine();
     $imagine->setMetadataReader(new \Imagine\Image\Metadata\ExifMetadataReader());

@@ -145,6 +145,10 @@ class Service
             'crop_algorithm' => $photo->crop_algorithm,
             'date_taken' => $photo->date_taken
         ];
+
+        $this->app['tags']->delete($photo);
+        $this->app['tags']->add($photo);
+
         return $this->conn->update(self::TABLE_NAME, $data, array('id' => $photo->id));
     }
 
