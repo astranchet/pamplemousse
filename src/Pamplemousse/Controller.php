@@ -18,8 +18,16 @@ class Controller
      */
     public function indexAction(Application $app, Request $request)
     {
+        $filter = $request->get('filter');
+
+        if (is_null($filter)) {
+            $photos = $app['photos']->getLast(self::IMAGE_PER_PAGE);
+        } else {
+            $photos = $app['photos']->getWithTag($filter);
+        }
+
         return $app['twig']->render('index.twig', [
-            'photos' => $app['photos']->getLast(self::IMAGE_PER_PAGE),
+            'photos' => $photos,
             'tags'   => $app['tags']->getTags()
         ]);
     }
