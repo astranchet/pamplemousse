@@ -48,8 +48,7 @@ class PhotoType extends AbstractType
 
         $builder->add('tags', ChoiceType::class, [
             'label' => "Série",
-            'choices' => $options['tags'],
-            'choice_label' => function ($value, $key, $index) { return $value; },
+            'choices' => array_flip($options['tags']),
             'expanded' => true,
             'multiple' => true
         ]);
