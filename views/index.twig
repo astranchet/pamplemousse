@@ -25,8 +25,10 @@
         {% include 'partials/photoswipe.twig' %}
         {% include 'partials/photoswipe.js.twig' %}
 
-        {% set photo = photos|last %}
-        <button id="load" href="#" data-after="{{ photo.date_taken }}">Voir encore plus d'images !</button>
+        {% if not app.request.get('filter') %}
+            {% set photo = photos|last %}
+            <button id="load" href="#" data-after="{{ photo.date_taken }}">Voir encore plus d'images !</button>
+        {% endif %}
     </section>
 
     <section id="footer">
