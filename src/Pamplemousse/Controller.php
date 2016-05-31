@@ -19,7 +19,8 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         return $app['twig']->render('index.twig', [
-            'photos' => $app['photos']->getLast(self::IMAGE_PER_PAGE)
+            'photos' => $app['photos']->getLast(self::IMAGE_PER_PAGE),
+            'tags'   => $app['tags']->getTags()
         ]);
     }
 

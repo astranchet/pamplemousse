@@ -1,0 +1,8 @@
+<div>
+    Afficher uniquement : 
+    <ul>
+    {% for id, tag in app.config.tags %}
+        <li><a href="{{ url('index', { 'filter': id }) }}">{{ tag }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
