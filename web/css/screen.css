@@ -206,10 +206,13 @@
 }
 #filters ul li {
   display: inline;
-  background: #f78743;
+  background: #f6772b;
   border-radius: .5em;
   padding: .5em 1em;
   margin: .5em;
+}
+#filters ul li.current {
+  background: #f9a674;
 }
 #filters ul li a {
   color: #fff;

@@ -1,9 +1,12 @@
 <div id="filters">
     <div>Afficher : 
     <ul>
-    <li><a href="{{ url('index') }}#photos">Tout</a></li>
+    {% set filter = app.request.query.get('filter') %}
+    <li class="{% if not filter %}current{% endif %}"><a href="{{ url('index') }}#photos">Tout</a></li>
     {% for id, tag in app.config.tags %}
-        <li><a href="{{ url('index', { 'filter': id }) }}#photos">{{ tag }}</a></li>
+        <li class="{% if filter == id %}current{% endif %}">
+            <a href="{{ url('index', { 'filter': id }) }}#photos">{{ tag }}</a>
+        </li>
     {% endfor %}
     </ul>
     </div>

@@ -17,7 +17,10 @@
     font-family: PT Sans, sans-serif;
     li {
       display: inline;
-      background: darken(#F9A674, 10%);
+      background: darken(#F9A674, 15%);
+      &.current {
+        background: darken(#F9A674, 0%);
+      }
       border-radius: .5em;
       padding: .5em 1em;
       margin: .5em;
