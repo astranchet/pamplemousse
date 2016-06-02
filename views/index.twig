@@ -11,9 +11,13 @@
         </div>
     </section>
 
+    {% if app.config.tags is defined %}
+        {% include 'partials/filters.twig' %}
+    {% endif %}
+
     <section id="photos">
         <div class="container">
-            <h1>Jour après jour</h1>
+
 
             <div id="gallery">
                 <div class="grid-sizer"></div>
@@ -24,8 +28,10 @@
         {% include 'partials/photoswipe.twig' %}
         {% include 'partials/photoswipe.js.twig' %}
 
-        {% set photo = photos|last %}
-        <button id="load" href="#" data-after="{{ photo.date_taken }}">Voir encore plus d'images !</button>
+        {% if not app.request.get('filter') %}
+            {% set photo = photos|last %}
+            <button id="load" href="#" data-after="{{ photo.date_taken }}">Voir encore plus d'images !</button>
+        {% endif %}
     </section>
 
     <section id="footer">

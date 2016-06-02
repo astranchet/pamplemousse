@@ -82,6 +82,25 @@ class Service
         return $photos;
     }
 
+    public function getWithTag($tag)
+    {
+        $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s LEFT JOIN %s ON %s.id = %s.item_id 
+            WHERE type = :type AND tag = :tag ORDER BY date_taken DESC', 
+            self::TABLE_NAME, \Pamplemousse\Tags\Service::TABLE_NAME,
+            self::TABLE_NAME, \Pamplemousse\Tags\Service::TABLE_NAME,
+            $tag));
+        $stmt->bindValue('type', 'picture');
+        $stmt->bindValue('tag', $tag);
+        $stmt->execute();
+        $items = $stmt->fetchAll();
+
+        $photos = [];
+        foreach ($items as $id => $item) {
+            $photos[] = new Entity\Photo($this->app, $item);
+        }
+        return $photos;
+    }
+
     public function getPhotosByIds($ids, Request $request = null)
     {
         if (is_null($ids)) {
@@ -145,6 +164,10 @@ class Service
             'crop_algorithm' => $photo->crop_algorithm,
             'date_taken' => $photo->date_taken
         ];
+
+        $this->app['tags']->delete($photo);
+        $this->app['tags']->add($photo);
+
         return $this->conn->update(self::TABLE_NAME, $data, array('id' => $photo->id));
     }
 

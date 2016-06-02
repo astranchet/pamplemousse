@@ -45,6 +45,13 @@ class PhotoType extends AbstractType
             'choices' => array_combine($cropAlgorithms, $cropAlgorithms),
             'expanded' => true,
         ]);
+
+        $builder->add('tags', ChoiceType::class, [
+            'label' => "Série",
+            'choices' => array_flip($options['tags']),
+            'expanded' => true,
+            'multiple' => true
+        ]);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
@@ -58,6 +65,7 @@ class PhotoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Pamplemousse\Photos\Entity\Photo',
+            'tags' => []
         ));
     }
 

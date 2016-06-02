@@ -62,7 +62,8 @@ class Controller
         $form = $app['form.factory']->createBuilder(FormType::class)
             ->add('photos', CollectionType::class, [
                 'entry_type' => PhotoType::class,
-                'data' => $photos
+                'data' => $photos,
+                'entry_options' => [ 'tags' => $app['config']['tags'] ]
             ])
             ->getForm();
 

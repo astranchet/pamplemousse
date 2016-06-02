@@ -8,6 +8,9 @@ kid:
   pregnancydate: 17-02-2015
   birthdate: 17-09-2015
 
+tags:
+  evolution: Mois après mois
+  bestof: Favoris
 
 database:
   dbname: pamplemousse

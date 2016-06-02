@@ -18,6 +18,7 @@ class Photo
         $date_taken,
         $like,
         $is_favorite,
+        $tags,
         $width,
         $height,
         $crop_algorithm,
@@ -41,7 +42,7 @@ class Photo
         $this->height = $data['height'];
         $this->crop_algorithm = $data['crop_algorithm'];
 
-
+        $this->tags = $this->app['tags']->getTags($this->id);
         $this->comments = $this->app['comments']->getComments($this->id);
 
         $count = 0;
