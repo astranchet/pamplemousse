@@ -199,10 +199,22 @@
   font-size: 1.1em;
   font-family: Lora, serif;
 }
+@media (max-width: 767px) {
+  #filters div {
+    width: 90%;
+  }
+}
 #filters ul {
   display: inline;
   padding-left: 1em;
   font-family: PT Sans, sans-serif;
+}
+@media (max-width: 767px) {
+  #filters ul {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+  }
 }
 #filters ul li {
   display: inline;
@@ -213,6 +225,12 @@
 }
 #filters ul li.current {
   background: #f9a674;
+}
+@media (max-width: 767px) {
+  #filters ul li {
+    padding: .5em;
+    margin: .5em 0;
+  }
 }
 #filters ul li a {
   color: #fff;
