@@ -27,8 +27,7 @@ class Controller
         }
 
         return $app['twig']->render('index.twig', [
-            'photos' => $photos,
-            'tags'   => $app['tags']->getTags()
+            'photos' => $photos
         ]);
     }
 
