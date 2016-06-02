@@ -20,7 +20,12 @@ class Controller
     {
         $filter = $request->get('filter');
 
-        if (is_null($filter)) {
+        $year = $request->get('year');
+        $month = $request->get('month');
+
+        if ($year && $month) {
+            $photos = $app['photos']->getFromMonth($month, $year);
+        } else if (is_null($filter)) {
             $photos = $app['photos']->getLast(self::IMAGE_PER_PAGE);
         } else {
             $photos = $app['photos']->getWithTag($filter);

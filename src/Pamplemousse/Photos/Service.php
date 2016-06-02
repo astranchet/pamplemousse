@@ -101,6 +101,18 @@ class Service
         return $photos;
     }
 
+    public function getFromMonth($month, $year)
+    {
+        $items = $this->conn->fetchAll(sprintf("SELECT * FROM %s HAVING MONTH(date_taken) = ? AND YEAR(date_taken) = ?", 
+            self::TABLE_NAME), [$month, $year]);
+
+        $photos = [];
+        foreach ($items as $id => $item) {
+            $photos[] = new Entity\Photo($this->app, $item);
+        }
+        return $photos;
+    }
+
     public function getPhotosByIds($ids, Request $request = null)
     {
         if (is_null($ids)) {
