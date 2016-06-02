@@ -26,8 +26,10 @@ class Controller
             $photos = $app['photos']->getWithTag($filter);
         }
 
+        $dates = $app['photos']->getDates();
         return $app['twig']->render('index.twig', [
-            'photos' => $photos
+            'photos' => $photos,
+            'dates' => $dates
         ]);
     }
 

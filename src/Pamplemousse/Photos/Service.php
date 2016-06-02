@@ -147,6 +147,23 @@ class Service
         return false;
     }
 
+    public function getDates()
+    {
+        $items = $this->conn->fetchAll("SELECT distinct date_format(date_taken, '%Y-%m') as month FROM " .
+            self::TABLE_NAME . " WHERE date_taken IS NOT NULL ORDER BY month");
+
+        $dates = [];
+        foreach ($items as $item) {
+            list($year, $month) = explode("-", $item['month']);
+            if (!isset($dates[$year])) {
+                $dates[$year] = [];
+            }
+            $dates[$year][] = $month;
+        }
+
+        return $dates;
+    }
+
     public function findFromFilename($filename)
     {
         $item = $this->conn->fetchAssoc(sprintf('SELECT * FROM %s WHERE path LIKE ?', self::TABLE_NAME), array("%/".$filename));
