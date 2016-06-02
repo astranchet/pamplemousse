@@ -11,7 +11,10 @@
         </div>
     </section>
 
-    {% include 'partials/filters.twig' %}
+    {% if app.config.tags is defined %}
+        {% include 'partials/filters.twig' %}
+    {% endif %}
+
     <section id="photos">
         <div class="container">
 
