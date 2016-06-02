@@ -187,6 +187,34 @@
   font-weight: bold;
 }
 
+#filters {
+  background: #f56712;
+  width: 100%;
+  padding: 1.5em;
+}
+#filters div {
+  width: 70%;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 1.1em;
+  font-family: Lora, serif;
+}
+#filters ul {
+  display: inline;
+  padding-left: 1em;
+  font-family: PT Sans, sans-serif;
+}
+#filters ul li {
+  display: inline;
+  background: #f78743;
+  border-radius: .5em;
+  padding: .5em 1em;
+  margin: .5em;
+}
+#filters ul li a {
+  color: #fff;
+}
+
 #photo h1, #photo h2 {
   text-align: center;
   font-family: PT Sans, sans-serif;
