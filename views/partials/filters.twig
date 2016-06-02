@@ -1,6 +1,7 @@
 <div id="filters">
-    <div>Afficher uniquement : 
+    <div>Afficher : 
     <ul>
+    <li><a href="{{ url('index') }}#photos">Tout</a></li>
     {% for id, tag in app.config.tags %}
         <li><a href="{{ url('index', { 'filter': id }) }}#photos">{{ tag }}</a></li>
     {% endfor %}
