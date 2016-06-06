@@ -12,7 +12,7 @@
     </section>
 
     {% if app.config.tags is defined %}
-        {% include 'partials/filters.twig' %}
+        {% include 'partials/filters.twig' with current_date %}
     {% endif %}
 
     <section id="photos">

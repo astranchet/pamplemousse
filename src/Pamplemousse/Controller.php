@@ -46,6 +46,7 @@ class Controller
 
         return $app['twig']->render('byMonth.twig', [
             'photos' => $photos,
+            'current_date' => ['year' => $year, 'month' => $month]
         ]);
     }
 
