@@ -12,7 +12,7 @@
         </ul>
         Par date :
         <ul>
-            {% for year, months in dates %}
+            {% for year, months in app.photos.dates %}
                 <li>{{ year }}</li>
                 <ul class="months">
                 {% for month in months %}

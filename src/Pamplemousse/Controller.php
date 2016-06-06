@@ -26,10 +26,8 @@ class Controller
             $photos = $app['photos']->getWithTag($filter);
         }
 
-        $dates = $app['photos']->getDates();
         return $app['twig']->render('index.twig', [
             'photos' => $photos,
-            'dates' => $dates
         ]);
     }
 
@@ -46,10 +44,8 @@ class Controller
         $month = $request->get('month');
         $photos = $app['photos']->getForDate($month, $year);
 
-        $dates = $app['photos']->getDates();
         return $app['twig']->render('byMonth.twig', [
             'photos' => $photos,
-            'dates' => $dates
         ]);
     }
 
