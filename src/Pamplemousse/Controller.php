@@ -40,14 +40,14 @@ class Controller
      * @param  String      $month
      * @return Response
      */
-    public function dateAction(Application $app, Request $request, $year, $month)
+    public function byMonthAction(Application $app, Request $request, $year, $month)
     {
         $year = $request->get('year');
         $month = $request->get('month');
         $photos = $app['photos']->getForDate($month, $year);
 
         $dates = $app['photos']->getDates();
-        return $app['twig']->render('for_date.twig', [
+        return $app['twig']->render('byMonth.twig', [
             'photos' => $photos,
             'dates' => $dates
         ]);

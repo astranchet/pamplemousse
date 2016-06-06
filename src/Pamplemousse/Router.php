@@ -19,11 +19,12 @@ class Router implements ControllerProviderInterface
         $controllers->get('/', Controller::class . "::indexAction")
             ->bind('index')
             ;
+        $controllers->get('/date/{year}/{month}', Controller::class . "::byMonthAction")
+            ->bind('date')
+            ;
+
         $controllers->get('/from/{date}', Controller::class . "::fromAction")
             ->bind('from')
-            ;
-        $controllers->get('/date/{year}/{month}', Controller::class . "::dateAction")
-            ->bind('date')
             ;
 
         $controllers->get('/rss/comment', Controller::class . "::commentRssAction")
