@@ -101,7 +101,7 @@ class Service
         return $photos;
     }
 
-    public function getFromMonth($month, $year)
+    public function getForDate($month, $year)
     {
         $items = $this->conn->fetchAll(sprintf("SELECT * FROM %s HAVING MONTH(date_taken) = ? AND YEAR(date_taken) = ?", 
             self::TABLE_NAME), [$month, $year]);

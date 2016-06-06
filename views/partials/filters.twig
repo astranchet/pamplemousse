@@ -16,7 +16,7 @@
                 <li>{{ year }}</li>
                 <ul class="months">
                 {% for month in months %}
-                    <li><a href="{{ url('index', { 'year' : year, 'month': month }) }}#photos">{{ month }}</a></li>
+                    <li><a href="{{ url('date', { 'year' : year, 'month': month }) }}#photos">{{ month }}</a></li>
                 {% endfor %}
                 </ul>
             {% endfor %}

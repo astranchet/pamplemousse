@@ -20,12 +20,7 @@ class Controller
     {
         $filter = $request->get('filter');
 
-        $year = $request->get('year');
-        $month = $request->get('month');
-
-        if ($year && $month) {
-            $photos = $app['photos']->getFromMonth($month, $year);
-        } else if (is_null($filter)) {
+        if (is_null($filter)) {
             $photos = $app['photos']->getLast(self::IMAGE_PER_PAGE);
         } else {
             $photos = $app['photos']->getWithTag($filter);
@@ -33,6 +28,26 @@ class Controller
 
         $dates = $app['photos']->getDates();
         return $app['twig']->render('index.twig', [
+            'photos' => $photos,
+            'dates' => $dates
+        ]);
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @param  String      $year
+     * @param  String      $month
+     * @return Response
+     */
+    public function dateAction(Application $app, Request $request, $year, $month)
+    {
+        $year = $request->get('year');
+        $month = $request->get('month');
+        $photos = $app['photos']->getForDate($month, $year);
+
+        $dates = $app['photos']->getDates();
+        return $app['twig']->render('for_date.twig', [
             'photos' => $photos,
             'dates' => $dates
         ]);
