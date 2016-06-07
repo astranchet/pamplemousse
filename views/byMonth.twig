@@ -18,6 +18,8 @@
     <section id="photos">
         <div class="container">
 
+            <h1>{{ current_date.month ~ "/" ~ current_date.year }}</h1>
+
             <div id="gallery">
                 <div class="grid-sizer"></div>
                 {% include 'partials/thumbnails.twig' %}
