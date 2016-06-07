@@ -1,3 +1,6 @@
+{% if current_date is not defined %}
+    {% set current_date = { month: null, year: null } %}
+{% endif %}
 <div id="filters">
     <div>
         Afficher&nbsp;: 
