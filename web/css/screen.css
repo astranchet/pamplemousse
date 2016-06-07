@@ -236,6 +236,9 @@
 #filters ul li.current {
   background: #f9a674;
 }
+#filters ul li:hover {
+  background: #fab68c;
+}
 @media (max-width: 767px) {
   #filters ul li {
     padding: .5em;

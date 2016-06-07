@@ -44,6 +44,9 @@
       &.current {
         background: darken(#F9A674, 0%);
       }
+      &:hover {
+        background: lighten(#F9A674, 5%);
+      }
       border-radius: .5em;
       padding: .5em 1em;
       margin: .5em;
