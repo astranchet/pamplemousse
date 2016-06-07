@@ -26,7 +26,7 @@ class Router implements ControllerProviderInterface
         $checkDate = function (Request $request, Application $app) {
             $dates = $app['photos']->getDates();
             if (isset($dates[$request->get('year')])) {
-                if (array_search($request->get('month'), $dates[$request->get('year')])) {
+                if (array_search($request->get('month'), $dates[$request->get('year')]) !== null) {
                     return null;
                 }
             }
