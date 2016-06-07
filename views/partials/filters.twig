@@ -1,6 +1,6 @@
 <div id="filters">
     <div>
-        Afficher : 
+        Afficher&nbsp;: 
         <ul>
             {% set filter = app.request.query.get('filter') %}
             <li class="{% if not filter and not current_date %}current{% endif %}"><a href="{{ url('index') }}#photos">Tout</a></li>
@@ -10,7 +10,9 @@
                 </li>
             {% endfor %}
         </ul>
-        Par date :
+    </div>
+    <div>
+        Par date&nbsp;:
         <ul>
             {% for year, months in app.photos.dates %}
                 <li>{{ year }}</li>
