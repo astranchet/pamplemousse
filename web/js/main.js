@@ -10,7 +10,7 @@ $grid.imagesLoaded().progress(function() {
   $grid.masonry('layout');
 });
 
-$('#home').css({'background-image': 'url(../images/bg' + Math.floor(Math.random()*5) + '.jpg)'});
+$('#home').css({'background-image': 'url(/images/bg' + Math.floor(Math.random()*5) + '.jpg)'});
 
 // Load last images
 $("#load").click(function() {
