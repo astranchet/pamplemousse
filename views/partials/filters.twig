@@ -18,7 +18,7 @@
         Par date&nbsp;:
         <ul>
             {% for year, months in app.photos.dates %}
-                <li>{{ year }}</li>
+                <li class="filter-year">{{ year }}</li>
                 <ul class="months">
                 {% for month in months %}
                     <li class="{% if month == current_date.month and year == current_date.year %}current{% endif %}">

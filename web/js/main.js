@@ -12,6 +12,10 @@ $grid.imagesLoaded().progress(function() {
 
 $('#home').css({'background-image': 'url(/images/bg' + Math.floor(Math.random()*5) + '.jpg)'});
 
+$('.filter-year').click(function() {
+  $(this).next().toggle();
+});
+
 // Load last images
 $("#load").click(function() {
   var lastDate = $(".swipe img").last()[0].getAttribute("data-date-taken");
