@@ -13,7 +13,7 @@ $grid.imagesLoaded().progress(function() {
 $('#home').css({'background-image': 'url(/images/bg' + Math.floor(Math.random()*5) + '.jpg)'});
 
 $('.filter-year').click(function() {
-  $(this).next().toggle();
+  $(this).children().toggle();
 });
 
 // Load last images

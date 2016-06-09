@@ -18,13 +18,14 @@
         Par date&nbsp;:
         <ul>
             {% for year, months in app.photos.dates %}
-                <li class="filter-year">{{ year }}</li>
-                <ul class="months">
-                {% for month in months %}
-                    <li class="{% if month == current_date.month and year == current_date.year %}current{% endif %}">
-                        <a href="{{ url('date', { 'year' : year, 'month': month }) }}#photos">{{ month }}</a>
-                    </li>
-                {% endfor %}
+                <li class="filter-year">{{ year }}
+                    <ul class="months">
+                    {% for month in months %}
+                        <li class="{% if month == current_date.month and year == current_date.year %}current{% endif %}">
+                            <a href="{{ url('date', { 'year' : year, 'month': month }) }}#photos">{{ month }}</a>
+                        </li>
+                    {% endfor %}
+                </li>
                 </ul>
             {% endfor %}
         </ul>
