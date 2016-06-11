@@ -1,5 +1,7 @@
 {% extends "templates/base.html" %}
 
+{% import "macro/pamplemousse.twig" as macro %}
+
 {% block content %}
     <script src="{{ app.config.web_dir }}js/vendor/lazyload.min.js"></script>
 
@@ -18,7 +20,7 @@
     <section id="photos">
         <div class="container">
 
-            <h1>{{ current_date.month ~ "/" ~ current_date.year }}</h1>
+            <h1>{{ macro.french_month(current_date.month) ~ current_date.year }}</h1>
 
             <div id="gallery">
                 <div class="grid-sizer"></div>

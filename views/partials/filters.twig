@@ -1,3 +1,5 @@
+{% import "macro/pamplemousse.twig" as macro %}
+
 {% if current_date is not defined %}
     {% set current_date = { month: null, year: null } %}
 {% endif %}
@@ -24,7 +26,7 @@
                     <ul class="sub-filters">
                     {% for month in months %}
                         <li class="{% if month == current_date.month and year == current_date.year %}current{% endif %}">
-                            <a href="{{ url('date', { 'year' : year, 'month': month }) }}#photos">{{ month }}</a>
+                            <a href="{{ url('date', { 'year' : year, 'month': month }) }}#photos">{{ macro.french_month(month) }}</a>
                         </li>
                     {% endfor %}
                 </li>
