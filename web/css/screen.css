@@ -187,81 +187,70 @@
   font-weight: bold;
 }
 
-#filters {
+#filter-bar {
   display: flex;
-  flex-grow: 1;
   padding: 1.5em;
-  background: #f56712;
   max-height: 6em;
-}
-@media (max-width: 767px) {
-  #filters {
-    flex-direction: column;
-  }
-}
-#filters div {
-  display: flex;
-  flex-grow: 1;
-  align-items: baseline;
+  background: #f56712;
   color: #fff;
   font-size: 1.1em;
   font-family: Lora, serif;
 }
-@media (max-width: 767px) {
-  #filters div {
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 1.5em;
-  }
+#filter-bar a {
+  color: #fff;
 }
-#filters ul {
+
+.filters {
+  flex-grow: 1;
   display: flex;
-  align-items: center;
-  padding-left: 1em;
+  align-items: baseline;
+}
+.filters ul {
+  display: flex;
   font-family: PT Sans, sans-serif;
+  padding-left: 0;
 }
-@media (max-width: 767px) {
-  #filters ul {
-    flex-direction: column;
-    width: 90%;
-    padding-left: 0;
-  }
-}
-#filters ul li {
+.filters ul li {
   display: flex;
-  background: #f6772b;
   border-radius: .5em;
   padding: .5em 1em;
   margin: .5em;
+  background: #f6772b;
 }
-#filters ul li.current {
+.filters ul li.current {
   background: #f9a674;
 }
-#filters ul li:hover {
+.filters ul li:hover {
   background: #fab68c;
 }
-@media (max-width: 767px) {
-  #filters ul li {
-    padding: .5em;
-    margin: .5em 0;
-    width: 100%;
-  }
-}
-#filters ul li a {
-  color: #fff;
-}
-#filters ul li.filter-year {
+.filters ul li.sub-filter-toggle {
   display: flex;
   flex-direction: column;
   align-self: baseline;
+  padding: 0;
+  text-align: center;
 }
-#filters ul.months {
-  display: none;
+.filters ul li.sub-filter-toggle span {
+  padding: .5em 1em;
+}
+.filters ul li.sub-filter-toggle.current {
+  background: #f9a674;
+}
+.filters ul ul.sub-filters {
+  z-index: 1000;
+  display: flex;
   flex-direction: column;
   padding-left: 0;
 }
-#filters ul.months li {
-  margin-left: 0;
+.filters ul ul.sub-filters li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #F9A674;
+  border-radius: 0;
+  justify-content: center;
+}
+.filters ul ul.sub-filters li a {
+  padding: .4em;
 }
 
 #photo h1, #photo h2 {

@@ -1,8 +1,8 @@
 {% if current_date is not defined %}
     {% set current_date = { month: null, year: null } %}
 {% endif %}
-<div id="filters">
-    <div>
+<div id="filter-bar">
+    <div class="filters" id="tag-filters">
         Afficher&nbsp;: 
         <ul>
             {% set filter = app.request.query.get('filter') %}
@@ -14,12 +14,14 @@
             {% endfor %}
         </ul>
     </div>
-    <div>
+
+    <div class="filters" id="month-filters">
         Par date&nbsp;:
         <ul>
             {% for year, months in app.photos.dates %}
-                <li class="filter-year">{{ year }}
-                    <ul class="months">
+                <li class="sub-filter-toggle {% if year == current_date.year %}current{% endif %}">
+                    <span>{{ year }}</span>
+                    <ul class="sub-filters">
                     {% for month in months %}
                         <li class="{% if month == current_date.month and year == current_date.year %}current{% endif %}">
                             <a href="{{ url('date', { 'year' : year, 'month': month }) }}#photos">{{ month }}</a>

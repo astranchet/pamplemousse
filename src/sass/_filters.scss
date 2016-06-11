@@ -1,82 +1,67 @@
 @import "variables";
 
-#filters {
+#filter-bar {
   display: flex;
-  flex-grow: 1;
   padding: 1.5em;
-  background: darken(#F9A674, 20%);
   max-height: 6em;
+  background: darken(#F9A674, 20%);
+  color: #fff;
+  a { color: #fff; }
+  font-size: 1.1em;
+  font-family: Lora, serif;
+}
 
-  @media #{$small-devices} {
-    flex-direction: column;;
-  }
-
-  div {
-    display: flex;
-    flex-grow: 1;
-    align-items: baseline;
-
-    color: #fff;
-    font-size: 1.1em;
-    font-family: Lora, serif;
-
-    @media #{$small-devices} {
-      flex-direction: column;;
-      width: 100%;
-      margin-bottom: 1.5em;
-    }
-  }
+.filters {
+  flex-grow: 1;
+  display: flex;
+  align-items: baseline;
 
   ul {
     display: flex;
-    align-items: center;
-    padding-left: 1em;
     font-family: PT Sans, sans-serif;
-
-    @media #{$small-devices} {
-      flex-direction: column;
-      width: 90%;
-      padding-left: 0;
-    }
+    padding-left: 0;
 
     li {
       display: flex;
-
-      background: darken(#F9A674, 15%);
-      &.current {
-        background: darken(#F9A674, 0%);
-      }
-      &:hover {
-        background: lighten(#F9A674, 5%);
-      }
       border-radius: .5em;
       padding: .5em 1em;
       margin: .5em;
-      @media #{$small-devices} {
-        padding: .5em;
-        margin: .5em 0;
-        width: 100%;
-      }
-      a {
-        color: #fff;
-      }
+      background: darken(#F9A674, 15%);
+      &.current { background: darken(#F9A674, 0%); }
+      &:hover {  background: lighten(#F9A674, 5%); }
 
-      &.filter-year {
+      &.sub-filter-toggle {
         display: flex;
         flex-direction: column;
         align-self: baseline;
+        padding: 0;
+        text-align: center;
 
+        span {
+          padding: .5em 1em;
+        }
+
+        &.current {
+         background: darken(#F9A674, 0%);
+        }
       }
     }
 
-    &.months {
-      display: none;
-      // display: flex;
+    // Submenus are hidden by default
+    ul.sub-filters { 
+      z-index: 1000;
+      // display: none; 
+      display: flex;
       flex-direction: column;
       padding-left: 0;
+      li { 
+        margin: 0; 
+        padding: 0;
+        border-bottom: 1px solid #F9A674;
+        border-radius: 0;
+        justify-content: center;
 
-      li {
-        margin-left: 0;
+        a { padding: .4em; }
       }
     }
   }
