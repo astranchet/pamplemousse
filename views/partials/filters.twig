@@ -1,16 +1,21 @@
 {% import "macro/pamplemousse.twig" as macro %}
 
+{% set current_all = true %}
+{% set current_filter = app.request.query.get('filter') %}
+{% if (current_filter) or (current_date is defined) %}
+    {% set current_all = false %}
+{% endif %}
 {% if current_date is not defined %}
     {% set current_date = { month: null, year: null } %}
 {% endif %}
+
 <div id="filter-bar">
     <div class="filters" id="tag-filters">
         Afficher&nbsp;: 
         <ul>
-            {% set filter = app.request.query.get('filter') %}
-            <li class="{% if not filter and not current_date %}current{% endif %}"><a href="{{ url('index') }}#photos">Tout</a></li>
+            <li class="{% if current_all %}current{% endif %}"><a href="{{ url('index') }}#photos">Tout</a></li>
             {% for id, tag in app.config.tags %}
-                <li class="{% if filter == id %}current{% endif %}">
+                <li class="{% if current_filter == id %}current{% endif %}">
                     <a href="{{ url('index', { 'filter': id }) }}#photos">{{ tag }}</a>
                 </li>
             {% endfor %}
