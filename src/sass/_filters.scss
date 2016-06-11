@@ -5,6 +5,7 @@
   flex-grow: 1;
   padding: 1.5em;
   background: darken(#F9A674, 20%);
+  max-height: 6em;
 
   @media #{$small-devices} {
     flex-direction: column;;
@@ -39,7 +40,8 @@
     }
 
     li {
-      display: inline;
+      display: flex;
+
       background: darken(#F9A674, 15%);
       &.current {
         background: darken(#F9A674, 0%);
@@ -58,10 +60,24 @@
       a {
         color: #fff;
       }
+
+      &.filter-year {
+        display: flex;
+        flex-direction: column;
+        align-self: baseline;
+
+      }
     }
 
     &.months {
       display: none;
+      // display: flex;
+      flex-direction: column;
+      padding-left: 0;
+
+      li {
+        margin-left: 0;
+      }
     }
   }
 }

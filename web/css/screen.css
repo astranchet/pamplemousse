@@ -192,6 +192,7 @@
   flex-grow: 1;
   padding: 1.5em;
   background: #f56712;
+  max-height: 6em;
 }
 @media (max-width: 767px) {
   #filters {
@@ -227,7 +228,7 @@
   }
 }
 #filters ul li {
-  display: inline;
+  display: flex;
   background: #f6772b;
   border-radius: .5em;
   padding: .5em 1em;
@@ -249,8 +250,18 @@
 #filters ul li a {
   color: #fff;
 }
+#filters ul li.filter-year {
+  display: flex;
+  flex-direction: column;
+  align-self: baseline;
+}
 #filters ul.months {
   display: none;
+  flex-direction: column;
+  padding-left: 0;
+}
+#filters ul.months li {
+  margin-left: 0;
 }
 
 #photo h1, #photo h2 {
