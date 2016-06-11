@@ -69,3 +69,30 @@
     }
   }
 }
+
+@media #{$small-devices} {
+  #filter-bar {
+    flex-direction: column;
+    max-height: none;
+  }
+
+  .filters {
+    flex-direction: column;
+    ul {
+      flex-direction: column;
+      width: 100%;
+      li {
+        margin-left: 0;
+        width: 100%;
+        &.sub-filter-toggle {
+          text-align: left;
+        }
+
+        ul.sub-filters.current li {
+          justify-content: flex-start;
+          padding-left: .5em;
+        }
+      }
+    }
+  }
+}
