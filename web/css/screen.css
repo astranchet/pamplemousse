@@ -237,19 +237,22 @@
   background: #f9a674;
 }
 .filters ul ul.sub-filters {
+  display: none;
+}
+.filters ul ul.sub-filters.current {
   z-index: 1000;
   display: flex;
   flex-direction: column;
   padding-left: 0;
 }
-.filters ul ul.sub-filters li {
+.filters ul ul.sub-filters.current li {
   margin: 0;
   padding: 0;
   border-bottom: 1px solid #F9A674;
   border-radius: 0;
   justify-content: center;
 }
-.filters ul ul.sub-filters li a {
+.filters ul ul.sub-filters.current li a {
   padding: .4em;
 }
 

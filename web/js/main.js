@@ -12,9 +12,9 @@ $grid.imagesLoaded().progress(function() {
 
 $('#home').css({'background-image': 'url(/images/bg' + Math.floor(Math.random()*5) + '.jpg)'});
 
-$('.filter-year').click(function() {
-  $(".months").hide();
-  $(this).children().toggle();
+$('.sub-filter-toggle span').click(function() {
+  $(".sub-filters.current").removeClass('current');
+  $(this).next().addClass('current');
 });
 
 // Load last images

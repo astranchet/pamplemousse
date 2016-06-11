@@ -49,19 +49,22 @@
 
     // Submenus are hidden by default
     ul.sub-filters { 
-      z-index: 1000;
-      // display: none; 
-      display: flex;
-      flex-direction: column;
-      padding-left: 0;
-      li { 
-        margin: 0; 
-        padding: 0;
-        border-bottom: 1px solid #F9A674;
-        border-radius: 0;
-        justify-content: center;
+      display: none; 
 
-        a { padding: .4em; }
+      &.current {
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        padding-left: 0;
+        li { 
+          margin: 0; 
+          padding: 0;
+          border-bottom: 1px solid #F9A674;
+          border-radius: 0;
+          justify-content: center;
+
+          a { padding: .4em; }
+        }
       }
     }
   }
