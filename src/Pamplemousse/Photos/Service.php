@@ -103,7 +103,7 @@ class Service
 
     public function getForDate($month, $year)
     {
-        $items = $this->conn->fetchAll(sprintf("SELECT * FROM %s HAVING MONTH(date_taken) = ? AND YEAR(date_taken) = ?", 
+        $items = $this->conn->fetchAll(sprintf("SELECT * FROM %s HAVING MONTH(date_taken) = ? AND YEAR(date_taken) = ? ORDER BY date_taken ASC", 
             self::TABLE_NAME), [$month, $year]);
 
         $photos = [];
