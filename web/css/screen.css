@@ -95,21 +95,6 @@
     padding: .5em 0;
   }
 }
-#photos h1::before, #photos h1::after {
-  font-size: .7em;
-  padding: 0 1em;
-  vertical-align: 20%;
-  content: "◀ ";
-  color: #DF622C;
-}
-@media (max-width: 767px) {
-  #photos h1::before, #photos h1::after {
-    padding: 0;
-  }
-}
-#photos h1::after {
-  content: " ▶";
-}
 #photos #load {
   margin: 2em auto 2em;
   display: block;

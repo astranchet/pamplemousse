@@ -18,20 +18,19 @@
     @media #{$small-devices} {
       padding: .5em 0;
     }
-    &::before, &::after {
-      font-size: .7em;
-      padding: 0 1em;
-      vertical-align: 20%;
-      content: "◀ ";
-      color: #DF622C;
-      @media #{$small-devices} {
-        padding: 0;
-      }
-
-    }
-    &::after {
-      content: " ▶";
-    }
+    // &::before, &::after {
+    //   font-size: .7em;
+    //   padding: 0 1em;
+    //   vertical-align: 20%;
+    //   content: "◀ ";
+    //   color: #DF622C;
+    //   @media #{$small-devices} {
+    //     padding: 0;
+    //   }
+    // }
+    // &::after {
+    //   content: " ▶";
+    // }
   }
 
   #load {
