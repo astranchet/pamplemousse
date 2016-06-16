@@ -24,7 +24,7 @@ class Router implements ControllerProviderInterface
             ;
 
         $checkDate = function (Request $request, Application $app) {
-            $dates = $app['photos']->getDates();
+            $dates = $app['photos']->getAggregatedDates(\Pamplemousse\Photos\Service::BY_YEAR);
             if (isset($dates[$request->get('year')])) {
                 if (array_search($request->get('month'), $dates[$request->get('year')]) !== null) {
                     return null;

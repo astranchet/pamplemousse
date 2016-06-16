@@ -25,7 +25,7 @@
     <div class="filters" id="month-filters">
         Par date&nbsp;:
         <ul>
-            {% for year, months in app.photos.dates %}
+            {% for year, months in app.photos.aggregatedDates(constant('\\Pamplemousse\\Photos\\Service::BY_YEAR')) %}
                 <li class="sub-filter-toggle {% if year == current_date.year %}current{% endif %}">
                     <span>{{ year }}</span>
                     <ul class="sub-filters">

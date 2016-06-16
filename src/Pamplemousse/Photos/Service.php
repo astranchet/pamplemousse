@@ -15,6 +15,10 @@ class Service
         CROP_ENTROPY  = 'Entropy',
         CROP_BALANCED = 'Balanced';
 
+    const 
+        BY_MONTH = 'month',
+        BY_YEAR  = 'year';
+
     protected $app;
     protected $config;
     protected $conn;
@@ -159,18 +163,22 @@ class Service
         return false;
     }
 
-    public function getDates()
+    public function getAggregatedDates($aggregateBy = self::BY_MONTH)
     {
         $items = $this->conn->fetchAll("SELECT distinct date_format(date_taken, '%Y-%m') as month FROM " .
             self::TABLE_NAME . " WHERE date_taken IS NOT NULL ORDER BY month");
 
-        $dates = [];
-        foreach ($items as $item) {
-            list($year, $month) = explode("-", $item['month']);
-            if (!isset($dates[$year])) {
-                $dates[$year] = [];
+        if ($aggregateBy == self::BY_YEAR) {
+            $dates = [];
+            foreach ($items as $item) {
+                list($year, $month) = explode("-", $item['month']);
+                if (!isset($dates[$year])) {
+                    $dates[$year] = [];
+                }
+                $dates[$year][] = $month;
             }
-            $dates[$year][] = $month;
+        } else {
+            $dates = array_column($items, 'month');
         }
 
         return $dates;
