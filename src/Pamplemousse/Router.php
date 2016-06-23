@@ -32,8 +32,16 @@ class Router implements ControllerProviderInterface
             }
             return new Response('Bad date', 404);
         };
-        $controllers->get('/date/{year}/{month}', Controller::class . "::byMonthAction")
+        $controllers->get('/date/{year}-{month}', Controller::class . "::byMonthAction")
             ->bind('date')
+            ->before($checkDate)
+            ;
+        $controllers->get('/date/{year}-{month}/next', Controller::class . "::nextMonthAction")
+            ->bind('nextDate')
+            ->before($checkDate)
+            ;
+        $controllers->get('/date/{year}-{month}/previous', Controller::class . "::previousMonthAction")
+            ->bind('previousDate')
             ->before($checkDate)
             ;
 

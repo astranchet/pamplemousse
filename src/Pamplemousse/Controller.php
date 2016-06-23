@@ -53,6 +53,56 @@ class Controller
     /**
      * @param  Application $app
      * @param  Request     $request
+     * @param  String      $year
+     * @param  String      $month
+     * @return Response
+     */
+    public function nextMonthAction(Application $app, Request $request, $year, $month)
+    {
+        $year = $request->get('year');
+        $month = $request->get('month');
+
+        $date = sprintf("%s-%s", $year, $month);
+        $dates = $app['photos']->getAggregatedDates();
+
+        $index = array_search($date, $dates);
+
+        if ($index < sizeof($dates)) {
+            return $app->redirect(sprintf('/date/%s', $dates[++$index]));
+        } else {
+            // TODO : erreur
+            return null;
+        }
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @param  String      $year
+     * @param  String      $month
+     * @return Response
+     */
+    public function previousMonthAction(Application $app, Request $request, $year, $month)
+    {
+        $year = $request->get('year');
+        $month = $request->get('month');
+
+        $date = sprintf("%s-%s", $year, $month);
+        $dates = $app['photos']->getAggregatedDates();
+
+        $index = array_search($date, $dates);
+
+        if ($index > 0) {
+            return $app->redirect(sprintf('/date/%s', $dates[--$index]));
+        } else {
+            // TODO : erreur
+            return null;
+        }
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
      * @param  string      $date
      * @return Response
      */

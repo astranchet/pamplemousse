@@ -20,7 +20,11 @@
     <section id="photos">
         <div class="container">
 
+            <a href="{{ url('previousDate', { 'year' : current_date.year, 'month': current_date.month }) }}#photos">Mois précédent</a>
+
             <h1>{{ macro.french_month(current_date.month) ~ current_date.year }}</h1>
+
+            <a href="{{ url('nextDate', { 'year' : current_date.year, 'month': current_date.month }) }}#photos">Mois suivant</a>
 
             <div id="gallery">
                 <div class="grid-sizer"></div>
