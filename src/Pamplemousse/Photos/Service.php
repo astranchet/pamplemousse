@@ -184,6 +184,32 @@ class Service
         return $dates;
     }
 
+    public function getNextMonth($year, $month)
+    {
+        $date = sprintf("%s-%s", $year, $month);
+        $dates = self::getAggregatedDates();
+        $index = array_search($date, $dates);
+
+        if ($index < sizeof($dates)-1) {
+            return $dates[++$index];
+        } else {
+            return null;
+        }
+    }
+
+    public function getPreviousMonth($year, $month)
+    {
+        $date = sprintf("%s-%s", $year, $month);
+        $dates = self::getAggregatedDates();
+        $index = array_search($date, $dates);
+
+        if ($index > 0) {
+            return $dates[--$index];
+        } else {
+            return null;
+        }
+    }
+
     public function findFromFilename($filename)
     {
         $item = $this->conn->fetchAssoc(sprintf('SELECT * FROM %s WHERE path LIKE ?', self::TABLE_NAME), array("%/".$filename));

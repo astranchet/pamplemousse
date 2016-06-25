@@ -20,11 +20,15 @@
     <section id="photos">
         <div class="container">
 
+            {% if app.photos.previousMonth(current_date.year, current_date.month) %}
             <a href="{{ url('previousDate', { 'year' : current_date.year, 'month': current_date.month }) }}#photos">Mois précédent</a>
+            {% endif %}
 
             <h1>{{ macro.french_month(current_date.month) ~ current_date.year }}</h1>
 
+            {% if app.photos.nextMonth(current_date.year, current_date.month) %}
             <a href="{{ url('nextDate', { 'year' : current_date.year, 'month': current_date.month }) }}#photos">Mois suivant</a>
+            {% endif %}
 
             <div id="gallery">
                 <div class="grid-sizer"></div>

@@ -62,16 +62,12 @@ class Controller
         $year = $request->get('year');
         $month = $request->get('month');
 
-        $date = sprintf("%s-%s", $year, $month);
-        $dates = $app['photos']->getAggregatedDates();
+        $nextMonth = $app['photos']->getNextMonth($year, $month);
 
-        $index = array_search($date, $dates);
-
-        if ($index < sizeof($dates)) {
-            return $app->redirect(sprintf('/date/%s', $dates[++$index]));
+        if ($nextMonth) {
+            return $app->redirect(sprintf('/date/%s', $nextMonth));
         } else {
-            // TODO : erreur
-            return null;
+            return new Response('Bad date', 404);
         }
     }
 
@@ -87,16 +83,12 @@ class Controller
         $year = $request->get('year');
         $month = $request->get('month');
 
-        $date = sprintf("%s-%s", $year, $month);
-        $dates = $app['photos']->getAggregatedDates();
+        $previousMonth = $app['photos']->getPreviousMonth($year, $month);
 
-        $index = array_search($date, $dates);
-
-        if ($index > 0) {
-            return $app->redirect(sprintf('/date/%s', $dates[--$index]));
+        if ($previousMonth) {
+            return $app->redirect(sprintf('/date/%s', $previousMonth));
         } else {
-            // TODO : erreur
-            return null;
+            return new Response('Bad date', 404);
         }
     }
 
