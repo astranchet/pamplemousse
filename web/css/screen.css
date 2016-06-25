@@ -93,7 +93,23 @@
 @media (max-width: 767px) {
   #photos h1 {
     padding: .5em 0;
+    font-size: 2em;
   }
+}
+#photos h1 a {
+  font-size: .7em;
+  padding: 0 1em;
+  vertical-align: 20%;
+  color: #DF622C;
+}
+@media (max-width: 767px) {
+  #photos h1 a {
+    padding: 0;
+  }
+}
+#photos h1 a:hover {
+  color: #eca485;
+  text-decoration: none;
 }
 #photos #load {
   margin: 2em auto 2em;
