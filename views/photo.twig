@@ -1,5 +1,7 @@
 {% extends "templates/base.html" %}
 
+{% import "macro/pamplemousse.twig" as macro %}
+
 {% block content %}
 
     <section id="photo">
@@ -7,13 +9,21 @@
             {% if photo.previous %}
                 <a href="{{ path('photo', { 'photo': photo.previous.id }) }}" alt="Photo précédente"> ◀&nbsp;</a>
             {% endif %}
-            {{ photo.description|default(photo.date_taken|date("d/m/Y")) }}
+
+            {{ macro.french_date(photo.date_taken) }}
+
             {% if photo.next %}
                 <a href="{{ path('photo', { 'photo': photo.next.id }) }}" alt="Photo suivante">&nbsp;▶ </a>
             {% endif %}
         </h1>
 
+        {% if photo.description %}
+            <h2>{{ photo.description }}</h2>
+        {% endif %}
+
         <img src="{{ photo.url }}" alt="{{ photo.filename }}" />
+
+
 
 
         <h2>Commentaires</h2>
