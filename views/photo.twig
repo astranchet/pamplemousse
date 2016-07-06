@@ -4,6 +4,10 @@
 
 {% block content %}
 
+    {% if app.config.tags is defined %}
+        {% include 'partials/filters.twig' %}
+    {% endif %}
+
     <section id="photo">
         <h1>
             {% if photo.previous %}
