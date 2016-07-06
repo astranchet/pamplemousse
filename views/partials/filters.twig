@@ -10,6 +10,8 @@
 {% endif %}
 
 <div id="filter-bar">
+
+    {% if app.config.tags is defined %}
     <div class="filters" id="tag-filters">
         Afficher&nbsp;: 
         <ul>
@@ -21,6 +23,7 @@
             {% endfor %}
         </ul>
     </div>
+    {% endif %}
 
     <div class="filters" id="month-filters">
         Par date&nbsp;:

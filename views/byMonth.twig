@@ -13,9 +13,7 @@
         </div>
     </section>
 
-    {% if app.config.tags is defined %}
-        {% include 'partials/filters.twig' with current_date %}
-    {% endif %}
+    {% include 'partials/filters.twig' with current_date %}
 
     <section id="photos">
         <div class="container">
