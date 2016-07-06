@@ -11,7 +11,7 @@
 
 <div id="filter-bar">
 
-    {% if app.config.tags is defined %}
+    {% if app.config.tags is defined and show_tags != false %}
     <div class="filters" id="tag-filters">
         Afficher&nbsp;: 
         <ul>
