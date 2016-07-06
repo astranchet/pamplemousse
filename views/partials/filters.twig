@@ -1,13 +1,42 @@
-<div id="filters">
-    <div>Afficher : 
-    <ul>
-    {% set filter = app.request.query.get('filter') %}
-    <li class="{% if not filter %}current{% endif %}"><a href="{{ url('index') }}#photos">Tout</a></li>
-    {% for id, tag in app.config.tags %}
-        <li class="{% if filter == id %}current{% endif %}">
-            <a href="{{ url('index', { 'filter': id }) }}#photos">{{ tag }}</a>
-        </li>
-    {% endfor %}
-    </ul>
+{% import "macro/pamplemousse.twig" as macro %}
+
+{% set current_all = true %}
+{% set current_filter = app.request.query.get('filter') %}
+{% if (current_filter) or (current_date is defined) %}
+    {% set current_all = false %}
+{% endif %}
+{% if current_date is not defined %}
+    {% set current_date = { month: null, year: null } %}
+{% endif %}
+
+<div id="filter-bar">
+    <div class="filters" id="tag-filters">
+        Afficher&nbsp;: 
+        <ul>
+            <li class="{% if current_all %}current{% endif %}"><a href="{{ url('index') }}#photos">Tout</a></li>
+            {% for id, tag in app.config.tags %}
+                <li class="{% if current_filter == id %}current{% endif %}">
+                    <a href="{{ url('index', { 'filter': id }) }}#photos">{{ tag }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="filters" id="month-filters">
+        Par date&nbsp;:
+        <ul>
+            {% for year, months in app.photos.aggregatedDates(constant('\\Pamplemousse\\Photos\\Service::BY_YEAR')) %}
+                <li class="sub-filter-toggle {% if year == current_date.year %}current{% endif %}">
+                    <span>{{ year }}</span>
+                    <ul class="sub-filters">
+                    {% for month in months %}
+                        <li class="{% if month == current_date.month and year == current_date.year %}current{% endif %}">
+                            <a href="{{ url('date', { 'year' : year, 'month': month }) }}#photos">{{ macro.french_month(month) }}</a>
+                        </li>
+                    {% endfor %}
+                </li>
+                </ul>
+            {% endfor %}
+        </ul>
     </div>
 </div>

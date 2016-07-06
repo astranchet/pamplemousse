@@ -17,20 +17,20 @@
     font-family: PT Sans, sans-serif;
     @media #{$small-devices} {
       padding: .5em 0;
+      font-size: 2em;
     }
-    &::before, &::after {
+    a {
       font-size: .7em;
       padding: 0 1em;
       vertical-align: 20%;
-      content: "◀ ";
       color: #DF622C;
       @media #{$small-devices} {
         padding: 0;
       }
-
-    }
-    &::after {
-      content: " ▶";
+      &:hover {
+        color: lighten(#DF622C, 20%);
+        text-decoration: none;
+      }
     }
   }
 

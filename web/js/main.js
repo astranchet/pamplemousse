@@ -10,7 +10,12 @@ $grid.imagesLoaded().progress(function() {
   $grid.masonry('layout');
 });
 
-$('#home').css({'background-image': 'url(../images/bg' + Math.floor(Math.random()*5) + '.jpg)'});
+$('#home').css({'background-image': 'url(/images/bg' + Math.floor(Math.random()*5) + '.jpg)'});
+
+$('.sub-filter-toggle span').click(function() {
+  $(".sub-filters.current").removeClass('current');
+  $(this).next().addClass('current');
+});
 
 // Load last images
 $("#load").click(function() {

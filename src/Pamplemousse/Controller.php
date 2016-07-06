@@ -27,8 +27,69 @@ class Controller
         }
 
         return $app['twig']->render('index.twig', [
-            'photos' => $photos
+            'photos' => $photos,
         ]);
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @param  String      $year
+     * @param  String      $month
+     * @return Response
+     */
+    public function byMonthAction(Application $app, Request $request, $year, $month)
+    {
+        $year = $request->get('year');
+        $month = $request->get('month');
+        $photos = $app['photos']->getForDate($month, $year);
+
+        return $app['twig']->render('byMonth.twig', [
+            'photos' => $photos,
+            'current_date' => ['year' => $year, 'month' => $month]
+        ]);
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @param  String      $year
+     * @param  String      $month
+     * @return Response
+     */
+    public function nextMonthAction(Application $app, Request $request, $year, $month)
+    {
+        $year = $request->get('year');
+        $month = $request->get('month');
+
+        $nextMonth = $app['photos']->getNextMonth($year, $month);
+
+        if ($nextMonth) {
+            return $app->redirect(sprintf('/date/%s', $nextMonth));
+        } else {
+            return new Response('Bad date', 404);
+        }
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @param  String      $year
+     * @param  String      $month
+     * @return Response
+     */
+    public function previousMonthAction(Application $app, Request $request, $year, $month)
+    {
+        $year = $request->get('year');
+        $month = $request->get('month');
+
+        $previousMonth = $app['photos']->getPreviousMonth($year, $month);
+
+        if ($previousMonth) {
+            return $app->redirect(sprintf('/date/%s', $previousMonth));
+        } else {
+            return new Response('Bad date', 404);
+        }
     }
 
     /**

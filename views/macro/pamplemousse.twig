@@ -1,0 +1,5 @@
+{% macro french_month(month_number) %}
+	{% set month_index = month_number|number_format - 1 %}
+	{% set months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"] %}
+	{{ months[month_index] }}
+{% endmacro %}

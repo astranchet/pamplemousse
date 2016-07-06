@@ -5,6 +5,9 @@ use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 class Router implements ControllerProviderInterface
 {
     /**
@@ -19,6 +22,29 @@ class Router implements ControllerProviderInterface
         $controllers->get('/', Controller::class . "::indexAction")
             ->bind('index')
             ;
+
+        $checkDate = function (Request $request, Application $app) {
+            $dates = $app['photos']->getAggregatedDates(\Pamplemousse\Photos\Service::BY_YEAR);
+            if (isset($dates[$request->get('year')])) {
+                if (array_search($request->get('month'), $dates[$request->get('year')]) !== null) {
+                    return null;
+                }
+            }
+            return new Response('Bad date', 404);
+        };
+        $controllers->get('/date/{year}-{month}', Controller::class . "::byMonthAction")
+            ->bind('date')
+            ->before($checkDate)
+            ;
+        $controllers->get('/date/{year}-{month}/next', Controller::class . "::nextMonthAction")
+            ->bind('nextDate')
+            ->before($checkDate)
+            ;
+        $controllers->get('/date/{year}-{month}/previous', Controller::class . "::previousMonthAction")
+            ->bind('previousDate')
+            ->before($checkDate)
+            ;
+
         $controllers->get('/from/{date}', Controller::class . "::fromAction")
             ->bind('from')
             ;

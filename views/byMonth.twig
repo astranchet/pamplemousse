@@ -1,5 +1,7 @@
 {% extends "templates/base.html" %}
 
+{% import "macro/pamplemousse.twig" as macro %}
+
 {% block content %}
     <script src="{{ app.config.web_dir }}js/vendor/lazyload.min.js"></script>
 
@@ -12,12 +14,23 @@
     </section>
 
     {% if app.config.tags is defined %}
-        {% include 'partials/filters.twig' %}
+        {% include 'partials/filters.twig' with current_date %}
     {% endif %}
 
     <section id="photos">
         <div class="container">
 
+            <h1>
+                {% if app.photos.previousMonth(current_date.year, current_date.month) %}
+                <a href="{{ url('previousDate', { 'year' : current_date.year, 'month': current_date.month }) }}#photos">◀ </a>&nbsp;
+                {% endif %}
+
+                {{ macro.french_month(current_date.month) ~ current_date.year }}
+
+                {% if app.photos.nextMonth(current_date.year, current_date.month) %}
+                &nbsp;<a href="{{ url('nextDate', { 'year' : current_date.year, 'month': current_date.month }) }}#photos"> ▶</a>
+                {% endif %}
+            </h1>
 
             <div id="gallery">
                 <div class="grid-sizer"></div>
@@ -27,9 +40,6 @@
 
         {% include 'partials/photoswipe.twig' %}
         {% include 'partials/photoswipe.js.twig' %}
-
-        {% set photo = photos|last %}
-        <button id="load" href="#" data-after="{{ photo.date_taken }}">Voir encore plus d'images !</button>
     </section>
 
     <section id="footer">

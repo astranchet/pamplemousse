@@ -15,6 +15,10 @@ class Service
         CROP_ENTROPY  = 'Entropy',
         CROP_BALANCED = 'Balanced';
 
+    const 
+        BY_MONTH = 'month',
+        BY_YEAR  = 'year';
+
     protected $app;
     protected $config;
     protected $conn;
@@ -101,6 +105,18 @@ class Service
         return $photos;
     }
 
+    public function getForDate($month, $year)
+    {
+        $items = $this->conn->fetchAll(sprintf("SELECT * FROM %s HAVING MONTH(date_taken) = ? AND YEAR(date_taken) = ? ORDER BY date_taken ASC", 
+            self::TABLE_NAME), [$month, $year]);
+
+        $photos = [];
+        foreach ($items as $id => $item) {
+            $photos[] = new Entity\Photo($this->app, $item);
+        }
+        return $photos;
+    }
+
     public function getPhotosByIds($ids, Request $request = null)
     {
         if (is_null($ids)) {
@@ -145,6 +161,53 @@ class Service
             return new Entity\Photo($this->app, $item);
         }
         return false;
+    }
+
+    public function getAggregatedDates($aggregateBy = self::BY_MONTH)
+    {
+        $items = $this->conn->fetchAll("SELECT distinct date_format(date_taken, '%Y-%m') as month FROM " .
+            self::TABLE_NAME . " WHERE date_taken IS NOT NULL ORDER BY month");
+
+        if ($aggregateBy == self::BY_YEAR) {
+            $dates = [];
+            foreach ($items as $item) {
+                list($year, $month) = explode("-", $item['month']);
+                if (!isset($dates[$year])) {
+                    $dates[$year] = [];
+                }
+                $dates[$year][] = $month;
+            }
+        } else {
+            $dates = array_column($items, 'month');
+        }
+
+        return $dates;
+    }
+
+    public function getNextMonth($year, $month)
+    {
+        $date = sprintf("%s-%s", $year, $month);
+        $dates = self::getAggregatedDates();
+        $index = array_search($date, $dates);
+
+        if ($index < sizeof($dates)-1) {
+            return $dates[++$index];
+        } else {
+            return null;
+        }
+    }
+
+    public function getPreviousMonth($year, $month)
+    {
+        $date = sprintf("%s-%s", $year, $month);
+        $dates = self::getAggregatedDates();
+        $index = array_search($date, $dates);
+
+        if ($index > 0) {
+            return $dates[--$index];
+        } else {
+            return null;
+        }
     }
 
     public function findFromFilename($filename)
