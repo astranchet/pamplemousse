@@ -384,18 +384,18 @@
   }
 }
 #photo #navigation {
-  max-width: 800px;
-  margin: 1em auto;
+  background: #eaf3f2;
+  margin: 3em auto;
+  padding: 1em 3em;
+  font-weight: bold;
 }
 @media (max-width: 767px) {
   #photo #navigation {
-    width: 90%;
-    margin: 2.5em auto;
+    text-align: center;
   }
 }
 #photo #navigation a {
   color: #7F7F81;
-  border-bottom: 1px solid #82B4BF;
 }
 #photo #navigation a:hover {
   text-decoration: none;
