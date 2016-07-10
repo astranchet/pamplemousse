@@ -3,3 +3,8 @@
 	{% set months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"] %}
 	{{ months[month_index] }}
 {% endmacro %}
+
+
+{% macro french_date(date) %}
+    {{ date|date("d") ~ _self.french_month(date|date("m")) ~ date|date("Y") }}
+{% endmacro %}

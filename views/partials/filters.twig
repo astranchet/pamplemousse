@@ -8,8 +8,13 @@
 {% if current_date is not defined %}
     {% set current_date = { month: null, year: null } %}
 {% endif %}
+{% if show_tags is not defined %}
+    {% set show_tags = true %}
+{% endif %}
 
 <div id="filter-bar">
+
+    {% if app.config.tags is defined and show_tags != false %}
     <div class="filters" id="tag-filters">
         Afficher&nbsp;: 
         <ul>
@@ -21,6 +26,7 @@
             {% endfor %}
         </ul>
     </div>
+    {% endif %}
 
     <div class="filters" id="month-filters">
         Par date&nbsp;:

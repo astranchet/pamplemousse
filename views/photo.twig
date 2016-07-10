@@ -1,19 +1,31 @@
 {% extends "templates/base.html" %}
 
+{% import "macro/pamplemousse.twig" as macro %}
+
 {% block content %}
+
+    {% include 'partials/filters.twig' with { 'show_tags': false } %}
 
     <section id="photo">
         <h1>
             {% if photo.previous %}
                 <a href="{{ path('photo', { 'photo': photo.previous.id }) }}" alt="Photo précédente"> ◀&nbsp;</a>
             {% endif %}
-            {{ photo.description|default(photo.date_taken|date("d/m/Y")) }}
+
+            {{ macro.french_date(photo.date_taken) }}
+
             {% if photo.next %}
                 <a href="{{ path('photo', { 'photo': photo.next.id }) }}" alt="Photo suivante">&nbsp;▶ </a>
             {% endif %}
         </h1>
 
+        {% if photo.description %}
+            <h2>{{ photo.description }}</h2>
+        {% endif %}
+
         <img src="{{ photo.url }}" alt="{{ photo.filename }}" />
+
+
 
 
         <h2>Commentaires</h2>
@@ -28,18 +40,15 @@
         </ul>
 
         <form action="{{ path('photo', { 'photo': photo.id }) }}" method="post">
+            <h3>Ajouter un commentaire</h3>
             {{ form_widget(form.item_id, { value : photo.id }) }}
             {{ form_rest(form) }}
             {{ form_errors(form) }}
-            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+            <button type="submit" class="btn btn-primary">Commenter</button>
         </form>
 
         <div id="navigation">
-            <a href="{{ path('index') }}">← Retour à l'accueil</a>
+            <a href="{{ path('index') }}">← Voir toutes les photos</a>
         </div>
-    </section>
-
-    <section id="footer">
-        <p id="warning">Comme ses parents, {{ app.config.kid.name }} n’aime pas trop trop les réseaux sociaux. C’est pourquoi nous vous invitons à imprimer et échanger les photos présentes sur ce site par voie privée (emails, cartes postales, pigeons voyageurs) mais de bien vouloir éviter de les diffuser sur les site marchands (Facebook, Twitter, Google+ et autre). Merci pour {{ app.config.kid.name }} !</p>
     </section>
 {% endblock %}
