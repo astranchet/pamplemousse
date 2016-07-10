@@ -40,6 +40,7 @@
         </ul>
 
         <form action="{{ path('photo', { 'photo': photo.id }) }}" method="post">
+            <h3>Ajouter un commentaire</h3>
             {{ form_widget(form.item_id, { value : photo.id }) }}
             {{ form_rest(form) }}
             {{ form_errors(form) }}
