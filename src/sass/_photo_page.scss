@@ -104,22 +104,22 @@
   }
 }
 
-  .navigation {
-    background: lighten(#CAE0DE, 10%);
-    margin: 3em auto;
-    padding: 1em 3em;
-    font-weight: bold;
+.navigation {
+  background: lighten(#CAE0DE, 10%);
+  margin: 3em auto;
+  padding: 1em 3em;
+  font-weight: bold;
 
-    @media #{$small-devices} {
-      text-align: center;
-    }
+  @media #{$small-devices} {
+    text-align: center;
+  }
 
-    a {
+  a {
+    color: #7F7F81;
+    &:hover {
+      text-decoration: none;
       color: #7F7F81;
-      &:hover {
-        text-decoration: none;
-        color: #7F7F81;
-        border-bottom: 1px solid #7F7F81;
-      }
+      border-bottom: 1px solid #7F7F81;
     }
   }
+}
