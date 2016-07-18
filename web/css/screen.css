@@ -334,7 +334,7 @@
 }
 #photo form {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0 auto 3em;
 }
 @media (max-width: 767px) {
   #photo form {
@@ -386,7 +386,7 @@
 
 .navigation {
   background: #eaf3f2;
-  margin: 3em auto;
+  margin: 0 auto 3em;
   padding: 1em 3em;
   font-weight: bold;
 }

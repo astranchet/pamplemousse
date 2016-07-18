@@ -57,7 +57,7 @@
 
   form {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0 auto 3em;
 
     @media #{$small-devices} {
       margin: .5em;
@@ -106,7 +106,7 @@
 
 .navigation {
   background: lighten(#CAE0DE, 10%);
-  margin: 3em auto;
+  margin: 0 auto 3em;
   padding: 1em 3em;
   font-weight: bold;
 
