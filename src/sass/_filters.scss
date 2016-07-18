@@ -36,9 +36,14 @@
         align-self: baseline;
         padding: 0;
         text-align: center;
+        cursor: pointer;
 
         span {
           padding: .5em 1em;
+        }
+
+        &:hover {
+          text-decoration: underline;
         }
 
         &.current {

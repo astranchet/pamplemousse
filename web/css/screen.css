@@ -230,9 +230,13 @@
   align-self: baseline;
   padding: 0;
   text-align: center;
+  cursor: pointer;
 }
 .filters ul li.sub-filter-toggle span {
   padding: .5em 1em;
+}
+.filters ul li.sub-filter-toggle:hover {
+  text-decoration: underline;
 }
 .filters ul li.sub-filter-toggle.current {
   background: #f9a674;
