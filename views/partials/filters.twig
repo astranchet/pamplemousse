@@ -46,3 +46,11 @@
         </ul>
     </div>
 </div>
+
+
+<script>
+$('.sub-filter-toggle span').click(function() {
+  $(".sub-filters.current").removeClass('current');
+  $(this).next().addClass('current');
+});
+</script>
