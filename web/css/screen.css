@@ -383,21 +383,22 @@
     margin: .5em auto;
   }
 }
-#photo #navigation {
+
+.navigation {
   background: #eaf3f2;
   margin: 3em auto;
   padding: 1em 3em;
   font-weight: bold;
 }
 @media (max-width: 767px) {
-  #photo #navigation {
+  .navigation {
     text-align: center;
   }
 }
-#photo #navigation a {
+.navigation a {
   color: #7F7F81;
 }
-#photo #navigation a:hover {
+.navigation a:hover {
   text-decoration: none;
   color: #7F7F81;
   border-bottom: 1px solid #7F7F81;
