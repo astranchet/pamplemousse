@@ -29,7 +29,7 @@
     {% endif %}
 
     <div class="filters" id="month-filters">
-        Par date&nbsp;:
+        Naviger par date&nbsp;:
         <ul>
             {% for year, months in app.photos.aggregatedDates(constant('\\Pamplemousse\\Photos\\Service::BY_YEAR')) %}
                 <li class="sub-filter-toggle {% if year == current_date.year %}current{% endif %}">
@@ -46,3 +46,11 @@
         </ul>
     </div>
 </div>
+
+
+<script>
+$('.sub-filter-toggle span').click(function() {
+  $(".sub-filters.current").removeClass('current');
+  $(this).next().addClass('current');
+});
+</script>

@@ -5,6 +5,9 @@
 {% block content %}
 
     {% include 'partials/filters.twig' with { 'show_tags': false } %}
+    <div class="navigation">
+        <a href="{{ path('index') }}">← Retourner à toutes les photos</a>
+    </div>
 
     <section id="photo">
         <h1>
@@ -47,8 +50,8 @@
             <button type="submit" class="btn btn-primary">Commenter</button>
         </form>
 
-        <div id="navigation">
-            <a href="{{ path('index') }}">← Voir toutes les photos</a>
+        <div class="navigation">
+            <a href="{{ path('index') }}">← Retourner à toutes les photos</a>
         </div>
     </section>
 {% endblock %}

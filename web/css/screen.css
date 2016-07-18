@@ -230,9 +230,13 @@
   align-self: baseline;
   padding: 0;
   text-align: center;
+  cursor: pointer;
 }
 .filters ul li.sub-filter-toggle span {
   padding: .5em 1em;
+}
+.filters ul li.sub-filter-toggle:hover {
+  text-decoration: underline;
 }
 .filters ul li.sub-filter-toggle.current {
   background: #f9a674;
@@ -334,7 +338,7 @@
 }
 #photo form {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0 auto 3em;
 }
 @media (max-width: 767px) {
   #photo form {
@@ -383,21 +387,22 @@
     margin: .5em auto;
   }
 }
-#photo #navigation {
+
+.navigation {
   background: #eaf3f2;
-  margin: 3em auto;
+  margin: 0 auto 3em;
   padding: 1em 3em;
   font-weight: bold;
 }
 @media (max-width: 767px) {
-  #photo #navigation {
+  .navigation {
     text-align: center;
   }
 }
-#photo #navigation a {
+.navigation a {
   color: #7F7F81;
 }
-#photo #navigation a:hover {
+.navigation a:hover {
   text-decoration: none;
   color: #7F7F81;
   border-bottom: 1px solid #7F7F81;
