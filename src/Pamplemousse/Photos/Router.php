@@ -25,7 +25,7 @@ class Router implements ControllerProviderInterface
 
         $checkThumbnailsSize = function (Request $request, Application $app) {
             foreach ($app['config']['thumbnails']['size'] as $size) {
-                list($width, $height) = split('x', $size);
+                list($width, $height) = preg_split('/x/', $size);
                 if ($width == $request->get('width') && $height == $request->get('height')) {
                     return null;
                 }
