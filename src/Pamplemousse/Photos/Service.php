@@ -292,6 +292,11 @@ class Service
 
     protected function generateThumbnail($photo, $width, $height, $cropAlgorithm = null)
     {
+        $thumbnailDir = $this->getThumbnailDir($width, $height);
+        if (!is_dir($thumbnailDir)) {
+            mkdir($thumbnailDir, 0755, true);
+        }
+
         if ($width == $height) {
             return $this->generateSquareThumbnail($photo, $width, $height, $cropAlgorithm);
         }
