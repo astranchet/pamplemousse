@@ -321,7 +321,7 @@ class Service
     public function generateThumbnails($photo)
     {
         foreach ($this->app['config']['thumbnails']['size'] as $size) {
-            list($width, $height) = split('x', $size);
+            list($width, $height) = preg_split('/x/', $size);
             $this->generateThumbnail($photo, $width, $height);
         }
     }
