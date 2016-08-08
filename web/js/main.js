@@ -20,7 +20,6 @@ $("#load").click(function() {
       $("#load").hide();
       $("#load").after('<div class="warning">Désolé, c\'est fini !</div>');
     } else {
-      $("#gallery").append(data);
       var $content = $(data);
       $grid.append($content).masonry('appended', $content).masonry('reloadItems');
 
