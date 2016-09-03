@@ -16,6 +16,9 @@ $app = new Silex\Application();
 /** Configuration */
 $app->register(new YamlConfigServiceProvider(__DIR__.'/../config/app.yml'));
 
+/** Debug **/
+$app['debug'] = $app['config']['debug'];
+
 /**  Application */
 $app->register(new DoctrineServiceProvider(), array(
     'db.options' => $app['config']['database']
