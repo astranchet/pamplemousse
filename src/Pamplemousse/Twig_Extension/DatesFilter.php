@@ -34,7 +34,7 @@ class DatesFilter extends Twig_Extension
         $time = time() - strtotime($datetime); 
 
         $units = [
-            31536000 => ['année','années'],
+            31536000 => ['an','ans'],
             2592000 => ['mois','mois'],
             604800 => ['semaine','semaines'],
             86400 => ['jour','jours'],
