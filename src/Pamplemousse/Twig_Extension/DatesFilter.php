@@ -50,7 +50,7 @@ class DatesFilter extends Twig_Extension
 
             if ($labelSingular == 'seconde') {
                 return "À l'instant";
-            } elseif (in_array($labelSingular, ['mois', 'année'])) {
+            } elseif (in_array($labelSingular, ['mois', 'an'])) {
                 $numberOfUnits = round(($time / $unit) * 2) / 2;
                 if ($numberOfUnits == floor($numberOfUnits)) {
                     return sprintf("Il y a %s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
@@ -79,7 +79,7 @@ class DatesFilter extends Twig_Extension
         } elseif ($daysToBirth > 0) {
 
             $units = [
-                365 => ['année','années'],
+                365 => ['an','ans'],
                 30 => ['mois','mois'],
                 7 => ['semaine','semaines'],
                 1 => ['jour','jours']
@@ -91,7 +91,7 @@ class DatesFilter extends Twig_Extension
                 $labelSingular = $labels[0];
                 $labelPlural = $labels[1];
 
-                if (in_array($labelSingular, ['mois', 'année'])) {
+                if (in_array($labelSingular, ['mois', 'an'])) {
                     $numberOfUnits = round(($daysToBirth / $unit) * 2) / 2;
                     if ($numberOfUnits == floor($numberOfUnits)) {
                         return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
