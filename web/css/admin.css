@@ -92,6 +92,7 @@ div[id$='crop_algorithm'] {
   align-items: baseline;
   justify-content: space-between;
   flex-wrap: wrap;
+  height: 500px;
 }
 div[id$='crop_algorithm'] .thumbnail_choice {
   padding-right: 1em;
