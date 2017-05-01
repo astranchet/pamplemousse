@@ -80,8 +80,10 @@ class DatesFilter extends Twig_Extension
             return $this->pregnancyAgeFilter($daysToPregnancy);
         } elseif ($daysToBirth < 367) {
             return $this->babyAgeFilter($daysToBirth);
-        } else {
+        } elseif ($daysToBirth < 364*2) {
             return $this->toddlerAgeFilter($daysToBirth);
+        } else {
+            return $this->kidAgeFilter($daysToBirth);
         }
     }
 
@@ -141,6 +143,21 @@ class DatesFilter extends Twig_Extension
             return sprintf("%s ans", $numberOfYears);
         } else {
             return sprintf("%s mois", floor($numberOfMonths));
+        }
+    }
+
+    /**
+     * Kid age is counted in years (and half)
+     */
+    private function kidAgeFilter($daysToBirth)
+    {
+        $numberOfMonths = round(($daysToBirth/30) * 2) / 2;
+        $numberOfYears = round(($numberOfMonths/12) * 2) / 2;
+
+        if ($numberOfYears != floor($numberOfYears)) {
+            return sprintf("%s ans et demi", floor($numberOfYears));
+        } else {
+            return sprintf("%s ans", floor($numberOfYears));
         }
     }
 
