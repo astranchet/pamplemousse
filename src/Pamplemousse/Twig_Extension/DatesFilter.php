@@ -77,41 +77,50 @@ class DatesFilter extends Twig_Extension
         if ($daysToBirth == 0) {
             return 'Le jour J !';
         } elseif ($daysToBirth > 0) {
-
-            $units = [
-                365 => ['an','ans'],
-                30 => ['mois','mois'],
-                7 => ['semaine','semaines'],
-                1 => ['jour','jours']
-            ];
-
-            foreach ($units as $unit => $labels) {
-                if ($daysToBirth < $unit) continue;
-
-                $labelSingular = $labels[0];
-                $labelPlural = $labels[1];
-
-                if (in_array($labelSingular, ['mois', 'an'])) {
-                    $numberOfUnits = round(($daysToBirth / $unit) * 2) / 2;
-                    if ($numberOfUnits == floor($numberOfUnits)) {
-                        return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
-                    } else {
-                        $numberOfUnits = floor($numberOfUnits);
-                        return sprintf("%s %s et demi", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
-                    }
-                } else {
-                    $numberOfUnits = floor($daysToBirth / $unit);
-                    return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
-                }
-            }
+            return $this->babyAgeFilter($daysToBirth);
         } else {
-            $numberOfMonths = round(($daysToPregnancy/30) * 2) / 2;
-            if ($numberOfMonths != floor($numberOfMonths)) {
-                $numberOfMonths = sprintf("%s mois et demi", floor($numberOfMonths));
+            return $this->pregnancyAgeFilter($daysToPregnancy);
+        }
+    }
+
+    private function pregnancyAgeFilter($daysToPregnancy)
+    {
+        $numberOfMonths = round(($daysToPregnancy/30) * 2) / 2;
+        if ($numberOfMonths != floor($numberOfMonths)) {
+            $numberOfMonths = sprintf("%s mois et demi", floor($numberOfMonths));
+        } else {
+            $numberOfMonths = sprintf("%s mois", floor($numberOfMonths));
+        }
+        return sprintf("À %s de grossesse", $numberOfMonths);
+    }
+
+    private function babyAgeFilter($daysToBirth)
+    {
+        $units = [
+            365 => ['an','ans'],
+            30 => ['mois','mois'],
+            7 => ['semaine','semaines'],
+            1 => ['jour','jours']
+        ];
+
+        foreach ($units as $unit => $labels) {
+            if ($daysToBirth < $unit) continue;
+
+            $labelSingular = $labels[0];
+            $labelPlural = $labels[1];
+
+            if (in_array($labelSingular, ['mois', 'an'])) {
+                $numberOfUnits = round(($daysToBirth / $unit) * 2) / 2;
+                if ($numberOfUnits == floor($numberOfUnits)) {
+                    return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                } else {
+                    $numberOfUnits = floor($numberOfUnits);
+                    return sprintf("%s %s et demi", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                }
             } else {
-                $numberOfMonths = sprintf("%s mois", floor($numberOfMonths));
+                $numberOfUnits = floor($daysToBirth / $unit);
+                return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
             }
-            return sprintf("À %s de grossesse", $numberOfMonths);
         }
     }
 
