@@ -76,10 +76,10 @@ class DatesFilter extends Twig_Extension
 
         if ($daysToBirth == 0) {
             return 'Le jour J !';
-        } elseif ($daysToBirth > 0) {
-            return $this->babyAgeFilter($daysToBirth);
-        } else {
+        } elseif ($daysToBirth < 0) {
             return $this->pregnancyAgeFilter($daysToPregnancy);
+        } else {
+            return $this->babyAgeFilter($daysToBirth);
         }
     }
 
