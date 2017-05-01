@@ -78,8 +78,10 @@ class DatesFilter extends Twig_Extension
             return 'Le jour J !';
         } elseif ($daysToBirth < 0) {
             return $this->pregnancyAgeFilter($daysToPregnancy);
-        } else {
+        } elseif ($daysToBirth < 367) {
             return $this->babyAgeFilter($daysToBirth);
+        } else {
+            return $this->toddlerAgeFilter($daysToBirth);
         }
     }
 
@@ -94,6 +96,9 @@ class DatesFilter extends Twig_Extension
         return sprintf("À %s de grossesse", $numberOfMonths);
     }
 
+    /**
+     * Baby age is counted with days/weeks/months
+     */
     private function babyAgeFilter($daysToBirth)
     {
         $units = [
@@ -121,6 +126,21 @@ class DatesFilter extends Twig_Extension
                 $numberOfUnits = floor($daysToBirth / $unit);
                 return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
             }
+        }
+    }
+
+    /**
+     * Toddler age is counted in months
+     */
+    private function toddlerAgeFilter($daysToBirth)
+    {
+        $numberOfMonths = round(($daysToBirth/30) * 2) / 2;
+        $numberOfYears = round(($numberOfMonths/12) * 2) / 2;
+
+        if (floor($numberOfMonths)/12 == $numberOfYears) {
+            return sprintf("%s ans", $numberOfYears);
+        } else {
+            return sprintf("%s mois", floor($numberOfMonths));
         }
     }
 
