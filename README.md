@@ -55,3 +55,22 @@ Generate migration
 ```bash
 ./bin/doctrine migrations:generate
 ```
+
+How to install ImageMagick on Ubuntu
+------------------
+
+```bash
+sudo apt-get install php-imagick
+/etc/init.d/php7.0-fpm restart (or similar, depends on unix distro)
+restart your webserver
+```
+
+Create image folders corresponding to your settings in app.yml
+------------------
+
+Defaults:
+```bash
+mkdir web/tmp
+mkdir web/upload
+mkdir web/thumbnail
+```

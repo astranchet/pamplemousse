@@ -28,5 +28,8 @@
         "psr-0": {
             "Pamplemousse": "src/"
         }
+    },
+    "require-dev": {
+        "laravel/homestead": "^5.4"
     }
 }
