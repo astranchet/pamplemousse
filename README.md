@@ -56,13 +56,28 @@ Generate migration
 ./bin/doctrine migrations:generate
 ```
 
+How to install gd on Ubuntu
+------------------
+
+```bash
+sudo apt-get install php7.0-gd
+```
+
 How to install ImageMagick on Ubuntu
 ------------------
 
 ```bash
 sudo apt-get install php-imagick
-/etc/init.d/php7.0-fpm restart (or similar, depends on unix distro)
-restart your webserver
+```
+```bash
+/etc/init.d/php7.0-fpm restart
+```
+or similar, depends
+https://www.cyberciti.biz/faq/unix-linux-restart-php-service-command/
+
+Then restart your webserver:
+```bash
+service nginx restart
 ```
 
 Create image folders corresponding to your settings in app.yml
@@ -73,4 +88,15 @@ Defaults:
 mkdir web/tmp
 mkdir web/upload
 mkdir web/thumbnail
+```
+
+The following directories should be writable by the web user:
+------------------
+
+Defaults:
+```bash
+log
+web/tmp
+web/upload
+web/thumbnail
 ```
