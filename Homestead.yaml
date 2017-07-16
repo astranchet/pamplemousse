@@ -1,0 +1,19 @@
+ip: 192.168.10.10
+memory: 2048
+cpus: 1
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+folders:
+    -
+        map: /home/daniel/Code/pamplemousse
+        to: /home/vagrant/Code/pamplemousse
+sites:
+    -
+        map: pamplemousse.app
+        to: /home/vagrant/Code/pamplemousse/web
+databases:
+    - homestead
+name: pamplemousse
+hostname: pamplemousse

@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/Code/pamplemousse":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/Code/pamplemousse","hostpath":"/home/daniel/Code/pamplemousse","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/daniel/Code/pamplemousse","disabled":false,"__vagrantfile":true}}}
