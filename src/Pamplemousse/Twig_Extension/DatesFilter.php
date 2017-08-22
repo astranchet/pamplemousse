@@ -76,42 +76,88 @@ class DatesFilter extends Twig_Extension
 
         if ($daysToBirth == 0) {
             return 'Le jour J !';
-        } elseif ($daysToBirth > 0) {
-
-            $units = [
-                365 => ['an','ans'],
-                30 => ['mois','mois'],
-                7 => ['semaine','semaines'],
-                1 => ['jour','jours']
-            ];
-
-            foreach ($units as $unit => $labels) {
-                if ($daysToBirth < $unit) continue;
-
-                $labelSingular = $labels[0];
-                $labelPlural = $labels[1];
-
-                if (in_array($labelSingular, ['mois', 'an'])) {
-                    $numberOfUnits = round(($daysToBirth / $unit) * 2) / 2;
-                    if ($numberOfUnits == floor($numberOfUnits)) {
-                        return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
-                    } else {
-                        $numberOfUnits = floor($numberOfUnits);
-                        return sprintf("%s %s et demi", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
-                    }
-                } else {
-                    $numberOfUnits = floor($daysToBirth / $unit);
-                    return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
-                }
-            }
+        } elseif ($daysToBirth < 0) {
+            return $this->pregnancyAgeFilter($daysToPregnancy);
+        } elseif ($daysToBirth < 367) {
+            return $this->babyAgeFilter($daysToBirth);
+        } elseif ($daysToBirth < 364*2) {
+            return $this->toddlerAgeFilter($daysToBirth);
         } else {
-            $numberOfMonths = round(($daysToPregnancy/30) * 2) / 2;
-            if ($numberOfMonths != floor($numberOfMonths)) {
-                $numberOfMonths = sprintf("%s mois et demi", floor($numberOfMonths));
+            return $this->kidAgeFilter($daysToBirth);
+        }
+    }
+
+    private function pregnancyAgeFilter($daysToPregnancy)
+    {
+        $numberOfMonths = round(($daysToPregnancy/30) * 2) / 2;
+        if ($numberOfMonths != floor($numberOfMonths)) {
+            $numberOfMonths = sprintf("%s mois et demi", floor($numberOfMonths));
+        } else {
+            $numberOfMonths = sprintf("%s mois", floor($numberOfMonths));
+        }
+        return sprintf("À %s de grossesse", $numberOfMonths);
+    }
+
+    /**
+     * Baby age is counted with days/weeks/months
+     */
+    private function babyAgeFilter($daysToBirth)
+    {
+        $units = [
+            365 => ['an','ans'],
+            30 => ['mois','mois'],
+            7 => ['semaine','semaines'],
+            1 => ['jour','jours']
+        ];
+
+        foreach ($units as $unit => $labels) {
+            if ($daysToBirth < $unit) continue;
+
+            $labelSingular = $labels[0];
+            $labelPlural = $labels[1];
+
+            if (in_array($labelSingular, ['mois', 'an'])) {
+                $numberOfUnits = round(($daysToBirth / $unit) * 2) / 2;
+                if ($numberOfUnits == floor($numberOfUnits)) {
+                    return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                } else {
+                    $numberOfUnits = floor($numberOfUnits);
+                    return sprintf("%s %s et demi", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                }
             } else {
-                $numberOfMonths = sprintf("%s mois", floor($numberOfMonths));
+                $numberOfUnits = floor($daysToBirth / $unit);
+                return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
             }
-            return sprintf("À %s de grossesse", $numberOfMonths);
+        }
+    }
+
+    /**
+     * Toddler age is counted in months
+     */
+    private function toddlerAgeFilter($daysToBirth)
+    {
+        $numberOfMonths = round(($daysToBirth/30) * 2) / 2;
+        $numberOfYears = round(($numberOfMonths/12) * 2) / 2;
+
+        if (floor($numberOfMonths)/12 == $numberOfYears) {
+            return sprintf("%s ans", $numberOfYears);
+        } else {
+            return sprintf("%s mois", floor($numberOfMonths));
+        }
+    }
+
+    /**
+     * Kid age is counted in years (and half)
+     */
+    private function kidAgeFilter($daysToBirth)
+    {
+        $numberOfMonths = round(($daysToBirth/30) * 2) / 2;
+        $numberOfYears = round(($numberOfMonths/12) * 2) / 2;
+
+        if ($numberOfYears != floor($numberOfYears)) {
+            return sprintf("%s ans et demi", floor($numberOfYears));
+        } else {
+            return sprintf("%s ans", floor($numberOfYears));
         }
     }
 
