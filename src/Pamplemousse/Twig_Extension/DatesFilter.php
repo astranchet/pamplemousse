@@ -78,10 +78,10 @@ class DatesFilter extends Twig_Extension
             return 'Le jour J !';
         } elseif ($daysToBirth < 0) {
             return $this->pregnancyAgeFilter($daysToPregnancy);
-        } elseif ($daysToBirth < 367) {
+        } elseif ($daysToBirth < 367*3) {
             return $this->babyAgeFilter($daysToBirth);
-        } elseif ($daysToBirth < 364*2) {
-            return $this->toddlerAgeFilter($daysToBirth);
+        // } elseif ($daysToBirth < 364*3) {
+        //     return $this->toddlerAgeFilter($daysToBirth);
         } else {
             return $this->kidAgeFilter($daysToBirth);
         }
@@ -115,14 +115,18 @@ class DatesFilter extends Twig_Extension
 
             $labelSingular = $labels[0];
             $labelPlural = $labels[1];
+            $prefix = "";
 
-            if (in_array($labelSingular, ['mois', 'an'])) {
+            if (in_array($labelSingular, ['mois', 'an'])) { // Those can be counted in half
                 $numberOfUnits = round(($daysToBirth / $unit) * 2) / 2;
+                if ($daysToBirth < $unit*$numberOfUnits) {
+                        $prefix = "Bientôt ";
+                    }
                 if ($numberOfUnits == floor($numberOfUnits)) {
-                    return sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                    return $prefix.sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
                 } else {
                     $numberOfUnits = floor($numberOfUnits);
-                    return sprintf("%s %s et demi", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
+                    return $prefix.sprintf("%s %s et demi", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
                 }
             } else {
                 $numberOfUnits = floor($daysToBirth / $unit);
