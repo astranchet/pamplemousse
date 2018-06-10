@@ -6,7 +6,7 @@ tmp_dir: '/tmp/'
 
 kid:
   name: Salamander
-  baseline: "Au pays des gens heureux>"
+  baseline: "Au pays des gens heureux"
   pregnancydate: 10-06-2018
   birthdate: 15-08-2018
 
