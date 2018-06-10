@@ -5,10 +5,10 @@ upload_dir: '/upload/'
 tmp_dir: '/tmp/'
 
 kid:
-  name: Pamplemousse
-  baseline: "Née le <strong>17 septembre 2015</strong>"
-  pregnancydate: 17-02-2015
-  birthdate: 17-09-2015
+  name: Salamander
+  baseline: "Au pays des gens heureux>"
+  pregnancydate: 10-06-2018
+  birthdate: 15-08-2018
 
 tags:
   evolution: Mois après mois
