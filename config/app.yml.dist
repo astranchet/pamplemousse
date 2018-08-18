@@ -6,9 +6,9 @@ tmp_dir: '/tmp/'
 
 kid:
   name: Salamander
-  baseline: "Au pays des gens heureux"
+  baseline: "Hakuna matata"
   pregnancydate: 10-06-2018
-  birthdate: 15-08-2018
+  birthdate: 13-08-2018
 
 tags:
   evolution: Mois après mois
