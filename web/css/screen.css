@@ -5,7 +5,7 @@
   font-family: Lora, serif;
   font-size: 1.3em;
   border-radius: .5em;
-  background: #E7E1D1;
+  background: #d1d7e7;
   text-align: center;
   font-style: italic;
 }
@@ -68,10 +68,10 @@
   font-size: 3em;
   color: #fff;
   display: block;
-  color: #F9A674;
+  color: #2900ff;
 }
 #home .container a[data-scroll]:hover {
-  color: #DF622C;
+  color: #2c38df;
 }
 
 #photos {
@@ -100,7 +100,7 @@
   font-size: .7em;
   padding: 0 1em;
   vertical-align: 20%;
-  color: #DF622C;
+  color: #2c38df;
 }
 @media (max-width: 767px) {
   #photos h1 a {
@@ -108,13 +108,13 @@
   }
 }
 #photos h1 a:hover {
-  color: #eca485;
+  color: #4094ff;
   text-decoration: none;
 }
 #photos #load {
   margin: 2em auto 2em;
   display: block;
-  background: #DF622C;
+  background: #2c38df;
   color: #fff;
   padding: 1em;
   font-family: Lora, serif;
@@ -123,7 +123,7 @@
   border-radius: .5em;
 }
 #photos #load:hover {
-  background: #f15b1a;
+  background: #2c38df;
 }
 #photos #fullpage-photo {
   display: block;
@@ -192,7 +192,7 @@
   display: flex;
   padding: 1.5em;
   max-height: 6em;
-  background: #f56712;
+  background: #337ab7;
   color: #fff;
   font-size: 1.1em;
   font-family: Lora, serif;
@@ -216,13 +216,13 @@
   border-radius: .5em;
   padding: .5em 1em;
   margin: .5em;
-  background: #f6772b;
+  background: #4094ff;
 }
 .filters ul li.current {
-  background: #f9a674;
+  background: #2900ff;
 }
 .filters ul li:hover {
-  background: #fab68c;
+  background: #4094ff;
 }
 .filters ul li.sub-filter-toggle {
   display: flex;
@@ -239,7 +239,7 @@
   text-decoration: underline;
 }
 .filters ul li.sub-filter-toggle.current {
-  background: #f9a674;
+  background: #2900ff;
 }
 .filters ul ul.sub-filters {
   display: none;
@@ -296,10 +296,10 @@
   padding: 0 1em;
   vertical-align: 20%;
   content: "◀ ";
-  color: #F9A674;
+  color: #2900ff;
 }
 #photo h1 a:hover, #photo h2 a:hover, #photo h3 a:hover {
-  color: #DF622C;
+  color: #2c38df;
   text-decoration: none;
 }
 #photo h3 {
@@ -325,9 +325,9 @@
   padding: 0;
 }
 #photo #comments li {
-  background: #FDE6D8;
+  background: #d8e0fd;
   list-style-type: none;
-  border-bottom: 1px solid #F9A674;
+  border-bottom: 1px solid #4094ff;
   padding: 1em;
   margin-top: .5em;
 }
@@ -373,12 +373,12 @@
 #photo form input:focus,
 #photo form textarea:focus {
   border: 1px solid #DF622C;
-  background: #FDE6D8;
+  background: #d8e0fd;
 }
 #photo form button[type="submit"] {
   display: block;
   margin-bottom: 1.5em;
-  background: #DF622C;
+  background: #2c38df;
   border: 1px solid #F9A674;
 }
 @media (max-width: 767px) {
@@ -389,7 +389,7 @@
 }
 
 .navigation {
-  background: #eaf3f2;
+  background: #eaeaf3;
   margin: 0 auto 3em;
   padding: 1em 3em;
   font-weight: bold;
