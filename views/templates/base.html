@@ -9,7 +9,8 @@
             <meta name="robots" content="noindex,nofollow">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link href="{{ app.config.web_dir }}apple-touch-icon.png" rel="apple-touch-icon" >
-            <link href="{{ url('rss.comment') }}" rel="alternate" type="application/atom+xml" title="Flux RSS - {{ app.config.kid.name }}" />
+            <link href="{{ url('rss.photos') }}" rel="alternate" type="application/atom+xml" title="Flux RSS - {{ app.config.kid.name }}" />
+            <link href="{{ url('rss.comment') }}" rel="alternate" type="application/atom+xml" title="Flux RSS - Commentaires sur {{ app.config.kid.name }}" />
 
             {% block css %}
                 <link href="{{ app.config.web_dir }}css/bootstrap/bootstrap.min.css" rel="stylesheet" >
