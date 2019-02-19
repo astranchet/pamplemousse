@@ -112,7 +112,7 @@ class Controller
      */
     public function commentRssAction(Application $app, Request $request)
     {
-        return $app['twig']->render('rss.twig', [
+        return $app['twig']->render('rss/comments.twig', [
             'comments' => $app['comments']->getLast()
         ]);
     }
