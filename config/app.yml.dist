@@ -16,9 +16,14 @@ users:
     - ROLE_ADMIN
     - 5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==
 
+site:
+  intro: true
+  title: The Happy Family
+  baseline: "Joe, Jane and kids"
+  footer: Nos enfants sont encore un peu jeunes pour s'afficher sur les réseaux sociaux. C’est pourquoi nous vous invitons à échanger les photos présentes sur ce site par voie privée (emails, cartes postales, pigeons voyageurs) mais de bien vouloir éviter de les diffuser sur des site marchands (Facebook, Twitter, Google+ et autre). Merci pour eux !
+
 kid:
   name: Pamplemousse
-  baseline: "Née le <strong>17 septembre 2015</strong>"
   pregnancydate: 17-02-2015
   birthdate: 17-09-2015
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-    <title>{{ app.config.kid.name }}</title>
+    <title>{{ app.config.site.title }}</title>
     <link>{{ url('index') }}</link>
-    <description>Photos de {{ app.config.kid.name }}</description>
+    <description>Photos de {{ app.config.site.title }}</description>
     <atom:link href="{{ url('rss.photos') }}" rel="self" type="application/rss+xml" />
 
     {% for photo in photos %}
