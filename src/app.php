@@ -85,6 +85,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 $app->mount('/', new Pamplemousse\Router());
+$app->mount('/rss/', new Pamplemousse\RSS\Router());
 $app->mount('/photo/', new Pamplemousse\Photos\Router());
 $app->mount('/admin/', new Pamplemousse\Admin\Router());
 

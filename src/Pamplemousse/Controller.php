@@ -105,29 +105,6 @@ class Controller
         ]);
     }
 
-    /**
-     * @param  Application $app
-     * @param  Request     $request
-     * @return Response
-     */
-    public function commentRssAction(Application $app, Request $request)
-    {
-        return $app['twig']->render('rss/comments.twig', [
-            'comments' => $app['comments']->getLast()
-        ]);
-    }
-
-    /**
-     * @param  Application $app
-     * @param  Request     $request
-     * @return Response
-     */
-    public function photosRssAction(Application $app, Request $request)
-    {
-        return $app['twig']->render('rss/photos.twig', [
-            'photos' => $app['photos']->getLast(self::IMAGE_PER_PAGE)
-        ]);
-    }
 
     /**
      * @param  Application $app
