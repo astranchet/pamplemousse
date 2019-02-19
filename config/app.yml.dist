@@ -4,6 +4,18 @@ web_dir: '/'
 upload_dir: '/upload/'
 tmp_dir: '/tmp/'
 
+database:
+  dbname: pamplemousse
+  user: root
+  password: root
+  host: localhost
+  driver: 'pdo_mysql'
+
+users:
+  admin:
+    - ROLE_ADMIN
+    - 5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==
+
 kid:
   name: Pamplemousse
   baseline: "Née le <strong>17 septembre 2015</strong>"
@@ -14,13 +26,6 @@ tags:
   evolution: Mois après mois
   bestof: Favoris
 
-database:
-  dbname: pamplemousse
-  user: root
-  password: root
-  host: localhost
-  driver: 'pdo_mysql'
-
 thumbnails:
   dir: '/thumbnail/'
   size:
@@ -28,7 +33,3 @@ thumbnails:
     - 800x800
     - 1200x
 
-users:
-  admin:
-    - ROLE_ADMIN
-    - 5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==
