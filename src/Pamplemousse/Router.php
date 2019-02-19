@@ -49,10 +49,6 @@ class Router implements ControllerProviderInterface
             ->bind('from')
             ;
 
-        $controllers->get('/rss/comment', Controller::class . "::commentRssAction")
-            ->bind('rss.comment')
-            ;
-
         $controllers->get('/login', Controller::class . "::loginAction");
 
         return $controllers;

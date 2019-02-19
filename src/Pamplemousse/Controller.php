@@ -105,18 +105,6 @@ class Controller
         ]);
     }
 
-    /**
-     * @param  Application $app
-     * @param  Request     $request
-     * @return Response
-     */
-    public function commentRssAction(Application $app, Request $request)
-    {
-        return $app['twig']->render('rss.twig', [
-            'comments' => $app['comments']->getLast()
-        ]);
-    }
-    
 
     /**
      * @param  Application $app
