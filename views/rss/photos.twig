@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+    <title>{{ app.config.kid.name }}</title>
+    <link>{{ url('index') }}</link>
+    <description>Photos de {{ app.config.kid.name }}</description>
+    <atom:link href="{{ url('rss.photos') }}" rel="self" type="application/rss+xml" />
+
+    {% for photo in photos %}
+    <item>
+        <title>{{ photo.description }}</title>
+        <link>{{ url('photo', { 'photo': photo.id }) }}</link>
+        <guid isPermaLink="true">{{ url('photo', { 'photo': photo.id }) }}#{{ photo.id }}</guid>
+        <pubDate>{{ photo.date_taken }}</pubDate>
+        <description><![CDATA[
+            <a href="{{ url('photo', { 'photo': photo.id }) }}">
+                <img src="{{ url('thumbnail-square', { 'photo': photo.id, 'size': '200' }) }}" />
+            </a><br />
+            {{ photo.description }}
+            ]]>
+        </description>
+    </item>
+    {% endfor %}
+</channel>
+</rss>
