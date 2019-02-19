@@ -6,3 +6,4 @@
 /web/images/bg*
 /web/upload/*
 /web/thumbnail/*
+.DS_Store
