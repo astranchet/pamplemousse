@@ -1,8 +1,9 @@
 {% import "macro/pamplemousse.twig" as macro %}
 
 {% set current_all = true %}
-{% set current_filter = app.request.query.get('filter') %}
-{% if (current_filter) or (current_date is defined) %}
+{% set current_tag = app.request.query.get('filter') %}
+{% set current_kid = app.request.query.get('kid') %}
+{% if (current_tag) or (current_kid) or (current_date is defined) %}
     {% set current_all = false %}
 {% endif %}
 {% if current_date is not defined %}
@@ -10,6 +11,9 @@
 {% endif %}
 {% if show_tags is not defined %}
     {% set show_tags = true %}
+{% endif %}
+{% if show_kids is not defined %}
+    {% set show_kids = true %}
 {% endif %}
 
 <div id="filter-bar">
@@ -19,8 +23,17 @@
         Afficher&nbsp;: 
         <ul>
             <li class="{% if current_all %}current{% endif %}"><a href="{{ url('index') }}#photos">Tout</a></li>
+            
+            {% if app.config.kids is defined and show_kids != false %}
+                {% for kid in app.config.kids %}
+                    <li class="{% if current_kid == kid.name %}current{% endif %}">
+                        <a href="{{ url('index', { 'kid': kid.name }) }}#photos">{{ kid.name }}</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+
             {% for id, tag in app.config.tags %}
-                <li class="{% if current_filter == id %}current{% endif %}">
+                <li class="{% if current_tag == id %}current{% endif %}">
                     <a href="{{ url('index', { 'filter': id }) }}#photos">{{ tag }}</a>
                 </li>
             {% endfor %}
