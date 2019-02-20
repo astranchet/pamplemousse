@@ -63,7 +63,10 @@ class Controller
             ->add('photos', CollectionType::class, [
                 'entry_type' => PhotoType::class,
                 'data' => $photos,
-                'entry_options' => [ 'tags' => $app['config']['tags'] ]
+                'entry_options' => [ 
+                    'tags' => $app['config']['tags'], 
+                    'kids' => $app['kids']->getKids(), 
+                ]
             ])
             ->getForm();
 
