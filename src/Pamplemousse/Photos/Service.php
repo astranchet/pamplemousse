@@ -105,6 +105,25 @@ class Service
         return $photos;
     }
 
+    public function getForKids($kid)
+    {
+        $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s LEFT JOIN %s ON %s.id = %s.item_id 
+            WHERE type = :type AND kid = :kid ORDER BY date_taken DESC', 
+            self::TABLE_NAME, \Pamplemousse\Kids\Service::TABLE_NAME,
+            self::TABLE_NAME, \Pamplemousse\Kids\Service::TABLE_NAME,
+            $kid));
+        $stmt->bindValue('type', 'picture');
+        $stmt->bindValue('kid', $kid);
+        $stmt->execute();
+        $items = $stmt->fetchAll();
+
+        $photos = [];
+        foreach ($items as $id => $item) {
+            $photos[] = new Entity\Photo($this->app, $item);
+        }
+        return $photos;
+    }
+
     public function getForDate($month, $year)
     {
         $items = $this->conn->fetchAll(sprintf("SELECT * FROM %s HAVING MONTH(date_taken) = ? AND YEAR(date_taken) = ? ORDER BY date_taken ASC", 

@@ -19,11 +19,14 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         $filter = $request->get('filter');
+        $kid = $request->get('kid');
 
-        if (is_null($filter)) {
-            $photos = $app['photos']->getLast(self::IMAGE_PER_PAGE);
-        } else {
+        if (!is_null($filter)) {
             $photos = $app['photos']->getWithTag($filter);
+        } else if (!is_null($kid)) {
+            $photos = $app['photos']->getForKids($kid);
+        } else {
+            $photos = $app['photos']->getLast(self::IMAGE_PER_PAGE);
         }
 
         return $app['twig']->render('index.twig', [
