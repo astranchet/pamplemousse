@@ -47,7 +47,7 @@ class PhotoType extends AbstractType
         ]);
         $builder->add('kids', ChoiceType::class, [
             'label' => "Qui est-ce ?",
-            'choices' => array_flip($options['kids']),
+            'choices' => $options['kids'],
             'expanded' => true,
             'multiple' => true
         ]);

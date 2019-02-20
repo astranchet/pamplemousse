@@ -231,6 +231,9 @@ class Service
         $this->app['tags']->delete($photo);
         $this->app['tags']->add($photo);
 
+        $this->app['kids']->delete($photo);
+        $this->app['kids']->add($photo);
+
         return $this->conn->update(self::TABLE_NAME, $data, array('id' => $photo->id));
     }
 
