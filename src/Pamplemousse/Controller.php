@@ -19,12 +19,12 @@ class Controller
     public function indexAction(Application $app, Request $request)
     {
         $filter = $request->get('filter');
-        $kid = $request->get('kid');
+        $kids = $request->get('kids');
 
         if (!is_null($filter)) {
             $photos = $app['photos']->getWithTag($filter);
-        } else if (!is_null($kid)) {
-            $photos = $app['photos']->getForKids($kid);
+        } else if (!is_null($kids)) {
+            $photos = $app['photos']->getForKids($kids);
         } else {
             $photos = $app['photos']->getLast(self::IMAGE_PER_PAGE);
         }

@@ -105,22 +105,27 @@ class Service
         return $photos;
     }
 
-    public function getForKids($kid)
+    public function getForKids($kids)
     {
-        $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s LEFT JOIN %s ON %s.id = %s.item_id 
-            WHERE type = :type AND kid = :kid ORDER BY date_taken DESC', 
-            self::TABLE_NAME, \Pamplemousse\Kids\Service::TABLE_NAME,
-            self::TABLE_NAME, \Pamplemousse\Kids\Service::TABLE_NAME,
-            $kid));
-        $stmt->bindValue('type', 'picture');
-        $stmt->bindValue('kid', $kid);
-        $stmt->execute();
+        $qb = $this->conn->createQueryBuilder()
+            ->select('*')
+            ->from(self::TABLE_NAME, 'items');
+        foreach ($kids as $id => $kid) {
+            $qb->join('items', \Pamplemousse\Kids\Service::TABLE_NAME, 't'.$id, 
+                sprintf('items.id = %s.item_id AND %s.kid = "%s"', 't'.$id, 't'.$id, $kid));
+        }
+        $qb->where('type = "picture"')
+            ->orderBy('date_taken', 'DESC');
+        // echo $qb->getSQL(); die;
+        
+        $stmt = $qb->execute();
         $items = $stmt->fetchAll();
 
         $photos = [];
-        foreach ($items as $id => $item) {
-            $photos[] = new Entity\Photo($this->app, $item);
+        foreach ($items as $item) {
+            $photos[$item['id']] = new Entity\Photo($this->app, $item);
         }
+
         return $photos;
     }
 
