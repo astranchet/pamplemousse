@@ -1,7 +1,7 @@
 {% import "macro/pamplemousse.twig" as macro %}
 
-{% if show_tags is not defined %}
-    {% set show_tags = true %}
+{% if show_filters is not defined %}
+    {% set show_filters = true %}
 {% endif %}
 
 {% set current_all = true %}
@@ -16,7 +16,7 @@
 
 <div id="filter-bar">
 
-    {% if app.config.tags is defined and show_tags != false %}
+    {% if show_filters != false and (app.config.tags is defined or app.config.kids is defined) %}
     <div class="filters" id="tag-filters">
         Afficher&nbsp;: 
         <ul>
