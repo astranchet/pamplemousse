@@ -228,6 +228,12 @@
   background: inherit;
   padding: .5em 0;
 }
+.filters ul li span.glyphicon-remove {
+  padding-left: .5em;
+  font-size: 0.8em;
+  line-height: 1em;
+  color: #e37b4d;
+}
 .filters ul li.sub-filter-toggle {
   display: flex;
   flex-direction: column;
