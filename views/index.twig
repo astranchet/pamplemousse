@@ -18,6 +18,10 @@
     <section id="photos">
         <div class="container">
 
+            {% set current_kids = app.request.query.get('kids') %}
+            {% if current_kids %}
+                <h1>{{ current_kids|join(' et ') }}</h1>
+            {% endif %}
 
             <div id="gallery">
                 <div class="grid-sizer"></div>
