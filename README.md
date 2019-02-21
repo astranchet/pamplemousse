@@ -43,7 +43,8 @@ Edit `config/app.yml`:
 * Create upload dir (`web/upload` by default) 
 * Configure `database` parameters
 * Configure `users` (see Tools)
-* Configure home page with `kid` parameters and `tags` parameters
+* Configure homepage with `site` parameters
+* Configure photo filters with `kids` and `tags` parameters
 
 Run locally
 -----------
