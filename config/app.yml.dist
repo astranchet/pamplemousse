@@ -22,14 +22,16 @@ site:
   baseline: "Joe, Jane and kids"
   footer: Nos enfants sont encore un peu jeunes pour s'afficher sur les réseaux sociaux. C’est pourquoi nous vous invitons à échanger les photos présentes sur ce site par voie privée (emails, cartes postales, pigeons voyageurs) mais de bien vouloir éviter de les diffuser sur des site marchands (Facebook, Twitter, Google+ et autre). Merci pour eux !
 
-kid:
-  name: Pamplemousse
-  pregnancydate: 17-02-2015
-  birthdate: 17-09-2015
+kids:
+  - name: Joe
+    pregnancydate: 18-05-2015
+    birthdate: 04-03-2016
+  - name: Jane
+    pregnancydate: 01-06-2018
+    birthdate: 
 
 tags:
   evolution: Mois après mois
-  bestof: Favoris
 
 thumbnails:
   dir: '/thumbnail/'
