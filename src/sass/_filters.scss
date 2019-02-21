@@ -29,6 +29,10 @@
       background: darken(#F9A674, 15%);
       &.current { background: darken(#F9A674, 0%); }
       &:hover {  background: lighten(#F9A674, 5%); }
+      &.separator { 
+        background: inherit;
+        padding: .5em 0;
+      }
 
       &.sub-filter-toggle {
         display: flex;

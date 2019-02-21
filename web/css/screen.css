@@ -224,6 +224,10 @@
 .filters ul li:hover {
   background: #fab68c;
 }
+.filters ul li.separator {
+  background: inherit;
+  padding: .5em 0;
+}
 .filters ul li.sub-filter-toggle {
   display: flex;
   flex-direction: column;

@@ -28,7 +28,7 @@
                     <a href="{{ url('index', { 'kid': kid.name }) }}#photos">{{ kid.name }}</a>
                 </li>
             {% endfor %}
-
+            <li class="separator">/</li> 
             {% for id, tag in app.config.tags %}
                 <li class="{% if current_tag == id %}current{% endif %}">
                     <a href="{{ url('index', { 'tag': id }) }}#photos">{{ tag }}</a>
