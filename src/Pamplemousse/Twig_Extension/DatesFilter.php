@@ -5,6 +5,7 @@ namespace Pamplemousse\Twig_Extension;
 use DateTime;
 use Twig_Extension;
 use Twig_SimpleFilter;
+use Twig_SimpleFunction;
 
 class DatesFilter extends Twig_Extension
 {
@@ -27,6 +28,35 @@ class DatesFilter extends Twig_Extension
             new Twig_SimpleFilter('timeago', [$this, 'timeagoFilter']),
             new Twig_SimpleFilter('age', [$this, 'ageFilter']),
         ];
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new Twig_SimpleFunction('toggle_filters', [$this, 'toggleFilters']),
+        ];
+    }
+
+    public function toggleFilters($parameters, $filters)
+    {
+        foreach ($filters as $type => $filter) {
+            // Remove value if it exists
+            if (isset($parameters[$type])) {
+                foreach($parameters[$type] as $key => $value) {
+                    if ($filter == $value) {
+                        unset($parameters[$type][$key]);
+                        return $parameters;
+                    }
+                }    
+            }
+
+            // Else add it
+            if (!isset($parameters[$type])) {
+                $parameters[$type] = array();
+            }
+            $parameters[$type][] = $filter;
+        }
+        return $parameters;
     }
 
     public function timeagoFilter($datetime)

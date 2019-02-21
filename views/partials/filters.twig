@@ -24,8 +24,8 @@
         <ul>
             <li class="{% if current_all %}current{% endif %}"><a href="{{ url('index') }}#photos">Tout</a></li>
             {% for kid in app.config.kids %}
-                <li class="{% if current_kid == kid.name %}current{% endif %}">
-                    <a href="{{ url('index', { 'kid': kid.name }) }}#photos">{{ kid.name }}</a>
+                <li class="{% if kid.name in current_kids %}current{% endif %}">
+                    <a href="{{ url('index', toggle_filters(app.request.query.all, {kids: kid.name}) ) }}#photos">{{ kid.name }}</a>
                 </li>
             {% endfor %}
             <li class="separator">/</li> 
