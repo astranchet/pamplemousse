@@ -31,6 +31,7 @@ class Controller
 
         return $app['twig']->render('index.twig', [
             'photos' => $photos,
+            'photo_per_page' => self::IMAGE_PER_PAGE
         ]);
     }
 
