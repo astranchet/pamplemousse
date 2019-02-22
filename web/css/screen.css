@@ -10,6 +10,11 @@
   font-style: italic;
 }
 
+.right {
+  float: right;
+  text-align: right;
+}
+
 #footer {
   position: relative;
   background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(../images/pattern.jpg);

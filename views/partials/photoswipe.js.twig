@@ -23,7 +23,7 @@ var openPhotoSwipe = function(index) {
                 w: imgEl.getAttribute('data-w'),
                 h: imgEl.getAttribute('data-h'),
                 date: imgEl.getAttribute('data-date'),
-                age: imgEl.getAttribute('data-age'),
+                age_caption: imgEl.getAttribute('data-age-caption'),
                 comments_count: imgEl.getAttribute('data-comments-count'),
                 url: imgEl.getAttribute('data-url')
             };
@@ -44,7 +44,9 @@ var openPhotoSwipe = function(index) {
                 captionEl.children[0].innerHTML = '';
                 return false;
             }
-            captionEl.children[0].innerHTML = item.title + ' — ' + item.age + ' — ' + item.date;
+            captionEl.children[0].innerHTML = '<span class="right small">' + item.date + '<br />' + item.age_caption + '</span>';
+
+            captionEl.children[0].innerHTML += item.title;
             if (item.comments_count == 0) {
                 comments_invite = 'Soyez le premier à commenter !';
             } else if (item.comments_count == 1) {

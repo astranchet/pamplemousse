@@ -26,7 +26,7 @@ class DatesFilter extends Twig_Extension
     {
         return [
             new Twig_SimpleFilter('timeago', [$this, 'timeagoFilter']),
-            new Twig_SimpleFilter('age', [$this, 'ageFilter']),
+            new Twig_SimpleFilter('age_caption', [$this, 'ageCaptionFilter']),
         ];
     }
 
@@ -97,10 +97,14 @@ class DatesFilter extends Twig_Extension
         return $time;
     }
 
-    public function ageFilter($datetime)
+    public function ageCaptionFilter($photo)
     {
-        $datetime = new DateTime($datetime);
+        return "TODO : age caption";
+    }
 
+    public function ageFilter($datetime)
+    {     
+        // TODO : recalculer l'intval
         $daysToBirth = intval($this->birthdate->diff($datetime)->format('%R%a'));
         $daysToPregnancy = intval($this->pregnancydate->diff($datetime)->format('%R%a'));
 
