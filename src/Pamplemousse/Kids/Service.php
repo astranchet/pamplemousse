@@ -52,4 +52,14 @@ class Service
         return $kids;
     }
 
+    public function getKid($name)
+    {
+        foreach ($this->config['kids'] as $kid) {
+            if ($kid['name'] == $name) {
+                return $kid;
+            }
+        }
+        return null;
+    }
+
 }

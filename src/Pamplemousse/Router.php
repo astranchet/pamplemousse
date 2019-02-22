@@ -19,8 +19,25 @@ class Router implements ControllerProviderInterface
     {
         $controllers = $app['controllers_factory'];
 
+        $checkFilters = function (Request $request, Application $app) {
+            if ($request->get('kids')) {
+                foreach ($request->get('kids') as $kid) {
+                    if (is_null($app['kids']->getKid($kid))) {
+                        return new Response('Bad filter', 404);
+                    } 
+                }
+                return null;
+            }
+            if ($request->get('tag')) {
+                if (!isset($app['config']["tags"][$request->get('tag')])) {
+                    return new Response('Bad filter', 404);
+                }
+                return null;
+            }
+        };
         $controllers->get('/', Controller::class . "::indexAction")
             ->bind('index')
+            ->before($checkFilters)
             ;
 
         $checkDate = function (Request $request, Application $app) {
