@@ -193,6 +193,10 @@
   font-weight: bold;
 }
 
+.pswp__caption .pswp__caption__center {
+  max-width: 800px;
+}
+
 #filter-bar {
   display: flex;
   padding: 1.5em;
