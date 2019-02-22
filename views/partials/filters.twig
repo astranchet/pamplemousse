@@ -48,7 +48,7 @@
                     <ul class="sub-filters">
                     {% for month in months %}
                         <li class="{% if month == current_date.month and year == current_date.year %}current{% endif %}">
-                            <a href="{{ url('date', { 'year' : year, 'month': month }) }}#photos">{{ macro.french_month(month) }}</a>
+                            <a href="{{ url('date', { 'year' : year, 'month': month }) }}#filter-bar">{{ macro.french_month(month) }}</a>
                         </li>
                     {% endfor %}
                 </li>
