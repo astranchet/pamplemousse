@@ -305,7 +305,6 @@ class Service
                 $filename = $cropAlgorithm . '-' . $photo->filename;
                 break;
             case self::CROP_ENTROPY:
-                $cropper = new \stojg\crop\CropEntropy();
                 $filename = $cropAlgorithm . '-' . $photo->filename;
                 break;
             case self::CROP_CENTER:
