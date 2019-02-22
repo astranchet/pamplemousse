@@ -205,6 +205,9 @@
 #filter-bar a {
   color: #fff;
 }
+#filter-bar #month-filters {
+  justify-content: flex-end;
+}
 
 .filters {
   flex-grow: 1;
