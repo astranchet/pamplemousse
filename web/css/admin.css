@@ -116,6 +116,10 @@ div[id$='date_taken'] .form-control {
   margin: .5em;
 }
 
+#footer {
+  display: none;
+}
+
 .photo-widget {
   display: flex;
 }
