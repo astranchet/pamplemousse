@@ -299,6 +299,9 @@
   .filters ul li.sub-filter-toggle {
     text-align: left;
   }
+  .filters ul li.separator {
+    display: none;
+  }
   .filters ul li ul.sub-filters.current li {
     justify-content: flex-start;
     padding-left: .5em;
