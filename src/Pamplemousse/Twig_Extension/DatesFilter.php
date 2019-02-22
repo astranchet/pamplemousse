@@ -9,13 +9,6 @@ use Twig_SimpleFunction;
 
 class DatesFilter extends Twig_Extension
 {
-    protected $birthdate, $pregnancydate;
-
-    public function __construct($config)
-    {
-        $this->birthdate = new DateTime($config['kid']['birthdate']);
-        $this->pregnancydate = new DateTime($config['kid']['pregnancydate']);
-    }
 
     public function getName()
     {
@@ -99,14 +92,29 @@ class DatesFilter extends Twig_Extension
 
     public function ageCaptionFilter($photo)
     {
-        return "TODO : age caption";
+        $datetime = new DateTime($photo->date_taken);
+
+        $captions = [];
+        foreach ($photo->kids as $id => $kid) {
+            $config = $kid->getConfig();
+            $captions[$kid->kid] = $this->ageFilter($datetime, $config['pregnancydate'], $config['birthdate']);
+        }
+
+        if(sizeof($captions) == 1) {
+            return array_pop($captions);
+        } else {
+            $caption = '';
+            foreach ($captions as $name => $age)
+                $captions[$name] = sprintf("<b>%s</b> : %s", $name, $age);
+
+            return implode(" ; ", $captions);
+        }
     }
 
-    public function ageFilter($datetime)
+    public function ageFilter($datetime, $pregnancydate, $birthdate)
     {     
-        // TODO : recalculer l'intval
-        $daysToBirth = intval($this->birthdate->diff($datetime)->format('%R%a'));
-        $daysToPregnancy = intval($this->pregnancydate->diff($datetime)->format('%R%a'));
+        $daysToBirth = intval((new DateTime($birthdate))->diff($datetime)->format('%R%a'));
+        $daysToPregnancy = intval((new DateTime($pregnancydate))->diff($datetime)->format('%R%a'));
 
         if ($daysToBirth == 0) {
             return 'Le jour J !';
