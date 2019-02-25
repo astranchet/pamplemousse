@@ -33,7 +33,7 @@
         {% include 'partials/photoswipe.js.twig' %}
 
         {% set photo = photos|last %}
-        {% if photo and photos|length > photo_per_page %}
+        {% if photo and photos|length >= photo_per_page %}
             <button id="load" href="#" data-after="{{ photo.date_taken }}">Voir encore plus d'images !</button>
         {% endif %}
     </section>
