@@ -86,13 +86,13 @@ class Service
         return $photos;
     }
 
-    public function getWithTag($tag)
+    public function getWithTag($tag, $limit = 50)
     {
         $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s LEFT JOIN %s ON %s.id = %s.item_id 
-            WHERE type = :type AND tag = :tag ORDER BY date_taken DESC', 
+            WHERE type = :type AND tag = :tag ORDER BY date_taken DESC LIMIT %d', 
             self::TABLE_NAME, \Pamplemousse\Tags\Service::TABLE_NAME,
             self::TABLE_NAME, \Pamplemousse\Tags\Service::TABLE_NAME,
-            $tag));
+            $tag, $limit));
         $stmt->bindValue('type', 'picture');
         $stmt->bindValue('tag', $tag);
         $stmt->execute();
@@ -105,7 +105,7 @@ class Service
         return $photos;
     }
 
-    public function getForKids($kids)
+    public function getForKids($kids, $limit = 50)
     {
         $qb = $this->conn->createQueryBuilder()
             ->select('*')
@@ -115,7 +115,8 @@ class Service
                 sprintf('items.id = %s.item_id AND %s.kid = "%s"', 't'.$id, 't'.$id, $kid));
         }
         $qb->where('type = "picture"')
-            ->orderBy('date_taken', 'DESC');
+            ->orderBy('date_taken', 'DESC')
+            ->setMaxResults($limit);
         // echo $qb->getSQL(); die;
         
         $stmt = $qb->execute();

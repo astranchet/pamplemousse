@@ -22,9 +22,9 @@ class Controller
         $kids = $request->get('kids');
 
         if (!is_null($filter)) {
-            $photos = $app['photos']->getWithTag($filter);
+            $photos = $app['photos']->getWithTag($filter, self::IMAGE_PER_PAGE);
         } else if (!is_null($kids)) {
-            $photos = $app['photos']->getForKids($kids);
+            $photos = $app['photos']->getForKids($kids, self::IMAGE_PER_PAGE);
         } else {
             $photos = $app['photos']->getLast(self::IMAGE_PER_PAGE);
         }
