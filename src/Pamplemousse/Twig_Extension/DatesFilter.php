@@ -30,25 +30,23 @@ class DatesFilter extends Twig_Extension
         ];
     }
 
-    public function toggleFilters($parameters, $filters)
+    public function toggleFilters($parameters, $filter)
     {
-        foreach ($filters as $type => $filter) {
-            // Remove value if it exists
-            if (isset($parameters[$type])) {
-                foreach($parameters[$type] as $key => $value) {
-                    if ($filter == $value) {
-                        unset($parameters[$type][$key]);
-                        return $parameters;
-                    }
-                }    
-            }
-
-            // Else add it
-            if (!isset($parameters[$type])) {
-                $parameters[$type] = array();
-            }
-            $parameters[$type][] = $filter;
+        if (is_null($parameters)) {
+            $parameters = array();
         }
+
+        // Remove value if it exists
+        foreach($parameters as $key => $value) {
+            if ($filter == $value) {
+                unset($parameters[$key]);
+                return $parameters;
+            }
+        }
+
+        // Else add it
+        $parameters[] = $filter;
+
         return $parameters;
     }
 
