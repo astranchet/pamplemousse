@@ -26,8 +26,17 @@ class Controller
      */
     public function indexAction(Application $app, Request $request)
     {
+        $year = $request->get('year');
+        $month = $request->get('month');
+
+        if (isset($year) && isset($month)) {
+            $photos = $app['photos']->getForDate($month, $year);
+        } else {
+            $photos = $app['photos']->getLast(200);
+        }
+
         return $app['twig']->render('admin/index.twig', [
-            'photos' => $app['photos']->getLast(200)
+            'photos' => $photos
         ]);
     }
 

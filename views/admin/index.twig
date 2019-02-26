@@ -22,7 +22,12 @@
 
 {% block page_content %}
         <div class="panel panel-default">
-            <div class="panel-heading">Dernières photos</div>
+            <div class="panel-heading">
+                {% if current_date.month is null %}
+                    Dernières photos
+                {% else %}
+                    {{ macro.french_month(current_date.month) ~ current_date.year }}
+                {% endif %}</div>
             <div class="panel-body">
 
                 <div id="gallery">
