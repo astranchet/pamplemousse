@@ -15,7 +15,7 @@ $('#home').css({'background-image': 'url(/images/bg' + Math.floor(Math.random()*
 // Load last images
 $("#load").click(function() {
   var lastDate = $(".swipe img").last()[0].getAttribute("data-date-taken");
-  $.get("from/"+lastDate, {}, function(data) {
+  $.get("from/"+lastDate+window.location.search, {}, function(data) {
     if (!data) {
       $("#load").hide();
       $("#load").after('<div class="warning">Désolé, c\'est fini !</div>');

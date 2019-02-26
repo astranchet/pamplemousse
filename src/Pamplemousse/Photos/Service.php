@@ -86,14 +86,15 @@ class Service
         return $photos;
     }
 
-    public function getWithTag($tag, $limit = 50)
+    public function getWithTag($tag, $limit = 50, $from = null)
     {
         $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s LEFT JOIN %s ON %s.id = %s.item_id 
-            WHERE type = :type AND tag = :tag ORDER BY date_taken DESC LIMIT %d', 
+            WHERE type = :type AND date_taken < :date_from AND tag = :tag ORDER BY date_taken DESC LIMIT %d', 
             self::TABLE_NAME, \Pamplemousse\Tags\Service::TABLE_NAME,
             self::TABLE_NAME, \Pamplemousse\Tags\Service::TABLE_NAME,
             $tag, $limit));
         $stmt->bindValue('type', 'picture');
+        $stmt->bindValue('date_from', new \DateTime($from), "datetime");
         $stmt->bindValue('tag', $tag);
         $stmt->execute();
         $items = $stmt->fetchAll();
@@ -105,7 +106,7 @@ class Service
         return $photos;
     }
 
-    public function getForKids($kids, $limit = 50)
+    public function getForKids($kids, $limit = 50, $from = null)
     {
         $qb = $this->conn->createQueryBuilder()
             ->select('*')
@@ -117,6 +118,10 @@ class Service
         $qb->where('type = "picture"')
             ->orderBy('date_taken', 'DESC')
             ->setMaxResults($limit);
+        if(!is_null($from)) {
+            $qb->andWhere('date_taken < :date_from')
+                ->setParameter(':date_from', new \DateTime($from), "datetime");
+        }
         // echo $qb->getSQL(); die;
         
         $stmt = $qb->execute();

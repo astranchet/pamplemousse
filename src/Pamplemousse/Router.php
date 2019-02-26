@@ -64,6 +64,7 @@ class Router implements ControllerProviderInterface
 
         $controllers->get('/from/{date}', Controller::class . "::fromAction")
             ->bind('from')
+            ->before($checkFilters)
             ;
 
         $controllers->get('/login', Controller::class . "::loginAction");

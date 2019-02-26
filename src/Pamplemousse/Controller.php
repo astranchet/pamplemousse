@@ -104,8 +104,19 @@ class Controller
      */
     public function fromAction(Application $app, Request $request, $date = null)
     {
+        $filter = $request->get('tag');
+        $kids = $request->get('kids');
+
+        if (!is_null($filter)) {
+            $photos = $app['photos']->getWithTag($filter, self::IMAGE_PER_PAGE, $date);
+        } else if (!is_null($kids)) {
+            $photos = $app['photos']->getForKids($kids, self::IMAGE_PER_PAGE, $date);
+        } else {
+            $photos = $app['photos']->getLast(self::IMAGE_PER_PAGE, $date);
+        }
+
         return $app['twig']->render('partials/thumbnails.twig', [
-            'photos' => $app['photos']->getLast(self::IMAGE_PER_PAGE, $date)
+            'photos' => $photos
         ]);
     }
 
