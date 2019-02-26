@@ -92,7 +92,7 @@ class Service
             WHERE type = :type AND date_taken < :date_from AND tag = :tag ORDER BY date_taken DESC LIMIT %d', 
             self::TABLE_NAME, \Pamplemousse\Tags\Service::TABLE_NAME,
             self::TABLE_NAME, \Pamplemousse\Tags\Service::TABLE_NAME,
-            $tag, $limit));
+            $limit));
         $stmt->bindValue('type', 'picture');
         $stmt->bindValue('date_from', new \DateTime($from), "datetime");
         $stmt->bindValue('tag', $tag);

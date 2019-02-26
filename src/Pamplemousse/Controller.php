@@ -18,7 +18,7 @@ class Controller
      */
     public function indexAction(Application $app, Request $request)
     {
-        $filter = $request->get('filter');
+        $filter = $request->get('tag');
         $kids = $request->get('kids');
 
         if (!is_null($filter)) {
