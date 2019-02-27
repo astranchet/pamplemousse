@@ -114,9 +114,9 @@ class DatesFilter extends Twig_Extension
         $daysToBirth = intval((new DateTime($birthdate))->diff($datetime)->format('%R%a'));
         $daysToPregnancy = intval((new DateTime($pregnancydate))->diff($datetime)->format('%R%a'));
 
-        if ($daysToBirth == 0) {
+        if (!is_null($birthdate) && $daysToBirth == 0) {
             return 'Le jour J !';
-        } elseif ($daysToBirth < 0) {
+        } elseif (is_null($birthdate) || $daysToBirth < 0) {
             return $this->pregnancyAgeFilter($daysToPregnancy);
         } elseif ($daysToBirth < 367*3) {
             return $this->babyAgeFilter($daysToBirth);
