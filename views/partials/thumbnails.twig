@@ -1,10 +1,10 @@
 {% for photo in photos %}
     <div class="image {% if photo.is_favorite %}favorite{% endif %}">
     <a class="swipe" href="{{ url('photo', { 'photo': photo.id }) }}">
-        <img 
+        <img
             data-src="{{ url('thumbnail-square', { 'photo': photo.id, 'size': 800 }) }}" 
             data-big-thumbnail="{{ url('thumbnail', { 'photo': photo.id, 'width': 1200 }) }}" 
-            data-title="{{ photo.description|default(app.config.site.title) }}" 
+            data-title="{{ photo.description|default(photo.kids|join(' et '))|default(app.config.site.title) }}" 
             data-w="{{ photo.width }}" 
             data-h="{{ photo.height }}" 
             data-date-taken="{{ photo.date_taken }}" 
