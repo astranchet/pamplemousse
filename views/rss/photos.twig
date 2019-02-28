@@ -8,7 +8,7 @@
 
     {% for photo in photos %}
     <item>
-        <title>{{ photo.description }}</title>
+        <title>{{ photo.description|default(photo.kids|join(' et '))|default(app.config.site.title) }}</title>
         <link>{{ url('photo', { 'photo': photo.id }) }}</link>
         <guid isPermaLink="true">{{ url('photo', { 'photo': photo.id }) }}#{{ photo.id }}</guid>
         <pubDate>{{ photo.date_taken }}</pubDate>
@@ -16,7 +16,7 @@
             <a href="{{ url('photo', { 'photo': photo.id }) }}">
                 <img src="{{ url('thumbnail-square', { 'photo': photo.id, 'size': '200' }) }}" />
             </a><br />
-            {{ photo.description }}
+            {{ photo|age_caption|striptags }}
             ]]>
         </description>
     </item>
