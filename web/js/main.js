@@ -15,6 +15,11 @@ $('#home').css({'background-image': 'url(/images/bg' + Math.floor(Math.random()*
 
 var appendPhotosToGallery = function(content) {
   $grid.append(content).masonry('appended', content).masonry('reloadItems');
+  // layout Masonry after each image loads
+  $grid.imagesLoaded().progress( function() {
+    $grid.masonry('layout');
+  });
+
   $(".swipe").on('click', function(e) {
       e.preventDefault();
       var index = $("#gallery .swipe").index($(this));
