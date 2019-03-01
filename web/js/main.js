@@ -12,22 +12,26 @@ $grid.imagesLoaded().progress(function() {
 
 $('#home').css({'background-image': 'url(/images/bg' + Math.floor(Math.random()*5) + '.jpg)'});
 
-// Load last images
-$("#load").click(function() {
+
+var appendPhotosToGallery = function(content) {
+  $grid.append(content).masonry('appended', content).masonry('reloadItems');
+  $(".swipe").on('click', function(e) {
+      e.preventDefault();
+      var index = $("#gallery .swipe").index($(this));
+      openPhotoSwipe(index);
+  });
+};
+
+var loadMorePhotos = function() {
   var lastDate = $(".swipe img").last()[0].getAttribute("data-date-taken");
   $.get("from/"+lastDate+window.location.search, {}, function(data) {
     if (!data) {
       $("#load").hide();
-      $("#load").after('<div class="warning">Désolé, c\'est fini !</div>');
     } else {
-      var $content = $(data);
-      $grid.append($content).masonry('appended', $content).masonry('reloadItems');
-
-      $(".swipe").on('click', function(e) {
-          e.preventDefault();
-          var index = $("#gallery .swipe").index($(this));
-          openPhotoSwipe(index);
-      });
+      appendPhotosToGallery($(data));
     }
   });
-});
+};
+
+// Load last images
+$("#load").click(loadMorePhotos);

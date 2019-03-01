@@ -1,6 +1,19 @@
 <script>
 var openPhotoSwipe = function(index) {
 
+    var createItemFromImage = function(imgEl) {
+        return {
+            src: imgEl.getAttribute('data-big-thumbnail'),
+            title: imgEl.getAttribute('data-title'),
+            w: imgEl.getAttribute('data-w'),
+            h: imgEl.getAttribute('data-h'),
+            date: imgEl.getAttribute('data-date'),
+            age_caption: imgEl.getAttribute('data-age-caption'),
+            comments_count: imgEl.getAttribute('data-comments-count'),
+            url: imgEl.getAttribute('data-url')
+        };
+    };
+
     // parse slide data from DOM elements (children of gallerySelector)
     var parseThumbnailElements = function() {
         var thumbElements = $(".swipe"),
@@ -15,19 +28,7 @@ var openPhotoSwipe = function(index) {
                 continue;
             }
             imgEl = linkEl.children[0];
-
-            // create slide object
-            item = {
-                src: imgEl.getAttribute('data-big-thumbnail'),
-                title: imgEl.getAttribute('data-title'),
-                w: imgEl.getAttribute('data-w'),
-                h: imgEl.getAttribute('data-h'),
-                date: imgEl.getAttribute('data-date'),
-                age_caption: imgEl.getAttribute('data-age-caption'),
-                comments_count: imgEl.getAttribute('data-comments-count'),
-                url: imgEl.getAttribute('data-url')
-            };
-            items.push(item);
+            items.push(createItemFromImage(imgEl));
         }
 
         return items;
@@ -86,28 +87,13 @@ var openPhotoSwipe = function(index) {
                         continue;
                     }
                     imgEl = $content[i].firstElementChild.firstElementChild;
-                    item = {
-                        src: imgEl.getAttribute('data-big-thumbnail'),
-                        title: imgEl.getAttribute('data-title'),
-                        w: imgEl.getAttribute('data-w'),
-                        h: imgEl.getAttribute('data-h'),
-                        date: imgEl.getAttribute('data-date'),
-                        age_caption: imgEl.getAttribute('data-age-caption'),
-                        comments_count: imgEl.getAttribute('data-comments-count'),
-                        url: imgEl.getAttribute('data-url')
-                    };
-                    items.push(item);
+                    items.push(createItemFromImage(imgEl));
                     // sets a flag that slides should be updated
                     gallery.invalidateCurrItems();
                     // updates the content of slides
                     gallery.updateSize(true);
                   }
-                  $('#gallery').append($content).masonry('appended', $content).masonry('reloadItems');
-                  $(".swipe").on('click', function(e) {
-                      e.preventDefault();
-                      var index = $("#gallery .swipe").index($(this));
-                      openPhotoSwipe(index);
-                  });
+                  appendPhotosToGallery($content);
                 }
             });
         }
