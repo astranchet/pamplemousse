@@ -9,6 +9,10 @@
   a { color: #fff; }
   font-size: 1.1em;
   font-family: Lora, serif;
+
+  #month-filters {
+   justify-content: flex-end;
+  }
 }
 
 .filters {
@@ -29,6 +33,17 @@
       background: darken(#F9A674, 15%);
       &.current { background: darken(#F9A674, 0%); }
       &:hover {  background: lighten(#F9A674, 5%); }
+      &.separator { 
+        background: inherit;
+        padding: .5em 0;
+      }
+
+      span.glyphicon-remove {
+        padding-left: .5em;
+        font-size: 0.8em;
+        line-height: 1em;
+        color: #e37b4d;
+      }
 
       &.sub-filter-toggle {
         display: flex;
@@ -92,6 +107,8 @@
         &.sub-filter-toggle {
           text-align: left;
         }
+
+        &.separator { display: none; }
 
         ul.sub-filters.current li {
           justify-content: flex-start;

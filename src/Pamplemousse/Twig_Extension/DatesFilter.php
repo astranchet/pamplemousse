@@ -5,16 +5,10 @@ namespace Pamplemousse\Twig_Extension;
 use DateTime;
 use Twig_Extension;
 use Twig_SimpleFilter;
+use Twig_SimpleFunction;
 
 class DatesFilter extends Twig_Extension
 {
-    protected $birthdate, $pregnancydate;
-
-    public function __construct($config)
-    {
-        $this->birthdate = new DateTime($config['kid']['birthdate']);
-        $this->pregnancydate = new DateTime($config['kid']['pregnancydate']);
-    }
 
     public function getName()
     {
@@ -25,8 +19,35 @@ class DatesFilter extends Twig_Extension
     {
         return [
             new Twig_SimpleFilter('timeago', [$this, 'timeagoFilter']),
-            new Twig_SimpleFilter('age', [$this, 'ageFilter']),
+            new Twig_SimpleFilter('age_caption', [$this, 'ageCaptionFilter']),
         ];
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new Twig_SimpleFunction('toggle_filters', [$this, 'toggleFilters']),
+        ];
+    }
+
+    public function toggleFilters($parameters, $filter)
+    {
+        if (is_null($parameters)) {
+            $parameters = array();
+        }
+
+        // Remove value if it exists
+        foreach($parameters as $key => $value) {
+            if ($filter == $value) {
+                unset($parameters[$key]);
+                return $parameters;
+            }
+        }
+
+        // Else add it
+        $parameters[] = $filter;
+
+        return $parameters;
     }
 
     public function timeagoFilter($datetime)
@@ -67,16 +88,35 @@ class DatesFilter extends Twig_Extension
         return $time;
     }
 
-    public function ageFilter($datetime)
+    public function ageCaptionFilter($photo)
     {
-        $datetime = new DateTime($datetime);
+        $datetime = new DateTime($photo->date_taken);
 
-        $daysToBirth = intval($this->birthdate->diff($datetime)->format('%R%a'));
-        $daysToPregnancy = intval($this->pregnancydate->diff($datetime)->format('%R%a'));
+        $captions = [];
+        foreach ($photo->kids as $id => $kid) {
+            $config = $kid->getConfig();
+            $captions[$kid->kid] = $this->ageFilter($datetime, $config['pregnancydate'], $config['birthdate']);
+        }
 
-        if ($daysToBirth == 0) {
+        if(sizeof($captions) == 1) {
+            return array_pop($captions);
+        } else {
+            $caption = '';
+            foreach ($captions as $name => $age)
+                $captions[$name] = sprintf("<b>%s</b> : %s", $name, $age);
+
+            return implode(" ; ", $captions);
+        }
+    }
+
+    public function ageFilter($datetime, $pregnancydate, $birthdate)
+    {     
+        $daysToBirth = intval((new DateTime($birthdate))->diff($datetime)->format('%R%a'));
+        $daysToPregnancy = intval((new DateTime($pregnancydate))->diff($datetime)->format('%R%a'));
+
+        if (!is_null($birthdate) && $daysToBirth == 0) {
             return 'Le jour J !';
-        } elseif ($daysToBirth < 0) {
+        } elseif (is_null($birthdate) || $daysToBirth < 0) {
             return $this->pregnancyAgeFilter($daysToPregnancy);
         } elseif ($daysToBirth < 367*3) {
             return $this->babyAgeFilter($daysToBirth);

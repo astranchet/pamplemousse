@@ -19,6 +19,7 @@ class Photo
         $like,
         $is_favorite,
         $tags,
+        $kids,
         $width,
         $height,
         $crop_algorithm,
@@ -43,6 +44,7 @@ class Photo
         $this->crop_algorithm = $data['crop_algorithm'];
 
         $this->tags = $this->app['tags']->getTags($this->id);
+        $this->kids = $this->app['kids']->getKids($this->id);
         $this->comments = $this->app['comments']->getComments($this->id);
 
         $count = 0;

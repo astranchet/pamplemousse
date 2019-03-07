@@ -1,3 +1,5 @@
+{% import "macro/pamplemousse.twig" as macro %}
+
 {% extends "templates/base.html" %}
 
 {% block title %}Admin / {{ parent() }}{% endblock %}
@@ -12,19 +14,33 @@
 
 {% block content %}
 
+{% set current_date = { month: app.request.query.get('month'), year: app.request.query.get('year') } %}
+{% set current_all = (current_date.month is null) %}
+
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('admin') }}">Pamplemousse</a>
+            <a class="navbar-brand" href="{{ path('admin') }}">{{ app.config.site.title }}</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li class="{% if current_all %}active{% endif %}"><a href="{{ path('admin') }}">Dernières images</a></li>
+                {% for year, months in app.photos.aggregatedDates(constant('\\Pamplemousse\\Photos\\Service::BY_YEAR')) %}
+                    <li class="dropdown {% if year == current_date.year %}active{% endif %}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ year }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                        {% for month in months %}
+                            <li class="{% if month == current_date.month and year == current_date.year %}active{% endif %}"><a href="{{ url('admin', { 'year' : year, 'month': month }) }}">{{ macro.french_month(month) }}</a></li>
+                        {% endfor %}
+                    </li>
+                    </ul>
+                {% endfor %}
+            </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ path('index') }}" target="_blank">Accès au site</a></li>
                 <li><a href="{{ path('admin_logout') }}" target="_blank">Déconnexion {% if app.user %}({{ app.user.username }}){% endif %}</a></li>

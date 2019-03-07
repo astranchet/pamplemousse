@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-    <title>Commentaires sur {{ app.config.kid.name }}</title>
+    <title>Commentaires sur {{ app.config.site.title }}</title>
     <link>{{ url('index') }}</link>
-    <description>Commentaires sur les photos de {{ app.config.kid.name }}</description>
+    <description>Commentaires sur les photos de {{ app.config.site.title }}</description>
     <atom:link href="{{ url('rss.comment') }}" rel="self" type="application/rss+xml" />
 
     {% for comment in comments %}

@@ -7,9 +7,9 @@
 
     <section id="home">
         <div class="container">
-            <h1 id="responsive_headline">{{ app.config.kid.name }}</h1>
-            <h2>{{ app.config.kid.baseline|raw }}</strong></h2>
-            <a data-scroll href="#photos"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+            <h1 id="responsive_headline">{{ app.config.site.title }}</h1>
+            <h2>{{ app.config.site.baseline|raw }}</strong></h2>
+            <a data-scroll href="#filter-bar"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
         </div>
     </section>
 
@@ -20,13 +20,13 @@
 
             <h1>
                 {% if app.photos.previousMonth(current_date.year, current_date.month) %}
-                <a href="{{ url('previousDate', { 'year' : current_date.year, 'month': current_date.month }) }}#photos">◀ </a>&nbsp;
+                <a href="{{ url('previousDate', { 'year' : current_date.year, 'month': current_date.month }) }}#filter-bar">◀ </a>&nbsp;
                 {% endif %}
 
                 {{ macro.french_month(current_date.month) ~ current_date.year }}
 
                 {% if app.photos.nextMonth(current_date.year, current_date.month) %}
-                &nbsp;<a href="{{ url('nextDate', { 'year' : current_date.year, 'month': current_date.month }) }}#photos"> ▶</a>
+                &nbsp;<a href="{{ url('nextDate', { 'year' : current_date.year, 'month': current_date.month }) }}#filter-bar"> ▶</a>
                 {% endif %}
             </h1>
 

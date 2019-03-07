@@ -1,27 +1,38 @@
 {% import "macro/pamplemousse.twig" as macro %}
 
+{% if show_filters is not defined %}
+    {% set show_filters = true %}
+{% endif %}
+
+{% set current_tag = app.request.query.get('tag') %}
+{% set current_kids = app.request.query.get('kids') %}
+
 {% set current_all = true %}
-{% set current_filter = app.request.query.get('filter') %}
-{% if (current_filter) or (current_date is defined) %}
+{% if current_tag or current_kids or (current_date is defined) %}
     {% set current_all = false %}
 {% endif %}
+
 {% if current_date is not defined %}
     {% set current_date = { month: null, year: null } %}
-{% endif %}
-{% if show_tags is not defined %}
-    {% set show_tags = true %}
 {% endif %}
 
 <div id="filter-bar">
 
-    {% if app.config.tags is defined and show_tags != false %}
+    {% if show_filters != false and (app.config.tags is defined or app.config.kids is defined) %}
     <div class="filters" id="tag-filters">
         Afficher&nbsp;: 
         <ul>
-            <li class="{% if current_all %}current{% endif %}"><a href="{{ url('index') }}#photos">Tout</a></li>
+            <li class="{% if current_all %}current{% endif %}"><a href="{{ url('index') }}#filter-bar">Tout</a></li>
+            {% for kid in app.config.kids %}
+                <li class="kid {% if kid.name in current_kids %}current{% endif %}">
+                    <a href="{{ url('index', {kids: toggle_filters(app.request.query.get('kids'), kid.name)} ) }}#filter-bar">{{ kid.name }}{% if kid.name in current_kids %} <span class="glyphicon glyphicon-remove"></span>{% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+            <li class="separator">/</li> 
             {% for id, tag in app.config.tags %}
-                <li class="{% if current_filter == id %}current{% endif %}">
-                    <a href="{{ url('index', { 'filter': id }) }}#photos">{{ tag }}</a>
+                <li class="{% if current_tag == id %}current{% endif %}">
+                    <a href="{{ url('index', { 'tag': id }) }}#filter-bar">{{ tag }}</a>
                 </li>
             {% endfor %}
         </ul>
@@ -37,7 +48,7 @@
                     <ul class="sub-filters">
                     {% for month in months %}
                         <li class="{% if month == current_date.month and year == current_date.year %}current{% endif %}">
-                            <a href="{{ url('date', { 'year' : year, 'month': month }) }}#photos">{{ macro.french_month(month) }}</a>
+                            <a href="{{ url('date', { 'year' : year, 'month': month }) }}#filter-bar">{{ macro.french_month(month) }}</a>
                         </li>
                     {% endfor %}
                 </li>

@@ -3,19 +3,25 @@
 {% block content %}
     <script src="{{ app.config.web_dir }}js/vendor/lazyload.min.js"></script>
 
+    {% if app.config.site.intro %}
     <section id="home">
         <div class="container">
-            <h1 id="responsive_headline">{{ app.config.kid.name }}</h1>
-            <h2>{{ app.config.kid.baseline|raw }}</strong></h2>
-            <a data-scroll href="#photos"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+            <h1 id="responsive_headline">{{ app.config.site.title }}</h1>
+            <h2>{{ app.config.site.baseline|raw }}</strong></h2>
+            <a data-scroll href="#filter-bar"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
         </div>
     </section>
+    {% endif %}
 
     {% include 'partials/filters.twig' %}
 
     <section id="photos">
         <div class="container">
 
+            {% set current_kids = app.request.query.get('kids') %}
+            {% if current_kids %}
+                <h1>{{ current_kids|join(' et ') }}</h1>
+            {% endif %}
 
             <div id="gallery">
                 <div class="grid-sizer"></div>
@@ -27,7 +33,7 @@
         {% include 'partials/photoswipe.js.twig' %}
 
         {% set photo = photos|last %}
-        {% if photo %}
+        {% if photo and photos|length >= photo_per_page %}
             <button id="load" href="#" data-after="{{ photo.date_taken }}">Voir encore plus d'images !</button>
         {% endif %}
     </section>

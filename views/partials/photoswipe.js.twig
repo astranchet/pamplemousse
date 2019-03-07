@@ -23,7 +23,7 @@ var openPhotoSwipe = function(index) {
                 w: imgEl.getAttribute('data-w'),
                 h: imgEl.getAttribute('data-h'),
                 date: imgEl.getAttribute('data-date'),
-                age: imgEl.getAttribute('data-age'),
+                age_caption: imgEl.getAttribute('data-age-caption'),
                 comments_count: imgEl.getAttribute('data-comments-count'),
                 url: imgEl.getAttribute('data-url')
             };
@@ -44,15 +44,19 @@ var openPhotoSwipe = function(index) {
                 captionEl.children[0].innerHTML = '';
                 return false;
             }
-            captionEl.children[0].innerHTML = item.title + ' — ' + item.age + ' — ' + item.date;
+
             if (item.comments_count == 0) {
-                comments_invite = 'Soyez le premier à commenter !';
+                comments_invite = 'Commenter';
             } else if (item.comments_count == 1) {
                 comments_invite = item.comments_count + ' commentaire';
             } else {
                 comments_invite = item.comments_count + ' commentaires';
             }
-            captionEl.children[0].innerHTML += '<br /><a href="' + item.url + '">' + comments_invite + '</a>';
+            comments_invite = '<span class="glyphicon glyphicon-comment"></span> <a href="' + item.url + '">' + comments_invite + '</a>';
+
+            captionEl.children[0].innerHTML = '<span class="right small">' + item.date + '<br />' + comments_invite + '</span>';
+            captionEl.children[0].innerHTML += '<b>'+item.title+'<b>';
+            captionEl.children[0].innerHTML += '<span class="small"><br />' + item.age_caption + '</span>';
             return true;
         },
         // Share buttons

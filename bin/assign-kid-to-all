@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__ . "/../vendor/autoload.php";
+$app = require_once __DIR__.'/../src/app.php';
+
+$kid = readline("Kid's name: ");
+
+$photos = $app['photos']->getAll();
+foreach ($photos as $photo) {
+	$photo->kids[] = new \Pamplemousse\Kids\Entity\Kid($app, ["item_id" => $photo->id, "kid" => $kid]);
+    $app['photos']->update($photo);
+}

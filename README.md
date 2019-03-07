@@ -7,17 +7,6 @@ Requirements
 * mysql
 * PHP 5.6+ with `ext-exif` and `imagick` extensions
 
-Components
-----------
-
-* Composer - http://getcomposer.org/
-* Twig - http://twig.sensiolabs.org/
-* Bootstrap - http://getbootstrap.com/
-* HTML5 boilerplate - http://www.initializr.com/
-* SASS - http://sass-lang.com/install
-* Compass - http://compass-style.org/
-* Dropzone.js - http://www.dropzonejs.com/
-
 Installation
 ------------
 
@@ -43,7 +32,8 @@ Edit `config/app.yml`:
 * Create upload dir (`web/upload` by default) 
 * Configure `database` parameters
 * Configure `users` (see Tools)
-* Configure home page with `kid` parameters and `tags` parameters
+* Configure homepage with `site` parameters
+* Configure photo filters with `kids` and `tags` parameters
 
 Run locally
 -----------
@@ -64,27 +54,10 @@ Run migration on your server:
 ./bin/doctrine migrations:migrate
 ```
 
-Generate migration with:
+Generate migration template file with:
 
 ```bash
 ./bin/doctrine migrations:generate
-```
-
-Trouble shooting
-----------------
-
-__Display errrors__
-- Set `debug:true` in `app.yml` and read `log/app.log`
-
-__An exception occured in driver: SQLSTATE[HY000] [2002] No such file or directory__
-- Database parameters in `app.yml` are incorrect. Sometimes, locally, `127.0.0.1` works better for host than `localhost`. 
-
-__Error when uploading a photo in admin__
-- Make sure upload dir exists.
-- Make sure `ext-exif` and `imagick` PHP extensions are installed:
-```bash
-php --modules | grep imagick
-php --modules | grep exif
 ```
 
 Tools
@@ -105,3 +78,38 @@ Generate new thumbnails (after changing size for instance):
 ```bash
 ./bin/generate-thumbnails
 ```
+
+Trouble shooting
+----------------
+
+__Display errrors__
+- Set `debug:true` in `app.yml` and read `log/app.log`
+
+__An exception occured in driver: SQLSTATE[HY000] [2002] No such file or directory__
+- Database parameters in `app.yml` are incorrect. Sometimes, locally, `127.0.0.1` works better for host than `localhost`. 
+
+__Error when uploading a photo in admin__
+- Make sure upload dir exists.
+- Make sure `ext-exif` and `imagick` PHP extensions are installed:
+```bash
+php --modules | grep imagick
+php --modules | grep exif
+```
+
+Used components
+---------------
+
+## Frameworks
+
+* Composer - http://getcomposer.org/
+* Twig - http://twig.sensiolabs.org/
+* SASS - http://sass-lang.com/install
+* Compass - http://compass-style.org/
+
+## Front
+* Bootstrap - http://getbootstrap.com/
+* HTML5 boilerplate - http://www.initializr.com/
+* Photoswipe - https://photoswipe.com/
+
+## Admin
+* Dropzone.js - http://www.dropzonejs.com/
