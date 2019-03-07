@@ -86,6 +86,23 @@ class Service
         return $photos;
     }
 
+    public function getIncomplete()
+    {
+        // Get images without date
+        $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s WHERE type = :type AND date_taken IS NULL ORDER BY id DESC', 
+            self::TABLE_NAME));
+        $stmt->bindValue('type', 'picture');
+        $stmt->execute();
+        $items = $stmt->fetchAll();
+
+        $photos = [];
+        foreach ($items as $id => $item) {
+            $photos[] = new Entity\Photo($this->app, $item);
+        }
+        return $photos;
+    }
+
+
     public function getWithTag($tag, $limit = 50, $from = null)
     {
         $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s LEFT JOIN %s ON %s.id = %s.item_id 

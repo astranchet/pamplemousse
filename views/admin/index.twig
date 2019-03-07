@@ -23,12 +23,19 @@
 {% block page_content %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                {% if current_date.month is null %}
+                {% if app.request.pathinfo == path('admin_incomplete') %}
+                    Photos incomplètes
+                {% elseif current_date.month is null %}
                     Dernières photos
                 {% else %}
                     {{ macro.french_month(current_date.month) ~ current_date.year }}
                 {% endif %}</div>
             <div class="panel-body">
+
+                {% if app.request.pathinfo == path('admin_incomplete') %}
+                <div class="alert alert-danger" role="alert"><b>Oh non, la date de prise de vue est manquante pour ces images :(</b><br />
+                    Modifiez ces images pour qu'elles apparaissent sur le site.</div>
+                {% endif %}
 
                 <div id="gallery">
                     {% for photo in photos %}

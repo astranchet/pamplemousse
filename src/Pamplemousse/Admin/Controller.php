@@ -45,6 +45,20 @@ class Controller
      * @param  Request     $request
      * @return Response
      */
+    public function incompleteAction(Application $app, Request $request)
+    {
+        $photos = $app['photos']->getIncomplete();
+
+        return $app['twig']->render('admin/index.twig', [
+            'photos' => $photos
+        ]);
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @return Response
+     */
     public function loginCheckAction(Application $app, Request $request)
     {
         return true;
