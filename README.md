@@ -110,6 +110,7 @@ Used components
 * Bootstrap - http://getbootstrap.com/
 * HTML5 boilerplate - http://www.initializr.com/
 * Photoswipe - https://photoswipe.com/
+* Masonry - https://masonry.desandro.com/
 
 ## Admin
 * Dropzone.js - http://www.dropzonejs.com/
