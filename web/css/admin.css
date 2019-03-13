@@ -76,15 +76,23 @@
 }
 #gallery .item .image {
   position: relative;
-  color: #FFCC00;
 }
-#gallery .item .image:hover {
-  color: #FF9900;
-}
-#gallery .item .image .favorite {
+#gallery .item .image .glyphicon {
   position: absolute;
   top: .5em;
   right: .5em;
+}
+#gallery .item .image .favorite {
+  color: #FFCC00;
+}
+#gallery .item .image .favorite:hover {
+  color: #FF9900;
+}
+#gallery .item .image .error {
+  background: #ffcbb9;
+  padding: 1em;
+  border-radius: .2em;
+  color: #b30000;
 }
 
 div[id$='crop_algorithm'] {

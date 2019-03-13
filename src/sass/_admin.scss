@@ -8,13 +8,21 @@
 
     .image {
       position: relative;
-      color: #FFCC00;
-      &:hover { color: #FF9900; }
 
-      .favorite {
+      .glyphicon {
         position: absolute;
         top: .5em;
         right: .5em;
+      }
+      .favorite {
+        color: #FFCC00;
+        &:hover { color: #FF9900; }
+      }
+      .error {
+        background: #ffcbb9;
+        padding: 1em;
+        border-radius: .2em;
+        color: #b30000;
       }
     }
 
