@@ -89,7 +89,7 @@ class Service
     public function getIncomplete()
     {
         // Get images without date
-        $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s WHERE type = :type AND date_taken IS NULL ORDER BY id DESC', 
+        $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s WHERE type = :type AND date_taken IS NULL ORDER BY id DESC LIMIT 50', 
             self::TABLE_NAME));
         $stmt->bindValue('type', 'picture');
         $stmt->execute();
@@ -102,7 +102,7 @@ class Service
 
         // And images without kids
         $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s LEFT JOIN %s ON %s.id = %s.item_id 
-            WHERE type = :type AND %s.item_id is NULL ORDER BY date_taken DESC', 
+            WHERE type = :type AND %s.item_id is NULL ORDER BY date_taken DESC LIMIT 50', 
             self::TABLE_NAME, \Pamplemousse\Kids\Service::TABLE_NAME,
             self::TABLE_NAME, \Pamplemousse\Kids\Service::TABLE_NAME,
             \Pamplemousse\Kids\Service::TABLE_NAME));
