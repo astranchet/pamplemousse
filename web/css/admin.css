@@ -66,6 +66,10 @@
   background-color: #F9A674;
 }
 
+.badge.error {
+  background: #b30000;
+}
+
 #gallery {
   display: flex;
   flex-wrap: wrap;

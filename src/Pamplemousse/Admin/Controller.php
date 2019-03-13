@@ -36,7 +36,8 @@ class Controller
         }
 
         return $app['twig']->render('admin/index.twig', [
-            'photos' => $photos
+            'photos' => $photos, 
+            'notifications' => $app['photos']->getIncomplete()
         ]);
     }
 
@@ -50,7 +51,8 @@ class Controller
         $photos = $app['photos']->getIncomplete();
 
         return $app['twig']->render('admin/index.twig', [
-            'photos' => $photos
+            'photos' => $photos,
+            'notifications' => $photos
         ]);
     }
 

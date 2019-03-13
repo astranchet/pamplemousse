@@ -42,7 +42,9 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li class="{% if app.request.pathinfo == path('admin_incomplete') %}active{% endif %}"><a href="{{ path('admin_incomplete') }}">Photos incomplètes</a></li>
+                {% if notifications|length > 0 %}              
+                <li class="{% if app.request.pathinfo == path('admin_incomplete') %}active{% endif %}"><a href="{{ path('admin_incomplete') }}">Photos incomplètes <span class="badge error">{{ notifications|length }}</span></a></li>
+                {% endif %}
                 <li><a href="{{ path('index') }}" target="_blank">Accès au site</a></li>
                 <li><a href="{{ path('admin_logout') }}" target="_blank">Déconnexion {% if app.user %}({{ app.user.username }}){% endif %}</a></li>
             </ul>
