@@ -97,8 +97,23 @@ class Service
 
         $photos = [];
         foreach ($items as $id => $item) {
-            $photos[] = new Entity\Photo($this->app, $item);
+            $photos[$id] = new Entity\Photo($this->app, $item);
         }
+
+        // And images without kids
+        $stmt = $this->conn->prepare(sprintf('SELECT * FROM %s LEFT JOIN %s ON %s.id = %s.item_id 
+            WHERE type = :type AND %s.item_id is NULL ORDER BY date_taken DESC', 
+            self::TABLE_NAME, \Pamplemousse\Tags\Service::TABLE_NAME,
+            self::TABLE_NAME, \Pamplemousse\Tags\Service::TABLE_NAME,
+            \Pamplemousse\Tags\Service::TABLE_NAME));
+        $stmt->bindValue('type', 'picture');
+        $stmt->execute();
+        $items = $stmt->fetchAll();
+
+        foreach ($items as $id => $item) {
+            $photos[$id] = new Entity\Photo($this->app, $item);
+        }
+
         return $photos;
     }
 
