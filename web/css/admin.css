@@ -112,7 +112,6 @@
 .photo-widget div[id$='crop_algorithm'] {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
 .photo-widget div[id$='crop_algorithm'] .thumbnail_choice img {
