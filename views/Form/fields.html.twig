@@ -14,16 +14,32 @@
 {# TODO : style it #}
 {% block photo_widget %}
     {% spaceless %}
-        <div class="photo-widget">
-            <div class="fields">
-                {{ form_widget(form.crop_algorithm) }}
-
-                {{ form_widget(form.id) }}
-                {{ form_widget(form.description) }}
-                {{ form_widget(form.is_favorite) }}
-
-                {{ form_rest(form) }}
+        <div class="container photo-widget">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.id) }}
+                    {{ form_row(form.crop_algorithm) }}
+                </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.date_taken) }}
+                    {{ form_row(form.description) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.is_favorite) }}
+                    {{ form_row(form.kids) }}
+                    {{ form_row(form.tags) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_rest(form) }}
+                </div>
+            </div>
+
         </div>
     {% endspaceless %}
 {% endblock %}
