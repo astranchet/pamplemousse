@@ -17,6 +17,10 @@
 {% set current_date = { month: app.request.query.get('month'), year: app.request.query.get('year') } %}
 {% set current_all = (current_date.month is null) and app.request.pathinfo == "/admin/" %}
 
+{% if notifications is not defined %}
+    {% set notifications = [] %}
+{% endif %}
+
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
