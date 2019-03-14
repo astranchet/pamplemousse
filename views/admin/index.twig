@@ -29,8 +29,17 @@
                     Dernières photos
                 {% else %}
                     {{ macro.french_month(current_date.month) ~ current_date.year }}
-                {% endif %}</div>
+                {% endif %}
+            </div>
             <div class="panel-body">
+                {% if app.request.pathinfo == path('admin_incomplete') %}
+                <div class="alert alert-danger">
+                    <span class="error glyphicon glyphicon-calendar"></span> <b>Date de prise de vue</b><br />Configurez une date de prise de vue pour vos photos, afin qu'elles apparaissent sur le site. 
+                </div>
+                <div class="alert alert-danger">
+                    <span class="error glyphicon glyphicon-tag"></span> <b>Qui est sur la photo ?</b><br />Configurez les personnes présentes sur vos images.
+                </div>
+                {% endif %}
                 <div id="gallery">
                     {% for photo in photos %}
                         <div class="item">
