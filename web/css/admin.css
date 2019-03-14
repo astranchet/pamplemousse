@@ -80,6 +80,12 @@
 }
 #gallery .item .image {
   position: relative;
+  width: 200px;
+  height: 200px;
+  background: lightgrey;
+}
+#gallery .item .image:hover {
+  filter: brightness(80%);
 }
 #gallery .item .image .glyphicon {
   position: absolute;
