@@ -112,7 +112,8 @@ class Controller
         }
 
         return $app['twig']->render($template, [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'notifications' => $app['photos']->getIncomplete()
         ]);
     }
 
