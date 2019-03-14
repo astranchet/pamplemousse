@@ -63,8 +63,7 @@ class PhotoType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $data = $form->getData();
-        $label = "Configuration de ";
-        $label .= ($data->description) ? $data->description : $data->filename;
+        $label = ($data->description) ? $data->description : "Configuration de ".$data->filename;
         $view->vars['name'] = $label;
     }
 
