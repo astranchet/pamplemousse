@@ -116,6 +116,26 @@
   color: #eca485;
   text-decoration: none;
 }
+#photos .pagination {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+}
+#photos .pagination a {
+  text-transform: uppercase;
+  font-size: .8em;
+  color: grey;
+  padding: 1em;
+}
+#photos .pagination a span.arrow {
+  color: #DF622C;
+}
+#photos .pagination a:hover {
+  text-decoration: none;
+  background: #FFBF92;
+  border-radius: .5em;
+  color: black;
+}
 #photos #load {
   margin: 2em auto 2em;
   display: block;
