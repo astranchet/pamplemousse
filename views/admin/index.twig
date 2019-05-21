@@ -23,19 +23,36 @@
 {% block page_content %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                {% if current_date.month is null %}
+                {% if app.request.pathinfo == path('admin_incomplete') %}
+                    Images à configurer
+                {% elseif current_date.month is null %}
                     Dernières photos
                 {% else %}
                     {{ macro.french_month(current_date.month) ~ current_date.year }}
-                {% endif %}</div>
+                {% endif %}
+            </div>
             <div class="panel-body">
-
+                {% if app.request.pathinfo == path('admin_incomplete') %}
+                <div class="alert alert-danger">
+                    <span class="error glyphicon glyphicon-calendar"></span> <b>Date de prise de vue</b><br />Configurez une date de prise de vue pour vos photos, afin qu'elles apparaissent sur le site. 
+                </div>
+                <div class="alert alert-danger">
+                    <span class="error glyphicon glyphicon-tag"></span> <b>Qui est sur la photo ?</b><br />Configurez les personnes présentes sur vos images.
+                </div>
+                {% endif %}
                 <div id="gallery">
                     {% for photo in photos %}
                         <div class="item">
 
-                            <div class="image">
-                                {% if photo.is_favorite %}<span class="favorite glyphicon glyphicon-star"></span>{% endif %}
+                            <div class="image">                                
+                                {% if photo.date_taken is null %}
+                                    <span class="error glyphicon glyphicon-calendar"></span>
+                                {% elseif photo.kids|length == 0 %}
+                                    <span class="error glyphicon glyphicon-tag"></span>
+                                {% elseif photo.is_favorite %}
+                                    <span class="favorite glyphicon glyphicon-star"></span>
+                                {% endif %}
+
                                 <a href="{{ path('edit-photos', { 'ids': [photo.id] }) }}"><img src="{{ path('thumbnail-square', { 'photo': photo.id, 'size': '200' }) }}" alt="{{ photo.filename }}" /></a>
                             </div>
 

@@ -4,6 +4,11 @@
 	{{ months[month_index] }}
 {% endmacro %}
 
+{% macro french_month_year(date) %}
+	{% set parts = date|split('-') %}
+	{% set year = parts[0] %}
+	{{ _self.french_month(parts[1]) ~ " " ~ year }}
+{% endmacro %}
 
 {% macro french_date(date) %}
     {{ date|date("d") ~ _self.french_month(date|date("m")) ~ date|date("Y") }}

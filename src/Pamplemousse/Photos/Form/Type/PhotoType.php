@@ -21,7 +21,8 @@ class PhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('id', HiddenType::class);
-        $builder->add('description', TextAreaType::class, [ 
+        $builder->add('description', TextAreaType::class, [
+            'label' => "Légende", 
             'attr' => ['placeholder' => 'Description'],
             'required' => false
         ]);
@@ -40,7 +41,7 @@ class PhotoType extends AbstractType
 
         $cropAlgorithms = \Pamplemousse\Photos\Service::getCropAlgorithms();
         $builder->add('crop_algorithm', ChoiceType::class, [
-            'label' => "Miniature",
+            'label' => "Choix de la miniature",
             'label_attr' => [ 'class' => 'thumbnail_choice'],
             'choices' => array_combine($cropAlgorithms, $cropAlgorithms),
             'expanded' => true,
@@ -62,7 +63,7 @@ class PhotoType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $data = $form->getData();
-        $label = ($data->description) ? $data->description : $data->filename;
+        $label = ($data->description) ? $data->description : "Configuration de ".$data->filename;
         $view->vars['name'] = $label;
     }
 

@@ -1,18 +1,32 @@
 .photo-widget {
-    display: flex;
 
-    img {
-    }
-
-    .fields {
-        margin-left: 1em;
-        flex-grow: 1;
+    div[id$='crop_algorithm'] {
         display: flex;
-        flex-direction: column;
+        align-items: baseline;
+        flex-wrap: wrap;
 
-        textarea {
-            height: 100%;
-            flex-grow: 1;
+        .thumbnail_choice {
+            img { width: 130px; }
+
+            input[type='radio'] {
+                height: 100%;
+                vertical-align: middle;
+
+                &:checked+img {
+                    width: 190px;
+                    border: 4px solid grey;
+                    box-shadow: 0 1px 5px rgba(0,0,0,.6);
+                }
+            }
         }
     }
+
+    div[id$='date_taken'] {
+        .form-control {
+            width: inherit;
+            display: inline;
+            margin: .5em;
+        }
+    }
+
 }

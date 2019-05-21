@@ -18,14 +18,17 @@
     <section id="photos">
         <div class="container">
 
+            {% set previous_month = app.photos.previousMonth(current_date.year, current_date.month) %}
+            {% set next_month = app.photos.nextMonth(current_date.year, current_date.month) %}
+
             <h1>
-                {% if app.photos.previousMonth(current_date.year, current_date.month) %}
+                {% if previous_month %}
                 <a href="{{ url('previousDate', { 'year' : current_date.year, 'month': current_date.month }) }}#filter-bar">◀ </a>&nbsp;
                 {% endif %}
 
                 {{ macro.french_month(current_date.month) ~ current_date.year }}
 
-                {% if app.photos.nextMonth(current_date.year, current_date.month) %}
+                {% if next_month %}
                 &nbsp;<a href="{{ url('nextDate', { 'year' : current_date.year, 'month': current_date.month }) }}#filter-bar"> ▶</a>
                 {% endif %}
             </h1>
@@ -33,6 +36,17 @@
             <div id="gallery">
                 <div class="grid-sizer"></div>
                 {% include 'partials/thumbnails.twig' %}
+            </div>
+
+            <div class="pagination">
+                {% if previous_month %}
+                <div><a href="{{ url('previousDate', { 'year' : current_date.year, 'month': current_date.month }) }}#filter-bar"><span class="arrow">◀</span> {{ macro.french_month_year(previous_month) }}</a></div>
+                {% endif %}
+
+                {% if next_month %}
+                <div>
+                <a href="{{ url('nextDate', { 'year' : current_date.year, 'month': current_date.month }) }}#filter-bar"> {{ macro.french_month_year(next_month) }} <span class="arrow">▶</span></a></div>
+                {% endif %}
             </div>
         </div>
 

@@ -1,3 +1,4 @@
+.badge.error { background: #b30000; }
 #gallery {
   display: flex;
   flex-wrap: wrap;
@@ -8,53 +9,33 @@
 
     .image {
       position: relative;
-      color: #FFCC00;
-      &:hover { color: #FF9900; }
+      width: 200px;
+      height: 200px;
+      background: lightgrey;
 
-      .favorite {
+      &:hover {
+        filter: brightness(80%);
+      }
+
+      .glyphicon {
         position: absolute;
         top: .5em;
         right: .5em;
       }
-    }
-
-  }
-
-}
-
-div[id$='crop_algorithm'] {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  height: 500px;
-
-  .thumbnail_choice {
-    padding-right: 1em;
-
-    img {
-      width: 130px;
-    }
-
-    input[type='radio'] {
-      height: 100%;
-      vertical-align: middle;
-
-      &:checked+img {
-        width: 190px;
-        border: 4px solid grey;
-        box-shadow: 0 1px 5px rgba(0,0,0,.6);
+      .favorite {
+        color: #FFCC00;
+        &:hover { color: #FF9900; }
+      }
+      .error {
+        background: #ffcbb9;
+        padding: 1em;
+        border-radius: .2em;
+        color: #b30000;
       }
     }
-  }
-}
 
-div[id$='date_taken'] {
-  .form-control {
-    width: inherit;
-    display: inline;
-    margin: .5em;
   }
+
 }
 
 #footer {

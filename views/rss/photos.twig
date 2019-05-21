@@ -14,7 +14,7 @@
         <pubDate>{{ photo.date_taken }}</pubDate>
         <description><![CDATA[
             <a href="{{ url('photo', { 'photo': photo.id }) }}">
-                <img src="{{ url('thumbnail-square', { 'photo': photo.id, 'size': '200' }) }}" />
+                <img src="{{ url('thumbnail', { 'photo': photo.id, 'width': '1200' }) }}" />
             </a><br />
             {{ photo|age_caption|striptags }}
             ]]>

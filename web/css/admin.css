@@ -66,6 +66,10 @@
   background-color: #F9A674;
 }
 
+.badge.error {
+  background: #b30000;
+}
+
 #gallery {
   display: flex;
   flex-wrap: wrap;
@@ -76,60 +80,54 @@
 }
 #gallery .item .image {
   position: relative;
-  color: #FFCC00;
+  width: 200px;
+  height: 200px;
+  background: lightgrey;
 }
 #gallery .item .image:hover {
-  color: #FF9900;
+  filter: brightness(80%);
 }
-#gallery .item .image .favorite {
+#gallery .item .image .glyphicon {
   position: absolute;
   top: .5em;
   right: .5em;
 }
-
-div[id$='crop_algorithm'] {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  height: 500px;
+#gallery .item .image .favorite {
+  color: #FFCC00;
 }
-div[id$='crop_algorithm'] .thumbnail_choice {
-  padding-right: 1em;
+#gallery .item .image .favorite:hover {
+  color: #FF9900;
 }
-div[id$='crop_algorithm'] .thumbnail_choice img {
-  width: 130px;
-}
-div[id$='crop_algorithm'] .thumbnail_choice input[type='radio'] {
-  height: 100%;
-  vertical-align: middle;
-}
-div[id$='crop_algorithm'] .thumbnail_choice input[type='radio']:checked + img {
-  width: 190px;
-  border: 4px solid grey;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
-}
-
-div[id$='date_taken'] .form-control {
-  width: inherit;
-  display: inline;
-  margin: .5em;
+#gallery .item .image .error {
+  background: #ffcbb9;
+  padding: 1em;
+  border-radius: .2em;
+  color: #b30000;
 }
 
 #footer {
   display: none;
 }
 
-.photo-widget {
+.photo-widget div[id$='crop_algorithm'] {
   display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
 }
-.photo-widget .fields {
-  margin-left: 1em;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+.photo-widget div[id$='crop_algorithm'] .thumbnail_choice img {
+  width: 130px;
 }
-.photo-widget .fields textarea {
+.photo-widget div[id$='crop_algorithm'] .thumbnail_choice input[type='radio'] {
   height: 100%;
-  flex-grow: 1;
+  vertical-align: middle;
+}
+.photo-widget div[id$='crop_algorithm'] .thumbnail_choice input[type='radio']:checked + img {
+  width: 190px;
+  border: 4px solid grey;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
+}
+.photo-widget div[id$='date_taken'] .form-control {
+  width: inherit;
+  display: inline;
+  margin: .5em;
 }

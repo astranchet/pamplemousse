@@ -36,7 +36,23 @@ class Controller
         }
 
         return $app['twig']->render('admin/index.twig', [
-            'photos' => $photos
+            'photos' => $photos, 
+            'notifications' => $app['photos']->getIncomplete()
+        ]);
+    }
+
+    /**
+     * @param  Application $app
+     * @param  Request     $request
+     * @return Response
+     */
+    public function incompleteAction(Application $app, Request $request)
+    {
+        $photos = $app['photos']->getIncomplete();
+
+        return $app['twig']->render('admin/index.twig', [
+            'photos' => $photos,
+            'notifications' => $photos
         ]);
     }
 
@@ -96,7 +112,8 @@ class Controller
         }
 
         return $app['twig']->render($template, [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'notifications' => $app['photos']->getIncomplete()
         ]);
     }
 
