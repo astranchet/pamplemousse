@@ -14,7 +14,7 @@
         <pubDate>{{ comment.date }}</pubDate>
         <description><![CDATA[
             <a href="{{ url('photo', { 'photo': comment.photoId }) }}">
-                <img src="{{ url('thumbnail-square', { 'photo': comment.photoId, 'size': '200' }) }}" />
+                <img src="{{ url('thumbnail', { 'photo': photo.id, 'width': '1200' }) }}" />
             </a><br />
             {{ comment.comment }}
             ]]>
