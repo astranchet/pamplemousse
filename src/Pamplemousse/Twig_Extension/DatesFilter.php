@@ -160,8 +160,8 @@ class DatesFilter extends Twig_Extension
             if (in_array($labelSingular, ['mois', 'an'])) { // Those can be counted in half
                 $numberOfUnits = round(($daysToBirth / $unit) * 2) / 2;
                 if ($daysToBirth < $unit*$numberOfUnits) {
-                        $prefix = "Bientôt ";
-                    }
+                    $prefix = "Bientôt ";
+                }
                 if ($numberOfUnits == floor($numberOfUnits)) {
                     return $prefix.sprintf("%s %s", $numberOfUnits, ($numberOfUnits == 1)? $labelSingular : $labelPlural);
                 } else {
@@ -198,10 +198,15 @@ class DatesFilter extends Twig_Extension
         $numberOfMonths = round(($daysToBirth/30) * 2) / 2;
         $numberOfYears = round(($numberOfMonths/12) * 2) / 2;
 
+        $prefix = "";
+        if ($daysToBirth < 365*$numberOfYears) {
+            $prefix = "Bientôt ";
+        }
+
         if ($numberOfYears != floor($numberOfYears)) {
-            return sprintf("%s ans et demi", floor($numberOfYears));
+            return $prefix.sprintf("%s ans et demi", floor($numberOfYears));
         } else {
-            return sprintf("%s ans", floor($numberOfYears));
+            return $prefix.sprintf("%s ans", floor($numberOfYears));
         }
     }
 
